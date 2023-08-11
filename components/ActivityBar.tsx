@@ -7,45 +7,59 @@ import {
 import { twMerge } from 'tailwind-merge';
 
 import ButtonHoverTitle from './ButtonHoverTitle';
+import SideBar from './SideBar';
 
-function NavBar() {
-  const [navBarState, setNavBarState] = useState('home');
+function ActivityBar() {
+  const [activityBarState, setActivityBarState] = useState<string | null>('home');
 
-  const navList = [
+  const activityList = [
     {
       title: 'Home',
       icon: VscAccount,
       onClick: () => {
-        setNavBarState('home');
+        if (activityBarState === 'home') {
+          return setActivityBarState(null);
+        }
+        return setActivityBarState('home');
       },
     },
     {
       title: 'Explorer',
       icon: VscFiles,
       onClick: () => {
-        setNavBarState('explorer');
+        if (activityBarState === 'explorer') {
+          return setActivityBarState(null);
+        }
+        return setActivityBarState('explorer');
       },
     },
     {
       title: 'Search',
       icon: VscSearch,
       onClick: () => {
-        setNavBarState('search');
+        if (activityBarState === 'search') {
+          return setActivityBarState(null);
+        }
+        return setActivityBarState('search');
       },
     },
     {
-      title: 'Projects',
+      title: 'Works',
       icon: VscExtensions,
       onClick: () => {
-        setNavBarState('projects');
+        if (activityBarState === 'works') {
+          return setActivityBarState(null);
+        }
+        return setActivityBarState('works');
       },
     },
   ];
+
   return (
-    <div className="flex flex-col items-center justify-between border-r-[1px] border-neutral-700/50">
-      <div className="flex flex-col items-center">
-        {navList.map((item) => {
-          const active = navBarState === item.title.toLowerCase();
+    <div className="flex">
+      <div className="flex flex-col items-center border-r-[1px] border-neutral-700/50">
+        {activityList.map((item) => {
+          const active = activityBarState === item.title.toLowerCase();
           const textColor = `${active ? 'text-neutral-300' : 'text-neutral-500'}`;
           const indicator = `${active ? 'border-[#0078D4]' : 'border-transparent'}`;
           return (
@@ -71,8 +85,9 @@ function NavBar() {
           );
         })}
       </div>
+      <SideBar activityBarState={activityBarState} />
     </div>
   );
 }
 
-export default NavBar;
+export default ActivityBar;

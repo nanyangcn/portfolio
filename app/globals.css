@@ -41,3 +41,10 @@
   visibility: visible;
   opacity: 1;
 }
+.ew-resizable {
+  width: 360px;
+}
+
+.ew-slider {
+  cursor: ew-resize;
+}
