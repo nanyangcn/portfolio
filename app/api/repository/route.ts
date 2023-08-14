@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/core';
 import { Endpoints } from '@octokit/types';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_API_TOKEN ?? '',
@@ -8,9 +8,10 @@ const octokit = new Octokit({
 
 export type Repository = Endpoints['GET /repos/{owner}/{repo}']['response']['data'];
 
-const GET = async (req: Request) => {
-  const owner = 'nanyangcn';
-  const repo = 'portfolio';
+const GET = async (req: NextRequest) => {
+  const { searchParams } = req.nextUrl;
+  const owner = searchParams.get('owner') ?? 'nanyangcn';
+  const repo = searchParams.get('repo') ?? 'portfolio';
   try {
     const { data } = await octokit.request(
       'GET /repos/{owner}/{repo}',
