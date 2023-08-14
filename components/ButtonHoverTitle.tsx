@@ -13,9 +13,9 @@ function ButtonHoverTitle({ title, className }: ButtonHoverTitleProps) {
     )}
     >
       {/* on right */}
-      <div className="z-30 h-1 rotate-45 border-b-[1px] border-l-[1px] border-neutral-700 bg-neutral-800 p-1" />
-      <div className="translate-x-[-5px] rounded-[4px] border-[1px] border-neutral-700
-      bg-neutral-800 px-3 py-1 text-neutral-300"
+      <div className="z-30 h-1 rotate-45 border-b-[1px] border-l-[1px] border-border-primary bg-additional p-1" />
+      <div className="translate-x-[-5px] rounded-[4px] border-[1px] border-border-primary
+      bg-additional px-3 py-1 text-text-primary"
       >
         {title}
       </div>

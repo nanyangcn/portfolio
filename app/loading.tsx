@@ -12,7 +12,7 @@ function Loading({ className }: LoadingProps) {
     <div className={twMerge('flex h-full items-center justify-center', className)}>
       <div className="flex items-center gap-x-2">
         <BiLoaderAlt className="animate-spin text-3xl" />
-        <p className="text-2xl text-neutral-400">
+        <p className="text-2xl text-text-primary">
           Loading...
         </p>
       </div>

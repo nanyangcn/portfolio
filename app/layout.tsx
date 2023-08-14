@@ -21,12 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex h-screen w-screen flex-col justify-between bg-neutral-900">
+        <div className="flex h-screen w-screen flex-col justify-between bg-secondary">
           <div className="flex h-full">
             <ActivityBar />
             <div className="flex w-full flex-col">
               <TabsBar />
-              <div className="main h-full w-full overflow-x-auto overflow-y-scroll bg-neutral-800/40">
+              <div className="main h-full w-full overflow-x-auto overflow-y-scroll bg-additional">
                 {children}
               </div>
             </div>

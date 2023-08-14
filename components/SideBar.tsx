@@ -41,12 +41,12 @@ function SideBar({ children }: SideBarProps) {
 
   return (
     <div
-      className="ew-resizable flex justify-between border-r-[1px] border-neutral-700/50"
+      className="ew-resizable relative border-r-[1px] border-border-primary"
     >
       <div className="overflow-hidden text-ellipsis">
         {children}
       </div>
-      <div className="ew-slider h-full w-[6px] translate-x-[3px] bg-[#0078D4]
+      <div className="ew-slider absolute right-0 top-0 h-full w-[6px] translate-x-[3px] bg-primary
       opacity-0 transition-opacity hover:opacity-100"
       />
     </div>

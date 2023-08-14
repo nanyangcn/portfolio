@@ -55,16 +55,17 @@ function ActivityBar() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex">
-        <div className="flex flex-col items-center border-r-[1px] border-neutral-700/50">
+        <div className="flex flex-col items-center border-r-[1px] border-border-primary">
           {activityList.map((item) => {
             const active = activityBarState === item.title.toLowerCase();
-            const textColor = `${active ? 'text-neutral-300' : 'text-neutral-500'}`;
-            const indicator = `${active ? 'border-[#0078D4]' : 'border-transparent'}`;
+            const textColor = `${active ? 'text-text-primary' : 'text-text-secondary'}`;
+            const indicator = `${active ? 'border-primary' : 'border-transparent'}`;
             return (
               <button
                 type="button"
                 className={twMerge(
-                  'relative flex items-center cursor-pointer border-l-[3px] text-neutral-500 hover:text-neutral-300',
+                  `relative flex items-center cursor-pointer border-l-[3px]
+                  text-text-secondary hover:text-text-primary`,
                   textColor,
                   indicator,
                 )}

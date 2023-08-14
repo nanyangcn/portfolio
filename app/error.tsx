@@ -12,8 +12,8 @@ function Error({ className, message }: ErrorProps) {
   return (
     <div className={twMerge('flex h-full items-center justify-center', className)}>
       <div className="flex items-center gap-x-2">
-        <BiErrorCircle className="text-3xl text-red-500" />
-        <p className="text-2xl text-neutral-400">
+        <BiErrorCircle className="text-3xl text-error" />
+        <p className="text-2xl text-text-primary">
           {message ?? 'Something went wrong.'}
         </p>
       </div>
