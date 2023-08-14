@@ -3,10 +3,10 @@
 import { useEffect } from 'react';
 
 interface SideBarProps {
-  activityBarState: string | null;
+  children: React.ReactNode;
 }
 
-function SideBar({ activityBarState }: SideBarProps) {
+function SideBar({ children }: SideBarProps) {
   useEffect(() => {
     const ewResizableDiv = document.querySelector<HTMLDivElement>('.ew-resizable');
     const ewSliderDiv = document.querySelector<HTMLDivElement>('.ew-slider');
@@ -39,16 +39,12 @@ function SideBar({ activityBarState }: SideBarProps) {
     };
   }, []);
 
-  if (!activityBarState) {
-    return null;
-  }
-
   return (
     <div
       className="ew-resizable flex justify-between border-r-[1px] border-neutral-700/50"
     >
       <div className="overflow-hidden text-ellipsis">
-        SideBar
+        {children}
       </div>
       <div className="ew-slider h-full w-[6px] translate-x-[3px] bg-[#0078D4]
       opacity-0 transition-opacity hover:opacity-100"

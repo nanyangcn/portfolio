@@ -14,6 +14,7 @@ module.exports = {
     'airbnb/hooks',
     'plugin:tailwindcss/recommended',
     'plugin:@next/next/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -27,6 +28,7 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'react',
+    '@tanstack/query',
   ],
   rules: {
     '@typescript-eslint/no-unused-vars': 1,
