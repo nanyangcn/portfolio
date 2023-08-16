@@ -8,8 +8,8 @@ function SideBarWorks() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between p-4">
-        <div className="text-lg font-bold text-text-primary">
+      <div className="flex h-12 items-center justify-between p-4">
+        <div className="pl-4 text-lg font-bold text-text-primary">
           WORKS
         </div>
         <div className="w-fit rounded-full bg-primary px-2 text-text-primary">

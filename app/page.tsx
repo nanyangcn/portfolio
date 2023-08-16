@@ -1,6 +1,6 @@
 function Home() {
   return (
-    <div className="">
+    <div className="pt-12">
       Home
     </div>
   );

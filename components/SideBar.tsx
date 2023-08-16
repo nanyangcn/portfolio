@@ -10,9 +10,12 @@ function SideBar({ children }: SideBarProps) {
   useEffect(() => {
     const ewResizableDiv = document.querySelector<HTMLDivElement>('.ew-resizable');
     const ewSliderDiv = document.querySelector<HTMLDivElement>('.ew-slider');
-    if (!ewResizableDiv || !ewSliderDiv) {
+    const mainElement = document.getElementById('main');
+    if (!ewResizableDiv || !ewSliderDiv || !mainElement) {
       return () => { };
     }
+    const ewResizableDivRect = ewResizableDiv.getBoundingClientRect();
+    mainElement.style.width = `${window.innerWidth - ewResizableDivRect.right}px`;
 
     const handleMouseDown = (mouseDownEvent: MouseEvent) => {
       const startX = mouseDownEvent.clientX;
@@ -21,6 +24,7 @@ function SideBar({ children }: SideBarProps) {
       const handleMouseMove = (mouseUpEvent: MouseEvent) => {
         const newWidth = startWidth + mouseUpEvent.clientX - startX;
         ewResizableDiv.style.width = `${newWidth}px`;
+        mainElement.style.width = `${window.innerWidth - ewResizableDiv.getBoundingClientRect().right}px`;
       };
 
       const handleMouseUp = () => {
@@ -40,12 +44,8 @@ function SideBar({ children }: SideBarProps) {
   }, []);
 
   return (
-    <div
-      className="ew-resizable relative border-r-[1px] border-border-primary"
-    >
-      <div className="overflow-hidden text-ellipsis">
-        {children}
-      </div>
+    <div className="ew-resizable relative overflow-x-hidden border-r-[1px] border-border-primary">
+      {children}
       <div className="ew-slider absolute right-0 top-0 h-full w-[6px] translate-x-[3px] bg-primary
       opacity-0 transition-opacity hover:opacity-100"
       />

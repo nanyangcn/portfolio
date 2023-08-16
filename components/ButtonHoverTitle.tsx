@@ -8,7 +8,7 @@ interface ButtonHoverTitleProps {
 function ButtonHoverTitle({ title, className }: ButtonHoverTitleProps) {
   return (
     <div className={twMerge(
-      'invisible absolute left-full flex items-center opacity-0 transition-opacity delay-75 duration-150',
+      'z-20 invisible absolute left-full flex items-center opacity-0 transition-opacity delay-75 duration-150',
       className,
     )}
     >
