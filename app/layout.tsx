@@ -26,7 +26,7 @@ export default function RootLayout({
             <ActivityBar />
             <div id="main" className="relative h-full w-full pb-8">
               <TabsBar />
-              <div className="scroll h-full w-full overflow-auto bg-additional">
+              <div className="h-full w-full overflow-hidden bg-additional">
                 {children}
               </div>
             </div>

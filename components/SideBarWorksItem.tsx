@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 
-import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
-
 interface SideBarWorksItemProps {
   title: string;
   icon: string;
@@ -12,13 +10,15 @@ interface SideBarWorksItemProps {
 function SideBarWorksItem({
   title, icon, description, author,
 }: SideBarWorksItemProps) {
-  const { setRepoState } = useCurrentRepoStore();
+  const handleOncClick = () => {
+    // TODO: Navigate to the description page of the repo.
+  };
 
   return (
     <button
       type="button"
       className="flex items-center px-4 py-3 hover:cursor-pointer hover:bg-border-primary"
-      onClick={() => setRepoState(title)}
+      onClick={handleOncClick}
     >
       <Image
         className="rounded-full"

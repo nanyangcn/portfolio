@@ -58,6 +58,7 @@ function SideBarExplorerTree({
       {path !== '' && (
         <SideBarExplorerTreeNode
           className="-translate-x-3"
+          sha={sha}
           depth={depth}
           type="tree"
           path={path}
@@ -75,6 +76,7 @@ function SideBarExplorerTree({
             <SideBarExplorerTreeNode
               className={isFold ? 'hidden' : 'visible'}
               key={item.sha}
+              sha={item.sha}
               depth={depth}
               type="blob"
               path={item.path}

@@ -6,7 +6,7 @@ import SideBarExplorerItem from './SideBarExplorerTree';
 function SideBarExplorer() {
   const [queryIter, setQueryIter] = useState(0);
   return (
-    <div className="group flex h-full flex-col hover:cursor-pointer">
+    <div className="group flex h-full flex-col">
       <div className="flex h-12 items-center justify-between p-4">
         <div className="pl-4 text-lg font-bold text-text-primary">
           EXPLORER

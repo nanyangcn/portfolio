@@ -2,10 +2,12 @@ import {
   VscChevronDown, VscChevronRight, VscFolder, VscFolderOpened, VscLoading,
 } from 'react-icons/vsc';
 import { twMerge } from 'tailwind-merge';
+import { useRouter } from 'next/navigation';
 
 import FileIcon from './FileIcon';
 
 interface SideBarExplorerTreeProps {
+  sha: string
   path: string
   directory: string
   className?: string
@@ -17,6 +19,7 @@ interface SideBarExplorerTreeProps {
 }
 
 function SideBarExplorerTreeNode({
+  sha,
   path,
   directory,
   className,
@@ -26,6 +29,8 @@ function SideBarExplorerTreeNode({
   isFold,
   setIsFold,
 }: SideBarExplorerTreeProps) {
+  const router = useRouter();
+
   const handleOnClick = () => {
     if (isLoading) return null;
     if (type === 'tree') {
@@ -33,7 +38,8 @@ function SideBarExplorerTreeNode({
     }
     if (type === 'blob') {
       const completePath = directory === '' ? path : `${directory}/${path}`;
-      return console.log(completePath);
+
+      return router.push(`/${sha}`);
     }
     return null;
   };
@@ -77,7 +83,7 @@ function SideBarExplorerTreeNode({
       type="button"
       onClick={handleOnClick}
       className={twMerge(
-        'flex items-center w-full gap-x-2 p-1 hover:bg-border-primary',
+        'flex items-center w-full gap-x-2 p-1 hover:bg-border-primary focus:bg-border-primary',
         'group-hover:border-border-primary border-transparent transition-colors',
         borderClassName(),
         className,

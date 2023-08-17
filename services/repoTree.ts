@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import type { RepoTree } from 'app/api/repository/tree/route';
 
-const getRepository = async (owner: string, repo: string, sha: string) => {
+const getRepoTree = async (owner: string, repo: string, sha: string) => {
   try {
     const { data } = await axios.get<RepoTree>(
       '/api/repository/tree',
@@ -20,4 +20,4 @@ const getRepository = async (owner: string, repo: string, sha: string) => {
   }
 };
 
-export default getRepository;
+export default getRepoTree;

@@ -6,21 +6,21 @@ const octokit = new Octokit({
   auth: process.env.GITHUB_API_TOKEN ?? '',
 });
 
-export type RepoTree = Endpoints['GET /repos/{owner}/{repo}/git/trees/{tree_sha}']['response']['data'];
+export type RepoBlob = Endpoints['GET /repos/{owner}/{repo}/git/blobs/{file_sha}']['response']['data'];
 
 const GET = async (req: NextRequest) => {
   const { searchParams } = req.nextUrl;
   const owner = searchParams.get('owner') ?? 'nanyangcn';
   const repo = searchParams.get('repo') ?? 'portfolio';
-  const treeSha = searchParams.get('sha') ?? 'main';
+  const blobSha = searchParams.get('sha') ?? 'main';
 
   try {
     const { data } = await octokit.request(
-      'GET /repos/{owner}/{repo}/git/trees/{tree_sha}',
+      'GET /repos/{owner}/{repo}/git/blobs/{file_sha}',
       {
         owner,
         repo,
-        tree_sha: treeSha,
+        file_sha: blobSha,
         headers: {
           'X-GitHub-Api-Version': '2022-11-28',
         },
