@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 interface ActivityBarStore {
-  activityBarState: 'home' | 'works' | 'explorer' | 'search' | null;
-  setActivityBarState: (state: 'home' | 'works' | 'explorer' | 'search' | null) => void;
+  activityBarState: 'home' | 'works' | 'explorer' | 'search' | 'hide';
+  setActivityBarState: (state: 'home' | 'works' | 'explorer' | 'search' | 'hide') => void;
 }
 
 const useActivityBarStore = create<ActivityBarStore>((set) => ({

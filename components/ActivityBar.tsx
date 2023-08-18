@@ -26,22 +26,22 @@ function ActivityBar() {
     {
       title: 'Home',
       icon: VscAccount,
-      onClick: () => setActivityBarState(activityBarState === 'home' ? null : 'home'),
+      onClick: () => setActivityBarState(activityBarState === 'home' ? 'hide' : 'home'),
     },
     {
       title: 'Works',
       icon: VscExtensions,
-      onClick: () => setActivityBarState(activityBarState === 'works' ? null : 'works'),
+      onClick: () => setActivityBarState(activityBarState === 'works' ? 'hide' : 'works'),
     },
     {
       title: 'Explorer',
       icon: VscFiles,
-      onClick: () => setActivityBarState(activityBarState === 'explorer' ? null : 'explorer'),
+      onClick: () => setActivityBarState(activityBarState === 'explorer' ? 'hide' : 'explorer'),
     },
     {
       title: 'Search',
       icon: VscSearch,
-      onClick: () => setActivityBarState(activityBarState === 'search' ? null : 'search'),
+      onClick: () => setActivityBarState(activityBarState === 'search' ? 'hide' : 'search'),
     },
   ], [activityBarState, setActivityBarState]);
 
@@ -50,12 +50,19 @@ function ActivityBar() {
     works: <SideBarWorks />,
     explorer: <SideBarExplorer />,
     search: <SideBarSearch />,
+    hide: null,
   }), []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex">
-        <div className="flex flex-col items-center border-r-[1px] border-border-primary">
+        <div
+          id="activity-bar"
+          className={twMerge(
+            'flex flex-col items-center border-r-[1px] border-border-primary',
+            activityBarState === 'hide' && 'border-r-0',
+          )}
+        >
           {activityList.map((item) => {
             const active = activityBarState === item.title.toLowerCase();
             const textColor = `${active ? 'text-text-primary' : 'text-text-secondary'}`;
@@ -84,13 +91,9 @@ function ActivityBar() {
             );
           })}
         </div>
-        {activityBarState
-          ? (
-            <SideBar>
-              {sideBarComponentMap[activityBarState]}
-            </SideBar>
-          )
-          : null}
+        <SideBar>
+          {sideBarComponentMap[activityBarState]}
+        </SideBar>
       </div>
     </QueryClientProvider>
   );

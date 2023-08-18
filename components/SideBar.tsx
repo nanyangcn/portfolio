@@ -2,20 +2,28 @@
 
 import { useEffect } from 'react';
 
+import useActivityBarStore from 'hooks/useActivityBarStore';
+
 interface SideBarProps {
   children: React.ReactNode;
 }
 
 function SideBar({ children }: SideBarProps) {
+  const { activityBarState } = useActivityBarStore();
   useEffect(() => {
     const ewResizableDiv = document.querySelector<HTMLDivElement>('.ew-resizable');
     const ewSliderDiv = document.querySelector<HTMLDivElement>('.ew-slider');
     const mainElement = document.getElementById('main');
-    if (!ewResizableDiv || !ewSliderDiv || !mainElement) {
+    const activityBarElement = document.getElementById('activity-bar');
+    if (!ewResizableDiv || !ewSliderDiv || !mainElement || !activityBarElement) {
       return () => { };
     }
+    ewResizableDiv.style.width = activityBarState === 'hide' ? '0px' : '360px';
     const ewResizableDivRect = ewResizableDiv.getBoundingClientRect();
-    mainElement.style.width = `${window.innerWidth - ewResizableDivRect.right}px`;
+    const activityBarElementRect = activityBarElement.getBoundingClientRect();
+    mainElement.style.width = activityBarState === 'hide'
+      ? `${window.innerWidth - activityBarElementRect.right}px`
+      : `${window.innerWidth - ewResizableDivRect.right}px`;
 
     const handleMouseDown = (mouseDownEvent: MouseEvent) => {
       const startX = mouseDownEvent.clientX;
@@ -41,7 +49,7 @@ function SideBar({ children }: SideBarProps) {
     return () => {
       ewSliderDiv.removeEventListener('mousedown', handleMouseDown);
     };
-  }, []);
+  }, [activityBarState]);
 
   return (
     <div className="ew-resizable relative overflow-x-hidden border-r-[1px] border-border-primary">
