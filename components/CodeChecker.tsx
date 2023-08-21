@@ -5,8 +5,8 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import dark from 'react-syntax-highlighter/dist/esm/styles/prism/tomorrow';
 
-import Error from 'app/[sha]/error';
-import Loading from 'app/[sha]/loading';
+import Error from 'app/error';
+import Loading from 'app/loading';
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
 import getRepoBlob from 'services/repoBlob';
 
@@ -35,7 +35,7 @@ function CodeChecker({ sha }: CodeCheckerProps) {
 
   return (
     <SyntaxHighlighter
-      className="scroll h-full"
+      className="scroll h-full w-full"
       language="typescript"
       style={dark}
       customStyle={style}

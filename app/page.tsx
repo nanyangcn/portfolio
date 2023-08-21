@@ -19,7 +19,7 @@ function Home() {
   };
 
   return (
-    <div className="relative pt-12">
+    <div className="relative h-full w-full pt-12">
       {Page[activeTab.type]}
     </div>
   );

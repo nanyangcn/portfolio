@@ -4,14 +4,16 @@
 
 :root {
   color-scheme: dark;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .scroll::-webkit-scrollbar {
   width: 18px;
-  border-style: solid;
-  border-color: #000;
-  border-width: 0px 0px 0px 1px;
+}
+
+.scroll-tab::-webkit-scrollbar {
+  height: 3px;
+  background-color: transparent;
 }
 
 .scroll:hover::-webkit-scrollbar-thumb {

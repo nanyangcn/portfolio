@@ -37,7 +37,7 @@ function SideBarExplorerTreeNode({
       return setIsFold(!isFold);
     }
     if (type === 'blob') {
-      const completePath = directory === '' ? path : `${directory}/${path}`;
+      const completePath = `${directory}/${path}`;
 
       return pushTab({
         title: path,

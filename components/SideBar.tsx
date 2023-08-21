@@ -10,6 +10,7 @@ interface SideBarProps {
 
 function SideBar({ children }: SideBarProps) {
   const { activityBarState } = useActivityBarStore();
+
   useEffect(() => {
     const ewResizableDiv = document.querySelector<HTMLDivElement>('.ew-resizable');
     const ewSliderDiv = document.querySelector<HTMLDivElement>('.ew-slider');
@@ -24,6 +25,12 @@ function SideBar({ children }: SideBarProps) {
     mainElement.style.width = activityBarState === 'hide'
       ? `${window.innerWidth - activityBarElementRect.right}px`
       : `${window.innerWidth - ewResizableDivRect.right}px`;
+
+    const resizeMainElement = () => {
+      mainElement.style.width = activityBarState === 'hide'
+        ? `${window.innerWidth - activityBarElementRect.right}px`
+        : `${window.innerWidth - ewResizableDivRect.right}px`;
+    };
 
     const handleMouseDown = (mouseDownEvent: MouseEvent) => {
       const startX = mouseDownEvent.clientX;
@@ -45,9 +52,10 @@ function SideBar({ children }: SideBarProps) {
     };
 
     ewSliderDiv.addEventListener('mousedown', handleMouseDown);
-
+    window.addEventListener('resize', resizeMainElement);
     return () => {
       ewSliderDiv.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('resize', resizeMainElement);
     };
   }, [activityBarState]);
 

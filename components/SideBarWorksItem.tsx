@@ -1,3 +1,4 @@
+import useTabStore from 'hooks/useTabStore';
 import Image from 'next/image';
 import React from 'react';
 
@@ -10,8 +11,14 @@ interface SideBarWorksItemProps {
 function SideBarWorksItem({
   title, icon, description, author,
 }: SideBarWorksItemProps) {
+  const { pushTab } = useTabStore();
+
   const handleOncClick = () => {
-    // TODO: Navigate to the description page of the repo.
+    pushTab({
+      title,
+      type: 'work',
+      icon,
+    });
   };
 
   return (
