@@ -13,7 +13,7 @@ function TabsBar() {
       <div className="flex">
         {tabs.map((tab, index) => (
           <div
-            key={`${tab.title}${tab.sha}`}
+            key={`${tab.title}${tab.sha}-${Math.floor(Math.random() * 128)}`}
             className={twMerge(
               'h-[48px] border-t-2 border-t-transparent',
               tab.isActive && 'bg-additional border-t-primary',
@@ -29,13 +29,19 @@ function TabsBar() {
                 onClick={() => setActiveTab(index)}
                 onKeyDown={() => setActiveTab(index)}
               >
-                <Image
-                  className="ml-4"
-                  src={tab.icon}
-                  alt={tab.title}
-                  width={20}
-                  height={20}
-                />
+                {typeof tab.icon === 'string' ? (
+                  <Image
+                    className="ml-4"
+                    src={tab.icon}
+                    alt={tab.title}
+                    width={20}
+                    height={20}
+                  />
+                ) : (
+                  <div className="ml-4">
+                    {tab.icon}
+                  </div>
+                )}
                 <p className={twMerge(
                   'mr-4 text-text-secondary',
                   tab.isActive && 'text-text-primary',
@@ -44,16 +50,18 @@ function TabsBar() {
                   {tab.title}
                 </p>
               </div>
-              <button
-                type="button"
-                className={twMerge(
-                  'rounded-md p-0.5 invisible text-text-secondary group-hover:visible hover:bg-border-primary',
-                  tab.isActive && 'visible text-text-primary',
-                )}
-                onClick={() => removeTab(index)}
-              >
-                <VscClose size={20} />
-              </button>
+              {tab.type !== 'home' ? (
+                <button
+                  type="button"
+                  className={twMerge(
+                    'rounded-md p-0.5 invisible text-text-secondary group-hover:visible hover:bg-border-primary',
+                    tab.isActive && 'visible text-text-primary',
+                  )}
+                  onClick={() => removeTab(index)}
+                >
+                  <VscClose size={20} />
+                </button>
+              ) : null}
             </div>
           </div>
         ))}

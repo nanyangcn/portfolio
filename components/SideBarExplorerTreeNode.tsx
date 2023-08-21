@@ -2,7 +2,8 @@ import {
   VscChevronDown, VscChevronRight, VscFolder, VscFolderOpened, VscLoading,
 } from 'react-icons/vsc';
 import { twMerge } from 'tailwind-merge';
-import { useRouter } from 'next/navigation';
+
+import useTabStore from 'hooks/useTabStore';
 
 import FileIcon from './FileIcon';
 
@@ -29,8 +30,7 @@ function SideBarExplorerTreeNode({
   isFold,
   setIsFold,
 }: SideBarExplorerTreeProps) {
-  const router = useRouter();
-
+  const { pushTab } = useTabStore();
   const handleOnClick = () => {
     if (isLoading) return null;
     if (type === 'tree') {
@@ -39,7 +39,13 @@ function SideBarExplorerTreeNode({
     if (type === 'blob') {
       const completePath = directory === '' ? path : `${directory}/${path}`;
 
-      return router.push(`/${sha}`);
+      return pushTab({
+        title: path,
+        type: 'text',
+        icon: <FileIcon path={path} size={20} />,
+        sha,
+        path: completePath,
+      });
     }
     return null;
   };

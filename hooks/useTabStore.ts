@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 
-interface Tab {
-  isActive: boolean
+export interface Tab {
   title: string
-  icon: string
+  icon: string | JSX.Element
   type: 'home' | 'work' | 'text'
+  isActive?: boolean
   sha?: string
+  path?: string
 }
 
 interface TabStore {
@@ -23,32 +24,44 @@ const activeOnlyNthTab = (tabs: Tab[], n: number) => (
   }))
 );
 
+const findIndexInTabs = (tabs: Tab[], tab: Tab) => {
+  if (tab.type === 'text') {
+    return tabs.findIndex((t) => t.sha === tab.sha);
+  }
+  return tabs.findIndex((t) => t.title === tab.title);
+};
+
 const useTabStore = create<TabStore>((set) => ({
   tabs: [{
     isActive: true,
     title: 'Home',
     icon: '/avatar.jpeg',
     type: 'home',
-  },
-  {
-    isActive: false,
-    title: 'test.tsx',
-    icon: '/avatar.jpeg',
-    type: 'text',
-  },
-  ],
-  pushTab: (tab) => set((state) => ({
-    tabs: activeOnlyNthTab([
-      ...state.tabs,
-      tab,
-    ], state.tabs.length - 1),
-  })),
-  replaceTab: (tab) => set((state) => ({
-    tabs: activeOnlyNthTab([
-      ...state.tabs.slice(0, state.tabs.length - 1),
-      tab,
-    ], state.tabs.length - 1),
-  })),
+  }],
+  pushTab: (tab) => set((state) => {
+    const index = findIndexInTabs(state.tabs, tab);
+    if (index !== -1) {
+      return ({ tabs: activeOnlyNthTab(state.tabs, index) });
+    }
+    return ({
+      tabs: activeOnlyNthTab([
+        ...state.tabs,
+        tab,
+      ], state.tabs.length),
+    });
+  }),
+  replaceTab: (tab) => set((state) => {
+    const index = findIndexInTabs(state.tabs, tab);
+    if (index !== -1) {
+      return ({ tabs: activeOnlyNthTab(state.tabs, index) });
+    }
+    return ({
+      tabs: activeOnlyNthTab([
+        ...state.tabs.slice(0, state.tabs.length - 1),
+        tab,
+      ], state.tabs.length - 1),
+    });
+  }),
   removeTab: (index) => set((state) => {
     const newTabs = [...state.tabs];
     newTabs.splice(index, 1);
