@@ -1,35 +1,38 @@
 'use client';
 
-import { useEffect } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { Tab } from 'hooks/useTabStore';
-import useActivityBarStore from 'hooks/useActivityBarStore';
+import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
 
+import getRepoBlob from 'services/repoBlob';
+import ErrorComp from 'app/error';
+import Loading from 'app/loading';
 import CodeChecker from './CodeChecker';
 import PathBar from './PathBar';
-
-const queryClient = new QueryClient();
 
 interface PageProps {
   tab: Tab
 }
 
 function PageText({ tab }: PageProps) {
-  const { setActivityBarState } = useActivityBarStore();
-  useEffect(() => {
-    setActivityBarState('explorer');
-  }, [setActivityBarState]);
+  if (tab.meta.type !== 'text' || !tab.meta.sha || !tab.meta.path) throw new Error('Tab Error');
+  const { sha } = tab.meta;
 
-  if (!tab.sha || !tab.path) throw new Error('Tab Error');
+  const { ownerState, repoState } = useCurrentRepoStore();
+  const { isLoading, data } = useQuery({
+    queryKey: ['repository-blob', ownerState, repoState, sha],
+    queryFn: () => getRepoBlob(ownerState, repoState, sha),
+  });
+
+  if (isLoading) return <Loading />;
+  if (!data) return <ErrorComp message="No Data" />;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="relative h-full w-full">
-        <PathBar path={tab.path} />
-        <CodeChecker sha={tab.sha} />
-      </div>
-    </QueryClientProvider>
+    <div className="relative h-full w-full">
+      <PathBar path={tab.meta.path} />
+      <CodeChecker encodedText={data.content} />
+    </div>
   );
 }
 

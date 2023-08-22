@@ -1,12 +1,22 @@
 import { create } from 'zustand';
 
+import { WorkMeta } from 'data/worksMeta';
+
 export interface Tab {
   title: string
   icon: string | JSX.Element
-  type: 'home' | 'work' | 'text'
   isActive?: boolean
-  sha?: string
-  path?: string
+  meta: {
+    type: 'home'
+  } | {
+    type: 'work'
+    workMeta: WorkMeta
+  } | {
+    type: 'text'
+    sha: string
+    path: string
+    decodedText: string
+  }
 }
 
 interface TabStore {
@@ -25,8 +35,8 @@ const activeOnlyNthTab = (tabs: Tab[], n: number) => (
 );
 
 const findIndexInTabs = (tabs: Tab[], tab: Tab) => {
-  if (tab.type === 'text') {
-    return tabs.findIndex((t) => t.sha === tab.sha);
+  if (tab.meta.type === 'text') {
+    return tabs.findIndex((t) => (t.meta.type === 'text' && tab.meta.type === 'text') && t.meta.sha === tab.meta.sha);
   }
   return tabs.findIndex((t) => t.title === tab.title);
 };
@@ -36,7 +46,9 @@ const useTabStore = create<TabStore>((set) => ({
     isActive: true,
     title: 'Home',
     icon: '/avatar.jpeg',
-    type: 'home',
+    meta: {
+      type: 'home',
+    },
   }],
   pushTab: (tab) => set((state) => {
     const index = findIndexInTabs(state.tabs, tab);

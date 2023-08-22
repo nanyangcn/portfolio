@@ -41,10 +41,12 @@ function SideBarExplorerTreeNode({
 
       return pushTab({
         title: path,
-        type: 'text',
         icon: <FileIcon path={path} size={20} />,
-        sha,
-        path: completePath,
+        meta: {
+          type: 'text',
+          sha,
+          path: completePath,
+        },
       });
     }
     return null;

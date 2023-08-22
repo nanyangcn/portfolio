@@ -1,31 +1,15 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import dark from 'react-syntax-highlighter/dist/esm/styles/prism/tomorrow';
 
-import Error from 'app/error';
-import Loading from 'app/loading';
-import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
-import getRepoBlob from 'services/repoBlob';
-
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 
 interface CodeCheckerProps {
-  sha: string
+  encodedText: string
 }
-function CodeChecker({ sha }: CodeCheckerProps) {
-  const { ownerState, repoState } = useCurrentRepoStore();
-
-  const { isLoading, data } = useQuery({
-    queryKey: ['repository-blob', ownerState, repoState, sha],
-    queryFn: () => getRepoBlob(ownerState, repoState, sha),
-  });
-
-  if (isLoading) return <Loading />;
-  if (!data) return <Error message="No Data" />;
-
+function CodeChecker({ encodedText }: CodeCheckerProps) {
   const style = {
     margin: 0,
     backgroundColor: 'transparent',
@@ -41,7 +25,7 @@ function CodeChecker({ sha }: CodeCheckerProps) {
       customStyle={style}
       showLineNumbers
     >
-      {atob(data.content)}
+      {atob(encodedText)}
     </SyntaxHighlighter>
   );
 }

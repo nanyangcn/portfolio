@@ -29,60 +29,65 @@ function TabsBar() {
       border-b-[1px] border-border-primary bg-secondary"
     >
       <div className="flex">
-        {tabs.map((tab, index) => (
-          <div
-            key={`${tab.path}`}
-            className={twMerge(
-              'flex-none h-[48px] border-t-2 border-t-transparent',
-              tab.isActive && 'bg-additional border-t-primary',
-            )}
-          >
-            <div className="group flex h-[46px] items-center border-r-2 border-t-2 border-border-primary
-            border-t-transparent pr-2 hover:cursor-pointer hover:bg-additional"
+        {tabs.map((tab, index) => {
+          let key = 'home';
+          if (tab.meta.type === 'text') key = tab.meta.sha;
+          if (tab.meta.type === 'work') key = tab.meta.workMeta.title;
+          return (
+            <div
+              key={key}
+              className={twMerge(
+                'flex-none h-[48px] border-t-2 border-t-transparent',
+                tab.isActive && 'bg-additional border-t-primary',
+              )}
             >
-              <div
-                role="button"
-                tabIndex={0}
-                className="flex h-full items-center justify-center gap-x-2"
-                onClick={() => setActiveTab(index)}
-                onKeyDown={() => setActiveTab(index)}
+              <div className="group flex h-[46px] items-center border-r-2 border-t-2 border-border-primary
+            border-t-transparent pr-2 hover:cursor-pointer hover:bg-additional"
               >
-                {typeof tab.icon === 'string' ? (
-                  <Image
-                    className="ml-4"
-                    src={tab.icon}
-                    alt={tab.title}
-                    width={20}
-                    height={20}
-                  />
-                ) : (
-                  <div className="ml-4">
-                    {tab.icon}
-                  </div>
-                )}
-                <p className={twMerge(
-                  'mr-4 text-text-secondary',
-                  tab.isActive && 'text-text-primary',
-                )}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  className="flex h-full items-center justify-center gap-x-2"
+                  onClick={() => setActiveTab(index)}
+                  onKeyDown={() => setActiveTab(index)}
                 >
-                  {tab.title}
-                </p>
-              </div>
-              {tab.type !== 'home' ? (
-                <button
-                  type="button"
-                  className={twMerge(
-                    'rounded-md p-0.5 invisible text-text-secondary group-hover:visible hover:bg-border-primary',
-                    tab.isActive && 'visible text-text-primary',
+                  {typeof tab.icon === 'string' ? (
+                    <Image
+                      className="ml-4"
+                      src={tab.icon}
+                      alt={tab.title}
+                      width={20}
+                      height={20}
+                    />
+                  ) : (
+                    <div className="ml-4">
+                      {tab.icon}
+                    </div>
                   )}
-                  onClick={() => removeTab(index)}
-                >
-                  <VscClose size={20} />
-                </button>
-              ) : null}
+                  <p className={twMerge(
+                    'mr-4 text-text-secondary',
+                    tab.isActive && 'text-text-primary',
+                  )}
+                  >
+                    {tab.title}
+                  </p>
+                </div>
+                {tab.meta.type !== 'home' ? (
+                  <button
+                    type="button"
+                    className={twMerge(
+                      'rounded-md p-0.5 invisible text-text-secondary group-hover:visible hover:bg-border-primary',
+                      tab.isActive && 'visible text-text-primary',
+                    )}
+                    onClick={() => removeTab(index)}
+                  >
+                    <VscClose size={20} />
+                  </button>
+                ) : null}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

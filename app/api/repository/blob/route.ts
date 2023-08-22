@@ -26,7 +26,7 @@ const GET = async (req: NextRequest) => {
         },
       },
     );
-
+    console.log('Get blob from Github');
     return NextResponse.json(data);
   } catch (err) {
     throw new Error((err as Error).message);
