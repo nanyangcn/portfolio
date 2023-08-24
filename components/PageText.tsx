@@ -29,7 +29,7 @@ function PageText({ tab }: PageProps) {
   if (!data) return <ErrorComp message="No Data" />;
 
   return (
-    <div className="relative h-full w-full">
+    <div className="flex h-full w-full flex-col">
       <PathBar path={tab.meta.path} />
       <CodeChecker encodedText={data.content} />
     </div>

@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { VscRefresh } from 'react-icons/vsc';
 
-import SideBarExplorerItem from './SideBarExplorerTree';
+import SideBarExplorerTree from './SideBarExplorerTree';
 
 function SideBarExplorer() {
   const [queryIter, setQueryIter] = useState(0);
   return (
-    <div className="group flex h-full flex-col">
+    <div className="flex flex-col">
       <div className="flex h-12 items-center justify-between p-4">
-        <div className="pl-4 text-lg font-bold text-text-primary">
+        <div className="pl-2 text-lg font-bold text-text-primary">
           EXPLORER
         </div>
         <button
@@ -19,8 +19,8 @@ function SideBarExplorer() {
           <VscRefresh size={20} />
         </button>
       </div>
-      <div className="scroll overflow-y-auto pb-20">
-        <SideBarExplorerItem sha="main" queryIter={queryIter} />
+      <div className="scroll group grow overflow-y-auto pr-8">
+        <SideBarExplorerTree sha="main" queryIter={queryIter} />
       </div>
     </div>
   );

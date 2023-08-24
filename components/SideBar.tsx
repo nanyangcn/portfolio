@@ -1,36 +1,23 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import useActivityBarStore from 'hooks/useActivityBarStore';
 
-interface SideBarProps {
-  children: React.ReactNode;
-}
+import SideBarHome from './SideBarHome';
+import SideBarWorks from './SideBarWorks';
+import SideBarSearch from './SideBarSearch';
+import SideBarExplorer from './SideBarExplorer';
 
-function SideBar({ children }: SideBarProps) {
+function SideBar() {
   const { activityBarState } = useActivityBarStore();
 
   useEffect(() => {
     const ewResizableDiv = document.querySelector<HTMLDivElement>('.ew-resizable');
     const ewSliderDiv = document.querySelector<HTMLDivElement>('.ew-slider');
-    const mainElement = document.getElementById('main');
-    const activityBarElement = document.getElementById('activity-bar');
-    if (!ewResizableDiv || !ewSliderDiv || !mainElement || !activityBarElement) {
+    if (!ewResizableDiv || !ewSliderDiv) {
       return () => { };
     }
-    ewResizableDiv.style.width = activityBarState === 'hide' ? '0px' : '360px';
-    const ewResizableDivRect = ewResizableDiv.getBoundingClientRect();
-    const activityBarElementRect = activityBarElement.getBoundingClientRect();
-    mainElement.style.width = activityBarState === 'hide'
-      ? `${window.innerWidth - activityBarElementRect.right}px`
-      : `${window.innerWidth - ewResizableDivRect.right}px`;
-
-    const resizeMainElement = () => {
-      mainElement.style.width = activityBarState === 'hide'
-        ? `${window.innerWidth - activityBarElementRect.right}px`
-        : `${window.innerWidth - ewResizableDivRect.right}px`;
-    };
 
     const handleMouseDown = (mouseDownEvent: MouseEvent) => {
       const startX = mouseDownEvent.clientX;
@@ -38,11 +25,16 @@ function SideBar({ children }: SideBarProps) {
 
       const handleMouseMove = (mouseUpEvent: MouseEvent) => {
         const newWidth = startWidth + mouseUpEvent.clientX - startX;
-        ewResizableDiv.style.width = `${newWidth}px`;
-        mainElement.style.width = `${window.innerWidth - ewResizableDiv.getBoundingClientRect().right}px`;
+        if (newWidth > 200) {
+          ewResizableDiv.style.width = `${newWidth}px`;
+        } else {
+          ewResizableDiv.style.width = '3px';
+          ewSliderDiv.style.opacity = '100';
+        }
       };
 
       const handleMouseUp = () => {
+        ewSliderDiv.removeAttribute('style');
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
       };
@@ -52,17 +44,24 @@ function SideBar({ children }: SideBarProps) {
     };
 
     ewSliderDiv.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('resize', resizeMainElement);
     return () => {
       ewSliderDiv.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('resize', resizeMainElement);
     };
   }, [activityBarState]);
 
+  const sideBarComponentMap = useMemo(() => ({
+    home: <SideBarHome />,
+    works: <SideBarWorks />,
+    explorer: <SideBarExplorer />,
+    search: <SideBarSearch />,
+  }), []);
+
+  if (activityBarState === 'hide') return null;
+
   return (
-    <div className="ew-resizable relative overflow-x-hidden border-r-[1px] border-border-primary">
-      {children}
-      <div className="ew-slider absolute right-0 top-0 h-full w-[6px] translate-x-[3px] bg-primary
+    <div className="ew-resizable relative flex-none overflow-x-hidden border-r-[1px] border-border-primary">
+      {sideBarComponentMap[activityBarState]}
+      <div className="ew-slider absolute right-0 top-0 h-full w-[6px] bg-primary
       opacity-0 transition-opacity hover:opacity-100"
       />
     </div>

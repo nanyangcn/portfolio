@@ -1,6 +1,6 @@
 'use client';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useMemo } from 'react';
 
 import useTabStore from 'hooks/useTabStore';
 
@@ -8,31 +8,21 @@ import PageHome from 'components/PageHome';
 import PageText from 'components/PageText';
 import PageWork from 'components/PageWork';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
 function Home() {
   const { tabs } = useTabStore();
   const activeTab = tabs.find((tab) => tab.isActive);
 
   if (!activeTab) throw new Error('No active tab');
 
-  const Page = {
+  const Page = useMemo(() => ({
     home: <PageHome />,
-    work: <PageWork />,
+    work: <PageWork tab={activeTab} />,
     text: <PageText tab={activeTab} />,
-  };
+  }), [activeTab]);
 
   return (
-    <div className="relative h-full w-full pt-12">
-      <QueryClientProvider client={queryClient}>
-        {Page[activeTab.meta.type]}
-      </QueryClientProvider>
+    <div className="min-h-0 grow bg-additional">
+      {Page[activeTab.meta.type]}
     </div>
   );
 }

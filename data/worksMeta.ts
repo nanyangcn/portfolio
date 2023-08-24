@@ -20,7 +20,7 @@ const portfolio: WorkMeta = {
 
 const spotifyClone: WorkMeta = {
   title: 'Spotify-Clone',
-  description: 'A basic clone of Spotify which can upload and play musics',
+  description: 'A basic clone of Spotify which can upload and play musics.',
   author: 'nanyangcn',
   icon: '/avatar.jpeg',
   tags: ['NextJS', 'Tailwindcss', 'Typescript', 'React', 'Supabase', 'Stripe'],

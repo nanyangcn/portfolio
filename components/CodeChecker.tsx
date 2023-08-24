@@ -19,7 +19,7 @@ function CodeChecker({ encodedText }: CodeCheckerProps) {
 
   return (
     <SyntaxHighlighter
-      className="scroll h-full w-full"
+      className="scroll grow"
       language="typescript"
       style={dark}
       customStyle={style}

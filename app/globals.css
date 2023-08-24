@@ -11,16 +11,27 @@
   width: 18px;
 }
 
-.scroll-tab::-webkit-scrollbar {
-  height: 3px;
-  background-color: transparent;
-}
-
 .scroll:hover::-webkit-scrollbar-thumb {
   background-color: rgba(82, 82, 82, 0.3);
 }
 
 .scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(82, 82, 82, 0.5);
+}
+
+.scroll-tab::-webkit-scrollbar {
+  height: 3px;
+}
+
+.scroll-tab::-webkit-scrollbar-track {
+  background-color: rgba(31, 31, 31, 1);
+}
+
+.scroll-tab:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(82, 82, 82, 0.3);
+}
+
+.scroll-tab::-webkit-scrollbar-thumb:hover {
   background-color: rgba(82, 82, 82, 0.5);
 }
 

@@ -50,14 +50,14 @@ function SideBarExplorerTree({
   return (
     <div
       className={twMerge(
-        'pl-3 group-hover:border-border-primary border-transparent transition-colors overflow-y-auto',
+        'pl-3 group-hover:border-border-primary border-transparent transition-colors',
         depth > 1 && 'border-l-[1px]',
         parentIsFold ? 'hidden' : 'visible',
       )}
     >
       {path !== '' && (
         <SideBarExplorerTreeNode
-          className="-translate-x-3"
+          className=""
           sha={sha}
           depth={depth}
           type="tree"

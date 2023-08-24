@@ -5,6 +5,9 @@ import { Inter } from 'next/font/google';
 import TabsBar from 'components/TabsBar';
 import StatusBar from 'components/StatusBar';
 import ActivityBar from 'components/ActivityBar';
+import SideBar from 'components/SideBar';
+
+import QueryProvider from 'providers/QueryProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,18 +24,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="relative h-screen w-screen bg-secondary">
-          <div className="flex h-full w-full">
-            <ActivityBar />
-            <div id="main" className="relative h-full w-full pb-8">
-              <TabsBar />
-              <div className="h-full w-full bg-additional">
+        <QueryProvider>
+          <div className="flex h-screen w-screen flex-col bg-secondary">
+            <div className="flex min-h-0 grow">
+              <ActivityBar />
+              <SideBar />
+              <div className="flex min-w-0 grow flex-col">
+                <TabsBar />
                 {children}
               </div>
             </div>
+            <StatusBar />
           </div>
-          <StatusBar />
-        </div>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -14,7 +14,7 @@ function SideBarWorksItem({ workMeta }: SideBarWorksItemProps) {
 
   const handleOncClick = () => {
     pushTab({
-      title: workMeta.title,
+      title: `Work: ${workMeta.title}`,
       icon: workMeta.icon,
       meta: {
         type: 'work',

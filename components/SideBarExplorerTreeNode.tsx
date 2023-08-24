@@ -78,7 +78,7 @@ function SideBarExplorerTreeNode({
 
   const Blob = (
     <>
-      <div className="w-[24px]" />
+      <div className="w-[36px]" />
       <FileIcon path={path} size={iconSize} />
       <p className="whitespace-nowrap text-lg text-text-primary">
         {path}
