@@ -6,9 +6,9 @@ import SideBarExplorerTree from './SideBarExplorerTree';
 function SideBarExplorer() {
   const [queryIter, setQueryIter] = useState(0);
   return (
-    <div className="flex flex-col">
+    <div className="flex h-full w-full flex-col">
       <div className="flex h-12 items-center justify-between p-4">
-        <div className="pl-2 text-lg font-bold text-text-primary">
+        <div className="pl-4 text-lg font-bold text-text-primary">
           EXPLORER
         </div>
         <button

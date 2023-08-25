@@ -1,91 +1,99 @@
 'use client';
 
 import Image from 'next/image';
-
-import useTabStore from 'hooks/useTabStore';
 import { VscClose } from 'react-icons/vsc';
 import { twMerge } from 'tailwind-merge';
 import { useEffect } from 'react';
 
+import DragProvider from 'providers/DragProvider';
+
+import useTabStore from 'hooks/useTabStore';
+
 function TabsBar() {
-  const { tabs, setActiveTab, removeTab } = useTabStore();
+  const {
+    tabs, setActiveTab, removeTab, swapTabs,
+  } = useTabStore();
 
   useEffect(() => {
-    const tabElement = document.querySelector<HTMLDivElement>('.scroll-tab');
-    if (!tabElement) return () => {};
+    const tabsElement = document.getElementById('tabs');
+    if (!tabsElement) return () => {};
     const handleWheel = (e: WheelEvent) => {
-      if (e.deltaY > 0) tabElement.scrollLeft += 100;
-      else tabElement.scrollLeft -= 100;
+      if (e.deltaY > 0) tabsElement.scrollLeft += 100;
+      else tabsElement.scrollLeft -= 100;
     };
-    tabElement.addEventListener('wheel', handleWheel);
+    tabsElement.addEventListener('wheel', handleWheel);
     return () => {
-      tabElement.removeEventListener('wheel', handleWheel);
+      tabsElement.removeEventListener('wheel', handleWheel);
     };
   }, []);
 
   return (
-    <div
-      className="scroll-tab flex h-12 w-full flex-none overflow-x-auto overflow-y-hidden
-    border-border-primary bg-secondary"
-    >
-      {tabs.map((tab, index) => {
-        let key = 'home';
-        if (tab.meta.type === 'text') key = tab.meta.sha;
-        if (tab.meta.type === 'work') key = tab.meta.workMeta.title;
-        return (
-          <div
-            key={key}
-            className={twMerge(
-              'group flex h-full border-r-2 border-t-2 border-border-primary',
-              'border-t-transparent pr-2 hover:cursor-pointer hover:bg-additional',
-              tab.isActive ? 'bg-additional border-t-primary' : 'border-b-2',
-            )}
-          >
+    <DragProvider list={tabs} swapItems={swapTabs} draggableId="draggable-tab">
+      <div
+        id="tabs"
+        className="scroll flex h-12 w-full flex-none
+        overflow-x-auto overflow-y-hidden border-border-primary bg-secondary
+      [&::-webkit-scrollbar-track]:bg-additional [&::-webkit-scrollbar]:h-1"
+      >
+        {tabs.map((tab, index) => {
+          const key = `tab-${tab.meta.type}-${index}`;
+          return (
             <div
-              role="button"
-              tabIndex={0}
-              className="flex h-full items-center justify-center gap-x-2"
+              id={`draggable-tab-${index}`}
+              key={key}
+              className={twMerge(
+                'group flex flex-none items-center h-full border-r-2 border-t-2 border-border-primary',
+                'border-t-transparent pr-2 hover:cursor-pointer hover:bg-additional',
+                tab.isActive ? 'bg-additional border-t-primary' : 'border-b-2',
+                'draggable-tab-drop-zone',
+              )}
+              draggable="true"
               onClick={() => setActiveTab(index)}
               onKeyDown={() => setActiveTab(index)}
+              role="button"
+              tabIndex={0}
             >
-              {typeof tab.icon === 'string' ? (
-                <Image
-                  className="ml-4"
-                  src={tab.icon}
-                  alt={tab.title}
-                  width={20}
-                  height={20}
-                />
-              ) : (
-                <div className="ml-4">
-                  {tab.icon}
+              <div
+                className="pointer-events-none flex items-baseline justify-center gap-x-2 px-4"
+              >
+                <div className="translate-y-1">
+                  {typeof tab.icon === 'string' ? (
+                    <Image
+                      src={tab.icon}
+                      alt={tab.title}
+                      width={20}
+                      height={20}
+                    />
+                  ) : (
+                    tab.icon
+                  )}
                 </div>
-              )}
-              <p className={twMerge(
-                'mr-4 text-text-secondary',
-                tab.isActive && 'text-text-primary',
-              )}
-              >
-                {tab.title}
-              </p>
-            </div>
-            {tab.meta.type !== 'home' ? (
-              <button
-                type="button"
-                className={twMerge(
-                  'rounded-md p-0.5 invisible text-text-secondary group-hover:visible hover:bg-border-primary',
-                  tab.isActive && 'visible text-text-primary',
+                <p className={twMerge(
+                  'text-text-secondary',
+                  tab.isActive && 'text-text-primary',
                 )}
-                onClick={() => removeTab(index)}
-              >
-                <VscClose size={20} />
-              </button>
-            ) : null}
-          </div>
-        );
-      })}
-      <div className="grow border-b-2 border-border-primary bg-secondary" />
-    </div>
+                >
+                  {tab.title}
+                </p>
+              </div>
+              {tab.meta.type !== 'home' ? (
+                <button
+                  type="button"
+                  className={twMerge(
+                    'rounded-md p-0.5 invisible text-text-secondary group-hover:visible hover:bg-border-primary',
+                    tab.isActive && 'visible text-text-primary',
+                  )}
+                  onClick={() => removeTab(index)}
+                >
+                  <VscClose size={20} />
+                </button>
+              ) : null}
+            </div>
+          );
+        })}
+        <div className="grow border-b-2 border-border-primary bg-secondary" />
+      </div>
+    </DragProvider>
   );
 }
 

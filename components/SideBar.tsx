@@ -28,6 +28,10 @@ function SideBar() {
         if (newWidth > 200) {
           ewResizableDiv.style.width = `${newWidth}px`;
         } else {
+          ewResizableDiv.style.width = '200px';
+          ewSliderDiv.style.opacity = '100';
+        }
+        if (newWidth < 100) {
           ewResizableDiv.style.width = '3px';
           ewSliderDiv.style.opacity = '100';
         }

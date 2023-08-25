@@ -13,17 +13,17 @@ function FileIcon({ path, size }: FileIconProps) {
     case 'tsx':
     case 'js':
     case 'jsx': {
-      return <VscFileCode size={iconSize} />;
+      return <VscFileCode size={iconSize} className="shrink-0" />;
     }
     case 'ico':
     case 'png':
     case 'jpg':
     case 'jpeg':
     case 'gif': {
-      return <VscFileMedia size={iconSize} />;
+      return <VscFileMedia size={iconSize} className="shrink-0" />;
     }
     default: {
-      return <VscFile size={iconSize} />;
+      return <VscFile size={iconSize} className="shrink-0" />;
     }
   }
   return (

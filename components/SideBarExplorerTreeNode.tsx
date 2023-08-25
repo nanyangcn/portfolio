@@ -59,18 +59,20 @@ function SideBarExplorerTreeNode({
 
   const iconSize = 24;
 
-  let FoldIcon = <VscChevronDown size={iconSize} />;
+  let FoldIcon = <VscChevronDown size={iconSize} className="shrink-0" />;
   if (isLoading) {
-    FoldIcon = <VscLoading size={iconSize} className="animate-spin" />;
+    FoldIcon = <VscLoading size={iconSize} className="shrink-0 animate-spin" />;
   } else if (isFold) {
-    FoldIcon = <VscChevronRight size={iconSize} />;
+    FoldIcon = <VscChevronRight size={iconSize} className="shrink-0" />;
   }
 
   const Tree = (
     <>
       {FoldIcon}
-      { isFold ? <VscFolder size={iconSize} /> : <VscFolderOpened size={iconSize} /> }
-      <p className="whitespace-nowrap text-lg text-text-primary">
+      {isFold
+        ? <VscFolder size={iconSize} className="shrink-0" />
+        : <VscFolderOpened size={iconSize} className="shrink-0" />}
+      <p className="truncate whitespace-nowrap text-lg text-text-primary">
         {path}
       </p>
     </>
@@ -78,9 +80,9 @@ function SideBarExplorerTreeNode({
 
   const Blob = (
     <>
-      <div className="w-[36px]" />
+      <div className="w-[36px] shrink-0" />
       <FileIcon path={path} size={iconSize} />
-      <p className="whitespace-nowrap text-lg text-text-primary">
+      <p className="truncate whitespace-nowrap text-lg text-text-primary">
         {path}
       </p>
     </>

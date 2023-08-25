@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <QueryProvider>
-          <div className="flex h-screen w-screen flex-col bg-secondary">
+          <div className="flex h-screen w-screen select-none flex-col bg-secondary">
             <div className="flex min-h-0 grow">
               <ActivityBar />
               <SideBar />
