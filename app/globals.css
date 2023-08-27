@@ -35,14 +35,14 @@
   background-color: transparent;
 }
 
-.icon:hover ~ .title-on-icon {
-  visibility: visible;
-  opacity: 1;
-}
 .ew-resizable {
   width: 360px;
 }
 
 .ew-slider {
   cursor: ew-resize;
+}
+
+.draggable-tab-drop-zone:hover ~ .tab-close-button {
+  background-color: blue;
 }

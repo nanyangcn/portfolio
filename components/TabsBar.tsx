@@ -27,6 +27,11 @@ function TabsBar() {
     };
   }, []);
 
+  const handleCloseTab = (index: number, event: React.MouseEvent) => {
+    removeTab(index);
+    event.stopPropagation();
+  };
+
   return (
     <DragProvider list={tabs} swapItems={swapTabs} draggableId="draggable-tab">
       <div
@@ -78,12 +83,13 @@ function TabsBar() {
               </div>
               {tab.meta.type !== 'home' ? (
                 <button
+                  id={`tab-close-button-${index}`}
                   type="button"
                   className={twMerge(
                     'rounded-md p-0.5 invisible text-text-secondary group-hover:visible hover:bg-border-primary',
                     tab.isActive && 'visible text-text-primary',
                   )}
-                  onClick={() => removeTab(index)}
+                  onClick={(e) => handleCloseTab(index, e)}
                 >
                   <VscClose size={20} />
                 </button>

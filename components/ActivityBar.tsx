@@ -59,11 +59,11 @@ function ActivityBar() {
             key={item.title}
             onClick={item.onClick}
           >
-            <div className="icon p-4">
+            <div className="peer p-4">
               <item.icon size={32} />
             </div>
             <ButtonHoverTitle
-              className="title-on-icon"
+              className="peer-hover:visible peer-hover:opacity-100"
               title={item.title}
             />
           </button>

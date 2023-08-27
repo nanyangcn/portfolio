@@ -30,7 +30,7 @@ function SideBarWorksItem({ workMeta }: SideBarWorksItemProps) {
       onClick={handleOncClick}
     >
       <Image
-        className="rounded-full"
+        className="flex-none rounded-full"
         src={workMeta.icon}
         alt={workMeta.title}
         width={55}

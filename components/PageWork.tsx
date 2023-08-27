@@ -1,17 +1,34 @@
 import Image from 'next/image';
-import { Tab } from 'hooks/useTabStore';
 import Link from 'next/link';
 import { VscGithubAlt, VscLinkExternal } from 'react-icons/vsc';
-import testText from 'data/test';
-import DragTest from './DragTest';
+
+import useActivityBarStore from 'hooks/useActivityBarStore';
+import useTabStore, { Tab } from 'hooks/useTabStore';
+import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
+
+import PageWorkContent from './PageWorkContent';
 
 interface PageWorkProps {
   tab: Tab
 }
 
 function PageWork({ tab }: PageWorkProps) {
+  const { setActivityBarState } = useActivityBarStore();
+  const { clearTextTabs } = useTabStore();
+  const {
+    ownerState, repoState, setOwnerState, setRepoState,
+  } = useCurrentRepoStore();
   if (tab.meta.type !== 'work') throw new Error('Tab Error');
   const { workMeta } = tab.meta;
+
+  const handleCheckCode = () => {
+    setActivityBarState('explorer');
+    if (ownerState === workMeta.author && repoState === workMeta.title) return;
+    clearTextTabs();
+    setOwnerState(workMeta.author);
+    setRepoState(workMeta.title);
+  };
+
   return (
     <div className="flex h-full w-full flex-col">
       <div className="mx-20 border-b-2 border-border-primary">
@@ -35,6 +52,7 @@ function PageWork({ tab }: PageWorkProps) {
             <button
               type="button"
               className="rounded-sm bg-primary px-2 py-1 font-bold text-text-primary"
+              onClick={handleCheckCode}
             >
               Check Code
             </button>
@@ -45,7 +63,7 @@ function PageWork({ tab }: PageWorkProps) {
         <div className="scroll w-full overflow-hidden overflow-y-scroll text-ellipsis px-4 py-8
         [&::-webkit-scrollbar-thumb]:bg-[#5252524d] [&::-webkit-scrollbar]:w-3"
         >
-          <DragTest />
+          <PageWorkContent workMeta={workMeta} />
         </div>
         <div className="mr-4 flex w-[280px] flex-col py-8">
           <div className="flex flex-col gap-y-3 border-b-2 border-border-primary pb-8">

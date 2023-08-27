@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { VscRefresh } from 'react-icons/vsc';
 
+import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
+
 import SideBarExplorerTree from './SideBarExplorerTree';
 
 function SideBarExplorer() {
   const [queryIter, setQueryIter] = useState(0);
+  const { ownerState, repoState } = useCurrentRepoStore();
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex h-12 items-center justify-between p-4">
-        <div className="pl-4 text-lg font-bold text-text-primary">
-          EXPLORER
+        <div className="truncate pl-4 text-lg font-bold text-text-primary">
+          EXPLORER:
+          <span>{` ${ownerState}/${repoState}`}</span>
         </div>
         <button
           type="button"

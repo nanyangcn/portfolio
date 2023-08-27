@@ -10,6 +10,7 @@ import PageWork from 'components/PageWork';
 
 function Home() {
   const { tabs } = useTabStore();
+
   const activeTab = tabs.find((tab) => tab.isActive);
 
   if (!activeTab) throw new Error('No active tab');

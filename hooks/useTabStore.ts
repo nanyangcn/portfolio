@@ -25,7 +25,7 @@ interface TabStore {
   replaceTab: (tab: Tab) => void
   removeTab: (index: number) => void
   setActiveTab: (index: number) => void
-  clearTabs: () => void
+  clearTextTabs: () => void
   swapTabs: (index1: number, index2: number) => void
 }
 const activeOnlyNthTab = (tabs: Tab[], n: number) => (
@@ -57,7 +57,7 @@ const useTabStore = create<TabStore>((set) => ({
       return ({ tabs: activeOnlyNthTab(state.tabs, index) });
     }
     return ({
-      ...state,
+
       tabs: activeOnlyNthTab([
         ...state.tabs,
         tab,
@@ -70,7 +70,7 @@ const useTabStore = create<TabStore>((set) => ({
       return ({ tabs: activeOnlyNthTab(state.tabs, index) });
     }
     return ({
-      ...state,
+
       tabs: activeOnlyNthTab([
         ...state.tabs.slice(0, state.tabs.length - 1),
         tab,
@@ -82,19 +82,21 @@ const useTabStore = create<TabStore>((set) => ({
     newTabs.splice(index, 1);
     if (!state.tabs[index]?.isActive) return ({ tabs: newTabs });
     if (index === state.tabs.length - 1) return ({ tabs: activeOnlyNthTab(newTabs, index - 1) });
-    return ({ ...state, tabs: activeOnlyNthTab(newTabs, index) });
+    return ({ tabs: activeOnlyNthTab(newTabs, index) });
   }),
   setActiveTab: (index) => set((state) => ({
     tabs: activeOnlyNthTab(state.tabs, index),
   })),
-  clearTabs: () => set(() => ({ tabs: [] })),
+  clearTextTabs: () => set((state) => ({
+    tabs: state.tabs.filter((tab) => tab.meta.type !== 'text'),
+  })),
   swapTabs: (index1: number, index2: number) => set((state) => {
     const listCopy = [...state.tabs];
     if (index1 < 0 || index1 >= listCopy.length || index2 < 0 || index2 >= listCopy.length) {
       throw new Error('Invalid indices when swap tabs');
     }
     [listCopy[index1], listCopy[index2]] = [listCopy[index2]!, listCopy[index1]!];
-    return { ...state, tabs: listCopy };
+    return { tabs: listCopy };
   }),
 }));
 
