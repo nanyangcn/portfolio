@@ -59,6 +59,33 @@ const spotifyClone: WorkMeta = {
   tags: ['NextJS', 'Tailwindcss', 'Typescript', 'React', 'Supabase', 'Stripe'],
   source: 'https://github.com/nanyangcn/spotify-clone',
   deployment: 'https://spotify-clone-delta-weld.vercel.app/',
+  features: [
+    {
+      title: 'Interactive Player',
+      description: 'Control playback progress and adjust volume easily.',
+      image: '/avatar.jpeg',
+    },
+    {
+      title: 'Authentication',
+      description: 'Log in with Google or email.',
+      image: '/avatar.jpeg',
+    },
+    {
+      title: 'Subscription Management',
+      description: 'Handle music memberships effortlessly',
+      image: '/avatar.jpeg',
+    },
+    {
+      title: 'Library and Liked List',
+      description: 'Build own library and liked list.',
+      image: '/avatar.jpeg',
+    },
+    {
+      title: 'Find Your Beat',
+      description: 'Search easily any music.',
+      image: '/avatar.jpeg',
+    },
+  ],
 };
 
 const worksMeta: WorkMeta[] = [

@@ -14,25 +14,25 @@ function PageWorkContent({ workMeta }: PageWorkContentProps) {
 
       <h2 className="text-xl">Key features:</h2>
       {workMeta.features?.map((feature) => (
-        <>
-          <div key={feature.title} className="py-1">
+        <div key={feature.title}>
+          <div className="py-1">
             <span className="font-bold">
               {`${feature.title}: `}
             </span>
             {feature.description}
           </div>
           {feature.image && feature.title && (
-            <div className="w-full">
+            <div className="w-full py-4">
               <Image
                 src={feature.image}
                 alt={feature.title}
-                layout="responsive"
+                sizes="100%"
                 width={512}
                 height={512}
               />
             </div>
           )}
-        </>
+        </div>
       ))}
     </div>
   );
