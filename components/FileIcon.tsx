@@ -26,9 +26,6 @@ function FileIcon({ path, size }: FileIconProps) {
       return <VscFile size={iconSize} className="shrink-0" />;
     }
   }
-  return (
-    <div>f</div>
-  );
 }
 
 export default FileIcon;

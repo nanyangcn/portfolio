@@ -11,7 +11,7 @@ function SideBarExplorer() {
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex h-12 items-center justify-between p-4">
-        <div className="truncate pl-4 text-lg font-bold text-text-primary">
+        <div className="truncate px-4 text-lg font-bold text-text-primary">
           EXPLORER:
           <span>{` ${ownerState}/${repoState}`}</span>
         </div>

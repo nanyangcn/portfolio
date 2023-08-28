@@ -30,8 +30,8 @@ function PageWork({ tab }: PageWorkProps) {
   };
 
   return (
-    <div className="flex h-full w-full flex-col">
-      <div className="mx-20 border-b-2 border-border-primary">
+    <div className="flex h-full w-full flex-col divide-y-2 divide-solid divide-border-primary">
+      <div className="mx-20">
         <div className="flex items-center justify-start gap-x-4 p-8">
           <Image
             className="rounded-full"
@@ -65,8 +65,8 @@ function PageWork({ tab }: PageWorkProps) {
         >
           <PageWorkContent workMeta={workMeta} />
         </div>
-        <div className="mr-4 flex w-[280px] flex-col py-8">
-          <div className="flex flex-col gap-y-3 border-b-2 border-border-primary pb-8">
+        <div className="mr-4 flex w-[280px] flex-col divide-y-2 divide-solid divide-border-primary py-8">
+          <div className="flex flex-col gap-y-3 pb-8">
             <p className="text-2xl">Tech Stacks</p>
             <div className="flex flex-wrap gap-2">
               {workMeta.tags.map((tag) => (
