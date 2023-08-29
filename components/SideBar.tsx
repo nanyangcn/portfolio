@@ -1,16 +1,17 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 import useActivityBarStore from 'hooks/useActivityBarStore';
 
+import { twMerge } from 'tailwind-merge';
 import SideBarHome from './SideBarHome';
 import SideBarWorks from './SideBarWorks';
 import SideBarSearch from './SideBarSearch';
 import SideBarExplorer from './SideBarExplorer';
 
 function SideBar() {
-  const { activityBarState } = useActivityBarStore();
+  const { activityBarState, isActivityBarOpen } = useActivityBarStore();
 
   useEffect(() => {
     const ewResizableDiv = document.querySelector<HTMLDivElement>('.ew-resizable');
@@ -53,18 +54,23 @@ function SideBar() {
     };
   }, [activityBarState]);
 
-  const sideBarComponentMap = useMemo(() => ({
-    home: <SideBarHome />,
-    works: <SideBarWorks />,
-    explorer: <SideBarExplorer />,
-    search: <SideBarSearch />,
-  }), []);
-
-  if (activityBarState === 'hide') return null;
-
   return (
-    <div className="ew-resizable relative flex-none overflow-x-hidden border-r-[1px] border-border-primary">
-      {sideBarComponentMap[activityBarState]}
+    <div
+      className="ew-resizable relative flex-none overflow-hidden border-r-[1px] border-border-primary"
+      style={{ width: isActivityBarOpen ? '' : '3px' }}
+    >
+      <div className={twMerge('h-full w-full', activityBarState === 'home' ? '' : 'hidden')}>
+        <SideBarHome />
+      </div>
+      <div className={twMerge('h-full w-full', activityBarState === 'works' ? '' : 'hidden')}>
+        <SideBarWorks />
+      </div>
+      <div className={twMerge('h-full w-full', activityBarState === 'explorer' ? '' : 'hidden')}>
+        <SideBarExplorer />
+      </div>
+      <div className={twMerge('h-full w-full', activityBarState === 'search' ? '' : 'hidden')}>
+        <SideBarSearch />
+      </div>
       <div className="ew-slider absolute right-0 top-0 h-full w-[6px] bg-primary
       opacity-0 transition-opacity hover:opacity-100"
       />

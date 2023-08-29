@@ -7,6 +7,7 @@ interface PathBarProps {
 
 function PathBar({ path }: PathBarProps) {
   const pathList = path.split('/');
+
   return (
     <div className="flex items-center gap-x-1 bg-additional px-3 py-1">
       {pathList.map((item, index) => (

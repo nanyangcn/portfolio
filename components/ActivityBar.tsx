@@ -12,30 +12,40 @@ import { useMemo } from 'react';
 import ButtonHoverTitle from './ButtonHoverTitle';
 
 function ActivityBar() {
-  const { activityBarState, setActivityBarState } = useActivityBarStore();
+  const {
+    activityBarState, setActivityBarState, isActivityBarOpen, setIsActivityBarOpen,
+  } = useActivityBarStore();
 
   const activityList = useMemo(() => [
     {
       title: 'Home',
       icon: VscAccount,
-      onClick: () => setActivityBarState(activityBarState === 'home' ? 'hide' : 'home'),
+      onClick: () => (activityBarState === 'home'
+        ? setIsActivityBarOpen(!isActivityBarOpen)
+        : setActivityBarState('home')),
     },
     {
       title: 'Works',
       icon: VscExtensions,
-      onClick: () => setActivityBarState(activityBarState === 'works' ? 'hide' : 'works'),
+      onClick: () => (activityBarState === 'works'
+        ? setIsActivityBarOpen(!isActivityBarOpen)
+        : setActivityBarState('works')),
     },
     {
       title: 'Explorer',
       icon: VscFiles,
-      onClick: () => setActivityBarState(activityBarState === 'explorer' ? 'hide' : 'explorer'),
+      onClick: () => (activityBarState === 'explorer'
+        ? setIsActivityBarOpen(!isActivityBarOpen)
+        : setActivityBarState('explorer')),
     },
     {
       title: 'Search',
       icon: VscSearch,
-      onClick: () => setActivityBarState(activityBarState === 'search' ? 'hide' : 'search'),
+      onClick: () => (activityBarState === 'search'
+        ? setIsActivityBarOpen(!isActivityBarOpen)
+        : setActivityBarState('search')),
     },
-  ], [activityBarState, setActivityBarState]);
+  ], [activityBarState, setActivityBarState, isActivityBarOpen, setIsActivityBarOpen]);
 
   return (
     <div

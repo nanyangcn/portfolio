@@ -15,7 +15,7 @@ export interface Tab {
     type: 'text'
     sha: string
     path: string
-    decodedText: string
+    // decodedText: string
   }
 }
 

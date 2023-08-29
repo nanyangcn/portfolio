@@ -2,21 +2,20 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
+import useSearchStore from 'hooks/useSearchStore';
+
 import getSearchCode from 'services/searchCode';
 import Loading from 'app/loading';
 import ErrorComp from 'app/error';
-import FileIcon from './FileIcon';
+import SideBarSearchResultsItem from './SideBarSearchResultsItem';
 
-interface SideBarSearchResultsProps {
-  keyword: string;
-}
-
-function SideBarSearchResults({ keyword }: SideBarSearchResultsProps) {
+function SideBarSearchResults() {
   const { ownerState, repoState } = useCurrentRepoStore();
+  const { keywordState } = useSearchStore();
   const repo = `${ownerState}/${repoState}`;
   const { isLoading, data } = useQuery({
-    queryKey: ['search-code', keyword, repo],
-    queryFn: () => getSearchCode(keyword, repo),
+    queryKey: ['search-code', keywordState, repo],
+    queryFn: () => getSearchCode(keywordState, repo),
   });
 
   if (isLoading) return <Loading />;
@@ -28,23 +27,28 @@ function SideBarSearchResults({ keyword }: SideBarSearchResultsProps) {
     );
   }
 
-  return (
-    <div>
-      <div className="pb-2 text-text-secondary">
-        {`${data.total_count} files`}
-      </div>
-      <div className="scroll flex flex-col gap-y-1 overflow-y-auto">
-        {data.items.map((item) => (
-          <div key={item.sha} className="flex items-center gap-x-2">
-            <FileIcon path={item.name} size={20} />
-            <span className="truncate" title={item.path}>
-              {item.name}
-              <span className="truncate pl-2 text-sm text-text-secondary">
-                {item.path.split('/').slice(0, -1).join('/')}
-              </span>
-            </span>
+  const resultsCountsInEachItem = data.items.map((item) => (
+    item.text_matches
+      ? item.text_matches.reduce((acc, match) => (
+        acc + (!match.matches ? 0 : match.matches.length)
+      ), 0)
+      : 0
+  ));
 
-          </div>
+  const totalResultsCount = resultsCountsInEachItem.reduce((acc, count) => acc + count, 0);
+
+  return (
+    <div className="flex min-h-0 grow flex-col pl-4 text-text-primary">
+      <div className="py-2 text-text-secondary">
+        {`${totalResultsCount} results in ${data.total_count} files`}
+      </div>
+      <div className="scroll flex min-h-0 flex-col gap-y-1 overflow-y-scroll [&::-webkit-scrollbar]:w-3">
+        {data.items.map((item, index) => (
+          <SideBarSearchResultsItem
+            key={item.sha}
+            item={item}
+            count={resultsCountsInEachItem[index] ?? 0}
+          />
         ))}
       </div>
     </div>

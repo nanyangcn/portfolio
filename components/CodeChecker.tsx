@@ -5,6 +5,8 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import dark from 'react-syntax-highlighter/dist/esm/styles/prism/tomorrow';
 
+import HighlightKeywordProvider from 'providers/HighlightKeywordProvider';
+
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 
 interface CodeCheckerProps {
@@ -20,15 +22,19 @@ function CodeChecker({ encodedText }: CodeCheckerProps) {
   };
 
   return (
-    <SyntaxHighlighter
-      className="scroll grow select-text"
-      language="tsx"
-      style={dark}
-      customStyle={style}
-      showLineNumbers
-    >
-      {atob(encodedText)}
-    </SyntaxHighlighter>
+    <HighlightKeywordProvider className="min-h-0 grow">
+      <SyntaxHighlighter
+        className="scroll h-full select-text"
+        language="tsx"
+        style={dark}
+        customStyle={style}
+        showLineNumbers
+        wrapLines
+        lineProps={{ style: { display: 'block' } }}
+      >
+        {atob(encodedText)}
+      </SyntaxHighlighter>
+    </HighlightKeywordProvider>
   );
 }
 
