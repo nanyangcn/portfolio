@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import useActivityBarStore from 'hooks/useActivityBarStore';
 
 import { twMerge } from 'tailwind-merge';
-import SideBarHome from './SideBarHome';
+import SideBarProfile from './SideBarProfile';
 import SideBarWorks from './SideBarWorks';
 import SideBarSearch from './SideBarSearch';
 import SideBarExplorer from './SideBarExplorer';
@@ -59,8 +59,8 @@ function SideBar() {
       className="ew-resizable relative flex-none overflow-hidden border-r-[1px] border-border-primary"
       style={{ width: isActivityBarOpen ? '' : '3px' }}
     >
-      <div className={twMerge('h-full w-full', activityBarState === 'home' ? '' : 'hidden')}>
-        <SideBarHome />
+      <div className={twMerge('h-full w-full', activityBarState === 'profile' ? '' : 'hidden')}>
+        <SideBarProfile />
       </div>
       <div className={twMerge('h-full w-full', activityBarState === 'works' ? '' : 'hidden')}>
         <SideBarWorks />

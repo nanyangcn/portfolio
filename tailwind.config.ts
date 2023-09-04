@@ -6,16 +6,39 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    colors: {
-      transparent: 'transparent',
-      primary: '#0078D4',
-      secondary: '#181818',
-      additional: '#1F1F1F',
-      error: '#C7695D',
-      'text-primary': '#DADADA',
-      'text-secondary': '#8A8A8A',
-      'border-primary': '#3A3A3A',
-      'border-secondary': '#1F1F1F',
+    extend: {
+      colors: {
+        primary: '#0078D4',
+        secondary: '#181818',
+        additional: '#1F1F1F',
+        error: '#C7695D',
+        'text-primary': '#DADADA',
+        'text-secondary': '#8A8A8A',
+        'border-primary': '#3A3A3A',
+        'border-secondary': '#1F1F1F',
+      },
+      keyframes: {
+        'type-in': {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
+        'type-out': {
+          '0%': { width: '100%' },
+          '100%': { width: '0%' },
+        },
+        'cursor-pulse': {
+          '0%': { borderStyle: 'solid' },
+          '50%': { borderStyle: 'hidden' },
+          '100%': { borderStyle: 'solid' },
+        },
+      },
+      animation: {
+        'type-in': 'type-in var(--type-duration) var(--type-in-delay)'
+            + 'steps(var(--type-steps), jump-none) forwards infinite',
+        'type-out': 'type-out var(--type-duration) var(--type-out-delay)'
+            + 'steps(var(--type-steps), jump-none) backwards infinite',
+        'cursor-pulse': 'cursor-pulse 1s linear infinite',
+      },
     },
   },
   plugins: [],

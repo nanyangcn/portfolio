@@ -1,11 +1,17 @@
+import { VscGithubAlt, VscLinkExternal } from 'react-icons/vsc';
+
+type IconType = typeof VscGithubAlt;
 export interface WorkMeta {
   title: string;
-  author: string;
+  subtitle: string;
   description: string;
   icon: string;
   tags: string[];
-  source: string;
-  deployment: string;
+  links: {
+    title: string;
+    url: string;
+    icon: string | IconType;
+  } []
   features?: {
     title?: string;
     description?: string;
@@ -15,12 +21,22 @@ export interface WorkMeta {
 
 const portfolio: WorkMeta = {
   title: 'Portfolio',
+  subtitle: 'nanyangcn',
   description: 'This is a portfolio web app which can also check the code from Github.',
-  author: 'nanyangcn',
   icon: '/avatar.jpeg',
   tags: ['NextJS', 'Tailwindcss', 'Typescript', 'React'],
-  source: 'https://github.com/nanyangcn/portfolio',
-  deployment: 'https://nanyangcn.github.io/portfolio/',
+  links: [
+    {
+      title: 'Source',
+      url: 'https://github.com/nanyangcn/portfolio',
+      icon: VscGithubAlt,
+    },
+    {
+      title: 'Demo',
+      url: 'https://nanyangcn.github.io/portfolio/',
+      icon: VscLinkExternal,
+    },
+  ],
   features: [
     {
       title: 'Personal Introduction',
@@ -53,12 +69,22 @@ const portfolio: WorkMeta = {
 
 const spotifyClone: WorkMeta = {
   title: 'Spotify-Clone',
+  subtitle: 'nanyangcn',
   description: 'A basic clone of Spotify which can upload and play musics.',
-  author: 'nanyangcn',
   icon: '/avatar.jpeg',
   tags: ['NextJS', 'Tailwindcss', 'Typescript', 'React', 'Supabase', 'Stripe'],
-  source: 'https://github.com/nanyangcn/spotify-clone',
-  deployment: 'https://spotify-clone-delta-weld.vercel.app/',
+  links: [
+    {
+      title: 'Source',
+      url: 'https://github.com/nanyangcn/spotify-clone',
+      icon: VscGithubAlt,
+    },
+    {
+      title: 'Demo',
+      url: 'https://spotify-clone-delta-weld.vercel.app/',
+      icon: VscLinkExternal,
+    },
+  ],
   features: [
     {
       title: 'Interactive Player',

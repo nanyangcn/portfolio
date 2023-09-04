@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 
 interface ActivityBarStore {
-  activityBarState: 'home' | 'works' | 'explorer' | 'search';
-  setActivityBarState: (state: 'home' | 'works' | 'explorer' | 'search') => void;
+  activityBarState: 'profile' | 'works' | 'explorer' | 'search';
+  setActivityBarState: (state: 'profile' | 'works' | 'explorer' | 'search') => void;
   isActivityBarOpen: boolean;
   setIsActivityBarOpen: (state: boolean) => void;
 }
 
 const useActivityBarStore = create<ActivityBarStore>((set) => ({
-  activityBarState: 'home',
+  activityBarState: 'profile',
   setActivityBarState: (state) => set({ activityBarState: state }),
   isActivityBarOpen: true,
   setIsActivityBarOpen: (state) => set({ isActivityBarOpen: state }),

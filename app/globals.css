@@ -4,6 +4,7 @@
 
 :root {
   color-scheme: dark;
+  overflow: hidden;
 }
 
 .scroll::-webkit-scrollbar {

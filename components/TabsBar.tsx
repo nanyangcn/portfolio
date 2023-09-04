@@ -81,7 +81,7 @@ function TabsBar() {
                   {tab.title}
                 </p>
               </div>
-              {tab.meta.type !== 'home' ? (
+              {tab.meta.type !== 'profile' ? (
                 <button
                   id={`tab-close-button-${index}`}
                   type="button"

@@ -18,11 +18,11 @@ function ActivityBar() {
 
   const activityList = useMemo(() => [
     {
-      title: 'Home',
+      title: 'Profile',
       icon: VscAccount,
-      onClick: () => (activityBarState === 'home'
+      onClick: () => (activityBarState === 'profile'
         ? setIsActivityBarOpen(!isActivityBarOpen)
-        : setActivityBarState('home')),
+        : setActivityBarState('profile')),
     },
     {
       title: 'Works',

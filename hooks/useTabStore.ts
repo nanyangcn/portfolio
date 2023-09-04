@@ -7,7 +7,7 @@ export interface Tab {
   icon: string | JSX.Element
   isActive?: boolean
   meta: {
-    type: 'home'
+    type: 'profile'
   } | {
     type: 'work'
     workMeta: WorkMeta
@@ -45,10 +45,10 @@ const findIndexInTabs = (tabs: Tab[], tab: Tab) => {
 const useTabStore = create<TabStore>((set) => ({
   tabs: [{
     isActive: true,
-    title: 'Home',
+    title: 'Profile',
     icon: '/avatar.jpeg',
     meta: {
-      type: 'home',
+      type: 'profile',
     },
   }],
   pushTab: (tab) => set((state) => {

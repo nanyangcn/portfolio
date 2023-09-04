@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import useTabStore from 'hooks/useTabStore';
 
-import PageHome from 'components/PageHome';
+import PageProfile from 'components/PageProfile/PageProfile';
 import PageText from 'components/PageText';
 import PageWork from 'components/PageWork';
 
@@ -16,7 +16,7 @@ function Home() {
   if (!activeTab) throw new Error('No active tab');
 
   const Page = useMemo(() => ({
-    home: <PageHome />,
+    profile: <PageProfile />,
     work: <PageWork tab={activeTab} />,
     text: <PageText tab={activeTab} />,
   }), [activeTab]);

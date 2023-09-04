@@ -44,7 +44,7 @@ function SideBarWorksItem({ workMeta }: SideBarWorksItemProps) {
           {workMeta.description}
         </p>
         <p className="w-full truncate text-left font-bold text-text-secondary">
-          {workMeta.author}
+          {workMeta.subtitle}
         </p>
       </div>
     </button>

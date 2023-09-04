@@ -20,7 +20,6 @@ function CodeChecker({ encodedText }: CodeCheckerProps) {
     scrollPaddingTop: '-32px',
     lineHeight: '26px',
   };
-
   return (
     <HighlightKeywordProvider className="min-h-0 grow">
       <SyntaxHighlighter

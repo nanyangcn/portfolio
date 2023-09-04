@@ -9,12 +9,16 @@ import Loading from 'app/loading';
 import ErrorComp from 'app/error';
 import SideBarSearchResultsItem from './SideBarSearchResultsItem';
 
-function SideBarSearchResults() {
+interface SideBarSearchResultsProps {
+  queryIter: number;
+}
+
+function SideBarSearchResults({ queryIter }: SideBarSearchResultsProps) {
   const { ownerState, repoState } = useCurrentRepoStore();
   const { keywordState } = useSearchStore();
   const repo = `${ownerState}/${repoState}`;
   const { isLoading, data } = useQuery({
-    queryKey: ['search-code', keywordState, repo],
+    queryKey: ['search-code', keywordState, repo, queryIter],
     queryFn: () => getSearchCode(keywordState, repo),
   });
 

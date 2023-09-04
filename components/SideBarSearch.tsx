@@ -8,6 +8,7 @@ import SideBarSearchResults from './SideBarSearchResults';
 function SideBarSearch() {
   const { keywordState, setKeywordState } = useSearchStore();
   const [inputValue, setInputValue] = useState(keywordState);
+  const [queryIter, setQueryIter] = useState(0);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== 'Enter') return;
@@ -31,7 +32,7 @@ function SideBarSearch() {
         <button
           type="button"
           className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
-          onClick={() => { }}
+          onClick={() => setQueryIter((prev) => (prev + 1) % 32768)}
         >
           <VscRefresh size={20} />
         </button>
@@ -52,7 +53,7 @@ function SideBarSearch() {
         />
       </div>
       {keywordState
-        ? <SideBarSearchResults />
+        ? <SideBarSearchResults queryIter={queryIter} />
         : null}
     </div>
   );
