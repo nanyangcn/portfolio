@@ -1,14 +1,18 @@
-import useProfileScroll from 'hooks/useProfileScroll';
+import {
+  VscGift, VscHome, VscLibrary, VscMortarBoard, VscSend,
+} from 'react-icons/vsc';
 import { twMerge } from 'tailwind-merge';
 
+import useProfileScroll from 'hooks/useProfileScroll';
+
 export const NavList = [
-  ['#home', '🛖', 'Home'],
-  ['#about', '🗿', 'About'],
-  ['#services', '🦾', 'Services'],
-  ['#work', '🗂', 'Work'],
-  ['#contact', '✉️', 'Contact'],
+  { href: '#home', icon: VscHome, title: 'Home' },
+  { href: '#about', icon: VscMortarBoard, title: 'About' },
+  { href: '#services', icon: VscGift, title: 'Services' },
+  { href: '#work', icon: VscLibrary, title: 'Work' },
+  { href: '#contact', icon: VscSend, title: 'Contact' },
 ];
-export const sectionIdList = NavList.map((item) => item[2]?.toLowerCase());
+export const sectionIdList = NavList.map((item) => item.title.toLowerCase());
 
 function SideBarProfile() {
   const { activeSectionIndex } = useProfileScroll(sectionIdList, 'profile-content');
@@ -20,22 +24,22 @@ function SideBarProfile() {
       </div>
       <div className="relative">
         <div
-          className="absolute inset-x-0 top-0 h-16 rounded-lg bg-border-primary transition-all"
+          className="absolute inset-x-0 top-0 h-16 bg-border-primary transition-all"
           style={{
             transform: `translateY(${activeSectionIndex * 64}px)`,
           }}
         />
         <div className="absolute inset-x-0 top-0 flex flex-col">
-          {NavList.map(([link, icon, title], index) => (
-            <a key={link} href={link}>
+          {NavList.map((item, index) => (
+            <a key={item.href} href={item.href}>
               <div
                 className={twMerge(
-                  'flex h-16 items-center gap-x-4 px-4 text-xl',
+                  'flex h-16 items-center gap-x-4 px-6 text-xl',
                   activeSectionIndex === index ? '' : 'hover:bg-border-secondary',
                 )}
               >
-                {icon}
-                <p>{title}</p>
+                <item.icon size={40} className="shrink-0" />
+                <p>{item.title}</p>
               </div>
             </a>
           ))}

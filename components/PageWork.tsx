@@ -30,7 +30,7 @@ function PageWork({ tab }: PageWorkProps) {
 
   return (
     <div className="flex h-full w-full flex-col divide-y-2 divide-solid divide-border-primary">
-      <Header meta={workMeta}>
+      <Header workMeta={workMeta}>
         <button
           type="button"
           className="rounded-sm bg-primary px-2 py-1 font-bold text-text-primary"
@@ -43,7 +43,7 @@ function PageWork({ tab }: PageWorkProps) {
         <MainContent>
           <PageWorkContent workMeta={workMeta} />
         </MainContent>
-        <SubColumn meta={workMeta} />
+        <SubColumn workMeta={workMeta} />
       </div>
     </div>
   );

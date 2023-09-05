@@ -14,7 +14,7 @@ function PageProfile() {
       <Header meta={profileMeta} />
       <div className="mx-20 flex min-h-0 grow gap-x-6 text-text-primary">
         <MainContent>
-          <div className="flex flex-col">
+          <div className="flex flex-col divide-y-2 divide-solid divide-border-primary">
             <Home />
             <About />
             <Services />

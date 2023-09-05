@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import TabsBar from 'components/TabsBar';
-import StatusBar from 'components/StatusBar';
+// import StatusBar from 'components/StatusBar';
 import ActivityBar from 'components/ActivityBar';
 import SideBar from 'components/SideBar';
 
@@ -34,7 +34,7 @@ export default function RootLayout({
                 {children}
               </div>
             </div>
-            <StatusBar />
+            {/* <StatusBar /> */}
           </div>
         </QueryProvider>
       </body>

@@ -1,13 +1,34 @@
-import { VscGithubAlt, VscLinkExternal } from 'react-icons/vsc';
+import {
+  VscAccount, VscGithubAlt, VscMail, VscMap,
+} from 'react-icons/vsc';
+import { AiOutlineLinkedin } from 'react-icons/ai';
 
-import { WorkMeta } from './worksMeta';
+type IconType = typeof VscGithubAlt;
+export interface Meta {
+  name: string;
+  position: string;
+  description: string;
+  avatar: string;
+  techStacks: string[];
+  links: {
+    title: string;
+    url: string;
+    icon: string | IconType;
+  } []
+  information: {
+    title: string;
+    description: string;
+    url: string;
+    icon: string | IconType;
+  } []
+}
 
-export const profileMeta: WorkMeta = {
-  title: 'Yang Nan',
-  subtitle: 'Web Developer',
-  description: 'Full-stack Web Developer',
-  icon: '/avatar.jpeg',
-  tags: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'MongoDB', 'ExpressJS', 'Node.js'],
+export const profileMeta: Meta = {
+  name: 'Yang Nan',
+  position: 'Full-stack Web Developer',
+  description: '',
+  avatar: '/avatar.jpeg',
+  techStacks: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'MongoDB', 'ExpressJS', 'Node.js'],
   links: [
     {
       title: 'Github',
@@ -15,9 +36,28 @@ export const profileMeta: WorkMeta = {
       icon: VscGithubAlt,
     },
     {
+      title: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/yang-nan-47091119b/',
+      icon: AiOutlineLinkedin,
+    },
+    {
       title: 'Personal Website',
       url: 'https://nanyangcn.com',
-      icon: VscLinkExternal,
+      icon: VscAccount,
+    },
+  ],
+  information: [
+    {
+      title: 'Address',
+      description: 'Espoo, Finland',
+      url: 'https://www.google.com/maps/place/Espoo',
+      icon: VscMap,
+    },
+    {
+      title: 'Email',
+      description: 'nanyangcn@gmail.com',
+      url: 'mailto:nanyangcn@gmail.com',
+      icon: VscMail,
     },
   ],
 };
