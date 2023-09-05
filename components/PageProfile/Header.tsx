@@ -18,7 +18,7 @@ function Header({ meta, children = null }: HeaderProps) {
           width={150}
           height={150}
         />
-        <div className="flex flex-col items-start gap-y-2 overflow-hidden">
+        <div className="flex select-text flex-col items-start gap-y-2 overflow-hidden">
           <h1 className="w-full truncate text-3xl font-bold text-text-primary">{meta.title}</h1>
           <p className="w-full truncate text-lg text-text-primary">{meta.subtitle}</p>
           <p

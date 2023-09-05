@@ -17,6 +17,11 @@ module.exports = {
         'border-primary': '#3A3A3A',
         'border-secondary': '#1F1F1F',
       },
+      fontFamily: {
+        sans: ['VT323', 'sans-serif'],
+        serif: ['VT323', 'serif'],
+        mono: ['VT323', 'monospace'],
+      },
       keyframes: {
         'type-in': {
           '0%': { width: '0%' },
@@ -30,6 +35,10 @@ module.exports = {
           '0%': { borderStyle: 'solid' },
           '50%': { borderStyle: 'hidden' },
           '100%': { borderStyle: 'solid' },
+        },
+        'fade-in': {
+          '0%': { transform: 'translateY(50px)', opacity: 0 },
+          '100%': {},
         },
       },
       animation: {
