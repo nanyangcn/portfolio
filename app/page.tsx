@@ -16,14 +16,15 @@ function Home() {
   if (!activeTab) throw new Error('No active tab');
 
   const Page = useMemo(() => ({
-    profile: <PageProfile />,
-    work: <PageWork tab={activeTab} />,
-    text: <PageText tab={activeTab} />,
+    // profile: <PageProfile key="profile" />,
+    work: <PageWork key={activeTab.title} tab={activeTab} />,
+    text: <PageText key={activeTab.title} tab={activeTab} />,
   }), [activeTab]);
 
   return (
     <div className="min-h-0 grow bg-additional">
-      {Page[activeTab.meta.type]}
+      <PageProfile className={`${activeTab.meta.type === 'profile' ? '' : 'hidden'}`} />
+      {activeTab.meta.type !== 'profile' && Page[activeTab.meta.type]}
     </div>
   );
 }

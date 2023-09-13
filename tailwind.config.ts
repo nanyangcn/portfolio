@@ -40,6 +40,16 @@ module.exports = {
           '0%': { transform: 'translateY(50px)', opacity: 0 },
           '100%': {},
         },
+        'bounce-horizontal': {
+          '0%, 100%': {
+            transform: 'translateX(0)',
+            animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)',
+          },
+          '50%': {
+            transform: 'translateX(-25%)',
+            animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
+          },
+        },
       },
       animation: {
         'type-in': 'type-in var(--type-duration) var(--type-in-delay)'

@@ -12,6 +12,7 @@ function QueryProvider({ children }: QueryProviderProps) {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
+        staleTime: Infinity,
       },
     },
   }));

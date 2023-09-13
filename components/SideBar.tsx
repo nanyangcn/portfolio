@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import useActivityBarStore from 'hooks/useActivityBarStore';
 
-import { twMerge } from 'tailwind-merge';
 import SideBarProfile from './SideBarProfile';
 import SideBarWorks from './SideBarWorks';
 import SideBarSearch from './SideBarSearch';

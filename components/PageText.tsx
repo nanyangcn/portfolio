@@ -23,6 +23,7 @@ function PageText({ tab }: PageProps) {
   const { isLoading, data } = useQuery({
     queryKey: ['repository-blob', ownerState, repoState, sha],
     queryFn: () => getRepoBlob(ownerState, repoState, sha),
+    keepPreviousData: true,
   });
 
   if (isLoading) return <Loading />;
