@@ -4,6 +4,7 @@ import { FaRegHandPointLeft } from 'react-icons/fa';
 import useProfileScroll from 'hooks/useProfileScroll';
 import { sectionIdList } from 'components/SideBarProfile';
 import useActivityBarStore from 'hooks/useActivityBarStore';
+import { VscExtensions } from 'react-icons/vsc';
 
 function Work() {
   const [isMaskVisible, setIsMaskVisible] = useState(false);
@@ -36,11 +37,15 @@ function Work() {
   }, [activityBarState, sectionsPercentage]);
 
   return (
-    <div className="flex min-h-[calc((100vh-294px)/2)] snap-center flex-col py-8" id="work">
-      <div className="flex h-full items-center gap-x-4 text-4xl">
-        <FaRegHandPointLeft size={72} className="shrink-0 animate-[bounce-horizontal_1s_infinite]" />
-        Choose a Project in the Works Sidebar to Start.
-      </div>
+    <div className="flex min-h-[calc((100vh-294px)/2)] snap-center flex-col gap-y-8 py-8" id="work">
+      <FaRegHandPointLeft size={72} className="shrink-0 animate-[bounce-horizontal_1s_infinite]" />
+      <p className="h-full text-4xl">
+        Click
+        <span className="inline-flex items-baseline px-4">
+          <VscExtensions size={36} className="shrink-0" />
+        </span>
+        to Check My Works.
+      </p>
       {isMaskVisible && !isMaskClosed && (
       <div
         style={maskStyle}

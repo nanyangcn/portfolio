@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { VscArrowCircleDown, VscArrowCircleUp } from 'react-icons/vsc';
+import { VscArrowCircleDown, VscArrowCircleUp, VscGear } from 'react-icons/vsc';
 
 import useProfileScroll from 'hooks/useProfileScroll';
 import { sectionIdList } from 'components/SideBarProfile';
@@ -7,7 +7,7 @@ import { sectionIdList } from 'components/SideBarProfile';
 function ScrollButton() {
   const [isShowScrollDown, setIsShowScrollDown] = useState(true);
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
-  const { activeSectionIndex } = useProfileScroll(sectionIdList, 'profile-content');
+  const { activeSectionIndex, sectionsPercentage } = useProfileScroll(sectionIdList, 'profile-content');
 
   useEffect(() => {
     if (activeSectionIndex !== sectionIdList.length - 1) setIsShowScrollToTop(false);
@@ -32,8 +32,18 @@ function ScrollButton() {
     });
   };
 
+  let style: React.CSSProperties = {};
+  if ('home' in sectionsPercentage
+    && typeof sectionsPercentage.home === 'number') {
+    const aboutPercentage = sectionsPercentage.home;
+    style = {
+      transform: `rotate(${aboutPercentage * 180}deg)`,
+      ...style,
+    };
+  }
   return (
     <div className="absolute bottom-24 right-4 flex flex-col opacity-20 hover:cursor-pointer hover:opacity-70">
+      <VscGear size={56} style={style} className="" />
       <button
         type="button"
         className={`${isShowScrollToTop ? '' : 'hidden'}`}
