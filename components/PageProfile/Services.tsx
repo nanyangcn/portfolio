@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Image from 'next/image';
 
@@ -6,13 +6,17 @@ import { StackItem, stacksList } from 'data/profile';
 
 function Item({ stackItem, index }
 : { stackItem: StackItem, index: number }) {
+  const isAnimated = useRef(false);
+
   useEffect(() => {
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         const element = entry.target as HTMLElement;
+        if (isAnimated.current) return;
         if (entry.isIntersecting) {
           element.style.transform = 'scaleX(1)';
           element.style.opacity = '1';
+          isAnimated.current = true;
         } else {
           element.style.transform = 'scaleX(0)';
           element.style.opacity = '0';

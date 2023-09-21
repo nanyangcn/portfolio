@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { VscRefresh } from 'react-icons/vsc';
+import { VscClearAll, VscCollapseAll, VscRefresh } from 'react-icons/vsc';
 
 import useSearchStore from 'hooks/useSearchStore';
 
@@ -9,6 +9,7 @@ function SideBarSearch() {
   const { keywordState, setKeywordState } = useSearchStore();
   const [inputValue, setInputValue] = useState(keywordState);
   const [queryIter, setQueryIter] = useState(0);
+  const [isFoldAll, setIsFoldAll] = useState(false);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== 'Enter') return;
@@ -23,19 +24,40 @@ function SideBarSearch() {
     }
   };
 
+  const handleClearAll = () => {
+    setKeywordState('');
+    setInputValue('');
+  };
+
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex h-12 items-center justify-between p-4">
         <div className="truncate px-4 text-lg font-bold text-text-primary">
           SEARCH
         </div>
-        <button
-          type="button"
-          className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
-          onClick={() => setQueryIter((prev) => (prev + 1) % 32768)}
-        >
-          <VscRefresh size={20} />
-        </button>
+        <div className="flex gap-x-1">
+          <button
+            type="button"
+            className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
+            onClick={() => setQueryIter((prev) => (prev + 1) % 32768)}
+          >
+            <VscRefresh size={20} />
+          </button>
+          <button
+            type="button"
+            className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
+            onClick={handleClearAll}
+          >
+            <VscClearAll size={20} />
+          </button>
+          <button
+            type="button"
+            className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
+            onClick={() => setIsFoldAll((prev) => !prev)}
+          >
+            <VscCollapseAll size={20} />
+          </button>
+        </div>
       </div>
       <div className="flex flex-col gap-y-2 px-4 py-2">
         <input
@@ -53,7 +75,7 @@ function SideBarSearch() {
         />
       </div>
       {keywordState
-        ? <SideBarSearchResults queryIter={queryIter} />
+        ? <SideBarSearchResults queryIter={queryIter} isFoldAll={isFoldAll} />
         : null}
     </div>
   );

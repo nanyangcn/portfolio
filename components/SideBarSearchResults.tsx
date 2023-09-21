@@ -11,9 +11,10 @@ import SideBarSearchResultsItem from './SideBarSearchResultsItem';
 
 interface SideBarSearchResultsProps {
   queryIter: number;
+  isFoldAll: boolean;
 }
 
-function SideBarSearchResults({ queryIter }: SideBarSearchResultsProps) {
+function SideBarSearchResults({ queryIter, isFoldAll }: SideBarSearchResultsProps) {
   const { ownerState, repoState } = useCurrentRepoStore();
   const { keywordState } = useSearchStore();
   const repo = `${ownerState}/${repoState}`;
@@ -52,6 +53,7 @@ function SideBarSearchResults({ queryIter }: SideBarSearchResultsProps) {
             key={item.sha}
             item={item}
             count={resultsCountsInEachItem[index] ?? 0}
+            isFoldAll={isFoldAll}
           />
         ))}
       </div>

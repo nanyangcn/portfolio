@@ -18,7 +18,7 @@ function HomeIcon() {
 
   return (
     <div className="flex w-full justify-center">
-      <TbWindmillFilled size={200} style={style} className="" />
+      <TbWindmillFilled size={200} style={style} className="transition-all" />
     </div>
   );
 }

@@ -36,7 +36,7 @@ function About() {
           style={styleList[index]}
           key={item}
           className={twMerge(
-            'h-[200px] w-1/2 flex justify-center items-center',
+            'h-[200px] w-1/2 flex justify-center items-center transition-all',
             index % 2 === 0 ? '' : 'self-end',
           )}
         >

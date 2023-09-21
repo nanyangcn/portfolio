@@ -1,3 +1,4 @@
+import throttle from 'libs/throttle';
 import React, { useEffect } from 'react';
 
 interface UnderlyingProps {
@@ -11,16 +12,6 @@ function Underlying({ children }: UnderlyingProps) {
 
     if (!contentElement || !underlyingElement) return () => { };
 
-    const throttle = (func: (event: MouseEvent) => void, delay: number) => {
-      let time = Date.now();
-      return (event: MouseEvent) => {
-        if ((time + delay - Date.now()) <= 0) {
-          func(event);
-          time = Date.now();
-        }
-      };
-    };
-
     const setPosition = (event: MouseEvent) => {
       const relativeX = event.clientX - contentElement.getBoundingClientRect().left;
       const relativeY = event.clientY - contentElement.getBoundingClientRect().top;
@@ -33,7 +24,7 @@ function Underlying({ children }: UnderlyingProps) {
       }
     };
 
-    const handleMousemove = throttle(setPosition, 1 / 10);
+    const handleMousemove = throttle(setPosition, 100);
 
     contentElement.addEventListener('mousemove', handleMousemove);
     return () => {

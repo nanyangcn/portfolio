@@ -37,7 +37,7 @@ function Work() {
   }, [activityBarState, sectionsPercentage]);
 
   return (
-    <div className="flex h-fit snap-center items-center gap-x-8 py-20" id="work">
+    <div className="flex h-fit snap-center items-center gap-x-8 py-60" id="work">
       <FaRegHandPointLeft size={72} className="shrink-0 animate-[bounce-horizontal_1s_infinite]" />
       <p className="py-16 text-3xl">
         Choose One by Click in the WORKS Sidebar.

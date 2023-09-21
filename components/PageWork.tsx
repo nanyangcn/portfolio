@@ -36,7 +36,7 @@ function PageWork({ tab }: PageWorkProps) {
           className="rounded-sm bg-primary px-2 py-1 font-bold text-text-primary"
           onClick={handleCheckCode}
         >
-          Check Code
+          Click to Check the Code - !RIGHT HERE!
         </button>
       </Header>
       <div className="mx-20 flex min-h-0 grow gap-x-6 text-text-primary">

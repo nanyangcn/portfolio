@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import useTabStore from 'hooks/useTabStore';
 
@@ -9,11 +9,16 @@ import FileIcon from './FileIcon';
 interface SideBarSearchResultsItemProps {
   item: SearchCodeResults['items'][0];
   count: number;
+  isFoldAll: boolean;
 }
 
-function SideBarSearchResultsItem({ item, count }: SideBarSearchResultsItemProps) {
+function SideBarSearchResultsItem({ item, count, isFoldAll }: SideBarSearchResultsItemProps) {
   const { pushTab } = useTabStore();
   const [itemOpen, setItemOpen] = useState(true);
+
+  useEffect(() => {
+    setItemOpen(!isFoldAll);
+  }, [isFoldAll]);
 
   const iconSize = 20;
   let FoldIcon = <VscChevronDown size={iconSize} className="shrink-0" />;

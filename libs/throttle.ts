@@ -1,8 +1,8 @@
-const throttle = (func: (args: unknown) => void, delay: number) => {
+const throttle = <T>(func: (arg: T) => void, delay: number) => {
   let time = Date.now();
-  return (...args: unknown[]) => {
-    if ((time + delay - Date.now()) <= 0) {
-      func(args);
+  return (arg: T) => {
+    if (Date.now() - time >= delay) {
+      func(arg);
       time = Date.now();
     }
   };

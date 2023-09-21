@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import Loading from 'app/loading';
@@ -12,6 +12,8 @@ import SideBarExplorerTreeNode from './SideBarExplorerTreeNode';
 interface SideBarExplorerTreeProps {
   sha: string
   queryIter: number
+  idFoldAll: boolean
+  setIsFoldAll: (isFoldAll: boolean) => void
   path?: string
   directory?: string
   depth?: number
@@ -20,6 +22,8 @@ interface SideBarExplorerTreeProps {
 function SideBarExplorerTree({
   sha,
   queryIter,
+  idFoldAll,
+  setIsFoldAll,
   path = '',
   directory = '',
   depth = 0,
@@ -27,6 +31,10 @@ function SideBarExplorerTree({
 }: SideBarExplorerTreeProps) {
   const { ownerState, repoState } = useCurrentRepoStore();
   const [isFold, setIsFold] = useState(depth !== 0);
+
+  useEffect(() => {
+    if (idFoldAll && depth !== 0) setIsFold(idFoldAll);
+  }, [idFoldAll, depth]);
 
   const { isLoading, data } = useQuery({
     queryKey: ['repository-tree', ownerState, repoState, sha, queryIter],
@@ -91,6 +99,8 @@ function SideBarExplorerTree({
           <SideBarExplorerTree
             key={item.sha}
             sha={item.sha}
+            idFoldAll={idFoldAll}
+            setIsFoldAll={setIsFoldAll}
             queryIter={queryIter}
             path={item.path}
             directory={`${directory}/${item.path}`}

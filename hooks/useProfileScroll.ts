@@ -37,7 +37,7 @@ const useProfileScroll = (sectionIdList: (string | undefined)[], scrollContentId
       }
     };
 
-    const throttledHandleScroll = throttle(handleScroll, 1 / 60);
+    const throttledHandleScroll = throttle(handleScroll, 100);
 
     scrollContent?.addEventListener('scroll', throttledHandleScroll);
 

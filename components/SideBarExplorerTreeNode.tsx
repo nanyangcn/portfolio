@@ -1,7 +1,8 @@
-import {
-  VscChevronDown, VscChevronRight, VscFolder, VscFolderOpened, VscLoading,
-} from 'react-icons/vsc';
 import { twMerge } from 'tailwind-merge';
+import {
+  VscChevronDown, VscChevronRight, VscLoading,
+} from 'react-icons/vsc';
+import { FcFolder, FcOpenedFolder } from 'react-icons/fc';
 
 import useTabStore from 'hooks/useTabStore';
 
@@ -70,8 +71,8 @@ function SideBarExplorerTreeNode({
     <>
       {FoldIcon}
       {isFold
-        ? <VscFolder size={iconSize} className="shrink-0" />
-        : <VscFolderOpened size={iconSize} className="shrink-0" />}
+        ? <FcFolder size={iconSize} className="shrink-0" />
+        : <FcOpenedFolder size={iconSize} className="shrink-0" />}
       <p className="truncate whitespace-nowrap text-lg text-text-primary">
         {path}
       </p>
