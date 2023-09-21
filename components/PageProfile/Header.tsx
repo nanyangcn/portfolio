@@ -14,7 +14,7 @@ function Header({ meta, workMeta, children = null }: HeaderProps) {
     <div className="mx-20 text-text-primary">
       <div className="flex items-center justify-start gap-x-8 p-8">
         <Image
-          className="rounded-full"
+          className="shrink-0 rounded-full"
           src={meta?.avatar ?? workMeta?.icon ?? ''}
           alt={meta?.name ?? workMeta?.title ?? ''}
           width={150}

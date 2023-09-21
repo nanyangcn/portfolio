@@ -28,14 +28,15 @@ function About() {
   }
 
   return (
-    <div className="relative flex min-h-[calc(100vh-294px)] snap-center flex-col py-8" id="about">
+    <div className="relative flex h-fit snap-center flex-col py-8" id="about">
+      <h2 className="text-3xl">My Timeline</h2>
       <div className="absolute inset-y-10 left-1/2 w-1 rounded-full bg-text-primary" />
       {list.map((item, index) => (
         <div
           style={styleList[index]}
           key={item}
           className={twMerge(
-            'h-1/5 w-1/2 flex justify-center items-center',
+            'h-[200px] w-1/2 flex justify-center items-center',
             index % 2 === 0 ? '' : 'self-end',
           )}
         >

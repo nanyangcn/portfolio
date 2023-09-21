@@ -14,7 +14,7 @@ function SubColumn({ meta, workMeta, children = null }: SubColumnProps) {
   return (
     <div className="mr-4 flex w-1/4 min-w-[200px] flex-col divide-y-2 divide-solid divide-border-primary py-6">
       <div className="flex flex-col gap-y-3 pb-8">
-        <p className="text-xl">Tech Stacks</p>
+        <p className="text-xl">Main Stack</p>
         <div className="flex flex-wrap gap-2">
           {(meta?.techStacks ?? workMeta?.tags ?? []).map((tag) => (
             <p

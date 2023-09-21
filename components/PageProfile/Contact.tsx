@@ -17,7 +17,7 @@ const emailSchema = Yup.object().shape({
 function FormError({ error, touched }: { error?: string; touched?: boolean }) {
   if (!error || !touched) return null;
   return (
-    <p className="absolute inset-y-0 right-0 flex items-center px-2 text-red-500">{error}</p>
+    <p className="absolute inset-y-0 right-0 flex px-2 pt-2 text-red-500">{error}</p>
   );
 }
 
@@ -27,6 +27,7 @@ function FormInput({
   type,
   as,
   rows,
+  placeholder,
   disabled = false,
   children = null,
 }:
@@ -36,6 +37,7 @@ function FormInput({
   type?: string,
   as?: string,
   rows?: number,
+  placeholder?: string,
   disabled?: boolean,
   children?: React.ReactNode
 }) {
@@ -47,7 +49,8 @@ function FormInput({
         type={type}
         as={as}
         rows={rows}
-        className="grow rounded-md p-2 hover:brightness-125"
+        placeholder={placeholder}
+        className="grow rounded-md p-2 hover:brightness-125 [&::placeholder]:text-text-secondary"
         disabled={disabled}
       />
       {children}
@@ -127,8 +130,12 @@ function Contact() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-294px)] snap-center flex-col gap-y-4 py-8" id="contact">
-      <h1 className="text-2xl">Contact</h1>
+    <div className="flex h-fit snap-center flex-col gap-y-6 py-8" id="contact">
+      <h2 className="text-3xl">Contact </h2>
+      <p className="italic">
+        Sending a message via the following form will send an email to my email address:
+        <span className="px-1 underline">nanyangcn@gmail.com</span>
+      </p>
       <Formik
         initialValues={{
           senderEmail: '',
@@ -140,16 +147,16 @@ function Contact() {
         onSubmit={handleSubmit}
       >
         {({ errors, touched, isSubmitting }) => (
-          <Form className="flex flex-col gap-y-4">
+          <Form className="flex flex-col gap-y-4 rounded-lg border-2 border-border-primary px-2 py-4">
             <FormSendButton errors={errors} isSubmitting={isSubmitting} successStatus={successStatus} />
-            <FormInput label="From" name="senderEmail" type="email">
+            <FormInput label="From" name="senderEmail" type="email" placeholder="e.g. example@example.com">
               <FormError error={errors.senderEmail} touched={touched.senderEmail} />
             </FormInput>
             <FormInput label="To" name="receiverEmail" type="email" disabled />
             <FormInput label="Subject" name="subject" type="text">
               <FormError error={errors.subject} touched={touched.subject} />
             </FormInput>
-            <FormInput label="" name="text" as="textarea" rows={10}>
+            <FormInput label="" name="text" as="textarea" rows={20}>
               <FormError error={errors.text} touched={touched.text} />
             </FormInput>
           </Form>

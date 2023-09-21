@@ -113,7 +113,7 @@ function AnimatedTyping({
   }, [triggerIndex, typingSpeed, deletingSpeed, showTimeList, textList]);
 
   return (
-    <div className={twMerge('inline w-fit h-fit min-h-[36px] font-mono', classNameList[textIndex.current])}>
+    <div className={twMerge('inline w-fit h-[72px] font-mono', classNameList[textIndex.current])}>
       <span>{textState}</span>
       <span className="animate-cursor-pulse border-l-4 border-text-primary" />
     </div>

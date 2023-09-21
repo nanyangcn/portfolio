@@ -1,9 +1,11 @@
 import {
-  VscAccount, VscGithubAlt, VscMail, VscMap,
+  VscAccount, VscCode, VscDatabase, VscGithubAlt, VscMail, VscMap, VscRemoteExplorer, VscServer,
 } from 'react-icons/vsc';
 import { AiOutlineLinkedin } from 'react-icons/ai';
+import { GoInfinity } from 'react-icons/go';
 
 type IconType = typeof VscGithubAlt;
+
 export interface Meta {
   name: string;
   position: string;
@@ -28,7 +30,7 @@ export const profileMeta: Meta = {
   position: 'Full-stack Web Developer',
   description: '',
   avatar: '/avatar.jpeg',
-  techStacks: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'MongoDB', 'ExpressJS', 'Node.js'],
+  techStacks: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'Node.js'],
   links: [
     {
       title: 'Github',
@@ -75,3 +77,75 @@ export const profileContent = {
   work: '',
   contact: '',
 };
+
+export interface Stack {
+  title: string;
+  image: string;
+  needBg?: boolean;
+}
+
+export interface StackItem {
+  category: string;
+  icon: IconType;
+  stacks: Stack[];
+}
+
+export const stacksList: StackItem[] = [
+  {
+    category: 'Frontend',
+    icon: VscRemoteExplorer,
+    stacks: [
+      { title: 'React', image: 'https://cdn.svgporn.com/logos/react.svg' },
+      { title: 'Next.js', image: 'https://cdn.svgporn.com/logos/nextjs-icon.svg' },
+      { title: 'Typescript', image: 'https://cdn.svgporn.com/logos/typescript-icon.svg' },
+      { title: 'TailwindCSS', image: 'https://cdn.svgporn.com/logos/tailwindcss-icon.svg' },
+      { title: 'React-Query', image: 'https://cdn.svgporn.com/logos/react-query-icon.svg' },
+      { title: 'Cypress', image: 'https://cdn.svgporn.com/logos/cypress-icon.svg' },
+      { title: 'JavaScript', image: 'https://cdn.svgporn.com/logos/javascript.svg' },
+      { title: 'HTML5', image: 'https://cdn.svgporn.com/logos/html-5.svg', needBg: true },
+      { title: 'CSS3', image: 'https://cdn.svgporn.com/logos/css-3.svg', needBg: true },
+    ],
+  },
+  {
+    category: 'Backend',
+    icon: VscServer,
+    stacks: [
+      { title: 'Node.js', image: 'https://cdn.svgporn.com/logos/nodejs-icon-alt.svg' },
+      { title: 'Redis', image: 'https://cdn.svgporn.com/logos/redis.svg' },
+      { title: 'Express', image: 'https://cdn.svgporn.com/logos/express.svg', needBg: true },
+      { title: 'Jest', image: 'https://cdn.svgporn.com/logos/jest.svg' },
+      { title: 'Supabase', image: 'https://cdn.svgporn.com/logos/supabase-icon.svg' },
+      { title: 'GraphQL', image: 'https://cdn.svgporn.com/logos/graphql.svg' },
+      { title: 'Python', image: 'https://cdn.svgporn.com/logos/python.svg' },
+      { title: 'Clojure', image: 'https://cdn.svgporn.com/logos/clojure.svg' },
+    ],
+  },
+  {
+    category: 'DataBase',
+    icon: VscDatabase,
+    stacks: [
+      { title: 'PostgreSQL', image: 'https://cdn.svgporn.com/logos/postgresql.svg' },
+      { title: 'MongoDB', image: 'https://cdn.svgporn.com/logos/mongodb-icon.svg' },
+    ],
+  },
+  {
+    category: 'DevOps',
+    icon: GoInfinity,
+    stacks: [
+      { title: 'Docker', image: 'https://cdn.svgporn.com/logos/docker-icon.svg' },
+      { title: 'Kubernetes', image: 'https://cdn.svgporn.com/logos/kubernetes.svg' },
+      { title: 'Google Cloud', image: 'https://cdn.svgporn.com/logos/google-cloud.svg' },
+    ],
+  },
+  {
+    category: 'Other',
+    icon: VscCode,
+    stacks: [
+      { title: 'Git', image: 'https://cdn.svgporn.com/logos/git-icon.svg' },
+      { title: 'TensorFlow', image: 'https://cdn.svgporn.com/logos/tensorflow.svg' },
+      { title: 'Julia', image: 'https://cdn.svgporn.com/logos/julia.svg', needBg: true },
+      { title: 'C', image: 'https://cdn.svgporn.com/logos/c.svg' },
+      { title: 'Fortran', image: 'https://cdn.svgporn.com/logos/fortran.svg' },
+    ],
+  },
+];

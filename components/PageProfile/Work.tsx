@@ -37,14 +37,10 @@ function Work() {
   }, [activityBarState, sectionsPercentage]);
 
   return (
-    <div className="flex min-h-[calc((100vh-294px)/2)] snap-center flex-col gap-y-8 py-8" id="work">
+    <div className="flex h-fit snap-center items-center gap-x-8 py-20" id="work">
       <FaRegHandPointLeft size={72} className="shrink-0 animate-[bounce-horizontal_1s_infinite]" />
-      <p className="h-full text-4xl">
-        Click
-        <span className="inline-flex items-baseline px-4">
-          <VscExtensions size={36} className="shrink-0" />
-        </span>
-        to Check My Works.
+      <p className="py-16 text-3xl">
+        Choose One by Click in the WORKS Sidebar.
       </p>
       {isMaskVisible && !isMaskClosed && (
       <div
@@ -54,7 +50,11 @@ function Work() {
         <div className="relative ml-16 mt-16 w-fit rounded-lg border-2 border-border-primary bg-additional py-4">
           <p className="flex items-center gap-x-2 px-4 text-2xl">
             <FaRegHandPointLeft size={36} className="shrink-0 animate-[bounce-horizontal_1s_infinite]" />
-            Click Here To Check Works
+            Click
+            <span className="inline-flex items-baseline px-1">
+              <VscExtensions size={36} className="shrink-0" />
+            </span>
+            To Check Works
           </p>
           <div />
         </div>
