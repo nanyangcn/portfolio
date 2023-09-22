@@ -1,8 +1,14 @@
 import { TbWindmillFilled } from 'react-icons/tb';
 import { sectionIdList } from 'components/SideBarProfile';
 import useProfileScroll from 'hooks/useProfileScroll';
+import { twMerge } from 'tailwind-merge';
 
-function HomeIcon() {
+interface HomeIconProps {
+  id?: string;
+  className?: string;
+}
+
+function HomeIcon({ id, className }: HomeIconProps) {
   const { sectionsPercentage } = useProfileScroll(sectionIdList, 'profile-content');
 
   let style: React.CSSProperties = {};
@@ -17,7 +23,7 @@ function HomeIcon() {
   }
 
   return (
-    <div className="flex w-full justify-center">
+    <div id={id} className={twMerge('flex justify-center', className)}>
       <TbWindmillFilled size={200} style={style} className="transition-all" />
     </div>
   );

@@ -3,6 +3,9 @@ import {
 } from 'react-icons/vsc';
 import { AiOutlineLinkedin } from 'react-icons/ai';
 import { GoInfinity } from 'react-icons/go';
+import { LuGraduationCap } from 'react-icons/lu';
+import { CgWorkAlt } from 'react-icons/cg';
+import { FaReact } from 'react-icons/fa';
 
 type IconType = typeof VscGithubAlt;
 
@@ -65,15 +68,44 @@ export const profileMeta: Meta = {
 };
 
 export const profileContent = {
-  home: '',
-  about: `Hi there, I am Yang Nan, a web developer with a strong foundation in programming concepts
-          and best practices from both online courses and university coursework. I have completed
-          numerous projects using front-end technologies like HTML, CSS, and JavaScript, as well
-          as back-end frameworks like Node.js. Before transitioning to web development,
-          I had years of experience coding in other languages, which honed my problem-solving and
-          logical thinking skills. I am passionate about creating innovative and dynamic web
-          solutions, and I am eager to continue learning and growing as a web developer.`,
-  services: '',
+  home: `Hi there, I am Yang Nan, a full-stack developer with a strong foundation in coding skills
+        and computer science from both online courses and university coursework.
+        I am proficient in front-end technologies like TypeScript, React and Next.js,
+        also in back-end like Node.js.
+        I also have experience in machine learning frameworks like TensorFlow and PyTorch.
+        Before transitioning to web development,
+        I had years of experience in writing numerical simulation program in fluid dynamics.
+        I am passionate about creating innovative and dynamic web
+        apps, and I am eager to continue learning and growing as a web developer.`,
+  about: '',
+  services: [
+    {
+      title: 'Full-Stack Developer',
+      location: 'Espoo, Finland',
+      description:
+        `Freelance full-stack developer proficient in React, Next.js, TypeScript,
+        TailwindCSS, Node.js, and MongoDB. I'm eager to explore full-time roles.`,
+      icon: FaReact,
+      date: '2022 - present',
+    },
+    {
+      title: 'Autonomous Systems',
+      location: 'Aalto University & KTH',
+      description:
+        'Master student focus on coursework and projects refer to full-stack development, and machine learning.',
+      icon: LuGraduationCap,
+      date: '2019 - 2022',
+    },
+    {
+      title: 'Computational Fluid Dynamic',
+      location: 'Northwestern Polytechnical University, China',
+      description:
+        `Doctoral candidate in computational fluid dynamics.
+        Focus on writing code for numerical simulation in fluid dynamics.`,
+      icon: CgWorkAlt,
+      date: '2015 - 2019',
+    },
+  ],
   work: '',
   contact: '',
 };

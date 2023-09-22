@@ -8,9 +8,16 @@ interface AnimatedTypingProps {
   deletingSpeed?: number;
   showTimeList?: (number)[];
   classNameList?: string[];
+  isUnderlying?: boolean;
 }
 function AnimatedTyping({
-  textList, triggerIndex, showTimeList, typingSpeed = 200, deletingSpeed = 50, classNameList = [],
+  textList,
+  triggerIndex,
+  showTimeList,
+  typingSpeed = 200,
+  deletingSpeed = 50,
+  classNameList = [],
+  isUnderlying = false,
 }: AnimatedTypingProps) {
   const [textState, setTextState] = useState('');
   const textIndex = useRef(0);
@@ -113,9 +120,19 @@ function AnimatedTyping({
   }, [triggerIndex, typingSpeed, deletingSpeed, showTimeList, textList]);
 
   return (
-    <div className={twMerge('inline w-fit h-[72px] font-mono', classNameList[textIndex.current])}>
+    <div
+      className={twMerge(
+        'inline w-fit h-[72px] font-mono tracking-wide font-bold',
+        classNameList[textIndex.current],
+      )}
+    >
       <span>{textState}</span>
-      <span className="animate-cursor-pulse border-l-4 border-text-primary" />
+      <span
+        className={twMerge(
+          'animate-cursor-pulse border-l-4 border-text-primary',
+          isUnderlying && 'border-secondary',
+        )}
+      />
     </div>
   );
 }

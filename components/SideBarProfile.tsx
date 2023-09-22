@@ -20,7 +20,7 @@ function SideBarProfile() {
   return (
     <div className="flex flex-col text-text-primary">
       <div className="flex h-12 items-center truncate px-8 text-lg font-bold">
-        Profile
+        PROFILE
       </div>
       <div className="relative">
         <div

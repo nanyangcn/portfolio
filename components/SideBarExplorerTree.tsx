@@ -58,7 +58,7 @@ function SideBarExplorerTree({
   return (
     <div
       className={twMerge(
-        'pl-3 group-hover:border-border-primary border-transparent transition-colors',
+        'pl-4 group-hover:border-border-primary border-transparent transition-colors',
         depth > 1 && 'border-l-[1px]',
         parentIsFold ? 'hidden' : 'visible',
       )}

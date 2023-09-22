@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { FcImageFile, FcRating } from 'react-icons/fc';
-import { VscFile, VscFileMedia } from 'react-icons/vsc';
+import { VscFile } from 'react-icons/vsc';
 
 interface FileIconProps {
   path: string

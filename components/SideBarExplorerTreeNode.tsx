@@ -58,7 +58,7 @@ function SideBarExplorerTreeNode({
     return '';
   };
 
-  const iconSize = 24;
+  const iconSize = 18;
 
   let FoldIcon = <VscChevronDown size={iconSize} className="shrink-0" />;
   if (isLoading) {
@@ -71,9 +71,9 @@ function SideBarExplorerTreeNode({
     <>
       {FoldIcon}
       {isFold
-        ? <FcFolder size={iconSize} className="shrink-0" />
-        : <FcOpenedFolder size={iconSize} className="shrink-0" />}
-      <p className="truncate whitespace-nowrap text-lg text-text-primary">
+        ? <FcFolder size={iconSize + 4} className="shrink-0" />
+        : <FcOpenedFolder size={iconSize + 4} className="shrink-0" />}
+      <p className="truncate whitespace-nowrap text-text-primary">
         {path}
       </p>
     </>
@@ -83,7 +83,7 @@ function SideBarExplorerTreeNode({
     <>
       <div className="w-[36px] shrink-0" />
       <FileIcon path={path} size={iconSize} />
-      <p className="truncate whitespace-nowrap text-lg text-text-primary">
+      <p className="truncate whitespace-nowrap text-text-primary">
         {path}
       </p>
     </>
@@ -94,7 +94,7 @@ function SideBarExplorerTreeNode({
       type="button"
       onClick={handleOnClick}
       className={twMerge(
-        'flex items-center w-full gap-x-2 p-1 hover:bg-border-primary focus:bg-border-primary',
+        'flex items-center w-full gap-x-2 p-[3px] hover:bg-border-primary focus:bg-border-primary',
         'group-hover:border-border-primary border-transparent transition-colors',
         borderClassName(),
         className,

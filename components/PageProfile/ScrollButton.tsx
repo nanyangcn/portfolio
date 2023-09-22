@@ -35,7 +35,7 @@ function ScrollButton() {
   }
 
   return (
-    <div className="absolute bottom-24 right-0 opacity-20 hover:cursor-pointer hover:opacity-70">
+    <div className="absolute bottom-24 right-4 opacity-20 hover:cursor-pointer hover:opacity-70">
       <AttachButton title="scroll-gear">
         <VscGear size={56} style={style} className={twMerge('transition-all', isShowScrollToTop ? 'hidden' : '')} />
       </AttachButton>

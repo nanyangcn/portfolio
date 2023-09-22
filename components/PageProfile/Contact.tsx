@@ -131,8 +131,8 @@ function Contact() {
 
   return (
     <div className="flex h-fit snap-center flex-col gap-y-6 py-8" id="contact">
-      <h2 className="text-3xl">Contact </h2>
-      <p className="italic">
+      <h2 className="text-3xl xl:mx-[5%] 2xl:mx-[10%]">Contact </h2>
+      <p className="italic xl:mx-[5%] 2xl:mx-[10%]">
         Sending a message via the following form will send an email to my email address:
         <span className="px-1 underline">nanyangcn@gmail.com</span>
       </p>
@@ -147,7 +147,10 @@ function Contact() {
         onSubmit={handleSubmit}
       >
         {({ errors, touched, isSubmitting }) => (
-          <Form className="flex flex-col gap-y-4 rounded-lg border-2 border-border-primary px-2 py-4">
+          <Form
+            className="flex max-w-[1000px] flex-col gap-y-4 rounded-lg
+            border-2 border-border-primary px-2 py-4 xl:mx-[5%] 2xl:mx-[10%]"
+          >
             <FormSendButton errors={errors} isSubmitting={isSubmitting} successStatus={successStatus} />
             <FormInput label="From" name="senderEmail" type="email" placeholder="e.g. example@example.com">
               <FormError error={errors.senderEmail} touched={touched.senderEmail} />

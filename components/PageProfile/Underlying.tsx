@@ -1,46 +1,63 @@
+import React, { useEffect, useState } from 'react';
+
 import throttle from 'libs/throttle';
-import React, { useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface UnderlyingProps {
   children: React.ReactNode;
+  parentId: string;
+  hoverElementId: string;
+  className?: string;
 }
 
-function Underlying({ children }: UnderlyingProps) {
-  useEffect(() => {
-    const contentElement = document.getElementById('profile-content');
-    const underlyingElement = document.getElementById('underlying');
+function Underlying({
+  children, parentId, hoverElementId, className,
+}: UnderlyingProps) {
+  const [hovered, setHovered] = useState(false);
 
-    if (!contentElement || !underlyingElement) return () => { };
+  useEffect(() => {
+    const parentElement = document.getElementById(parentId);
+    const underlyingElement = document.getElementById('underlying');
+    const hoverElement = document.getElementById(hoverElementId);
+    if (!parentElement || !underlyingElement || !hoverElement) return () => { };
 
     const setPosition = (event: MouseEvent) => {
-      const relativeX = event.clientX - contentElement.getBoundingClientRect().left;
-      const relativeY = event.clientY - contentElement.getBoundingClientRect().top;
-      if (event.clientY < 500) {
-        underlyingElement.style.transition = 'clip-path 0.5s';
-        underlyingElement.style.clipPath = 'circle(250px at 250px 100px)';
+      const relativeX = event.clientX - underlyingElement.getBoundingClientRect().left;
+      const relativeY = event.clientY - underlyingElement.getBoundingClientRect().top;
+      underlyingElement.style.transition = 'clip-path 0.3s';
+      underlyingElement.classList.remove('hidden');
+      if (hovered) {
+        underlyingElement.style.clipPath = `circle(200px at ${relativeX}px ${relativeY}px)`;
       } else {
-        underlyingElement.style.transition = 'none';
-        underlyingElement.style.clipPath = `circle(10px at ${relativeX}px ${relativeY}px)`;
+        underlyingElement.style.clipPath = `circle(20px at ${relativeX}px ${relativeY}px)`;
       }
     };
 
     const handleMousemove = throttle(setPosition, 100);
-
-    contentElement.addEventListener('mousemove', handleMousemove);
-    return () => {
-      contentElement.removeEventListener('mousemove', handleMousemove);
+    const handleMouseEnter = () => {
+      setHovered(true);
     };
-  }, []);
+    const handleMouseLeave = () => {
+      setHovered(false);
+    };
+
+    parentElement.addEventListener('mousemove', handleMousemove);
+    hoverElement.addEventListener('mouseenter', handleMouseEnter);
+    hoverElement.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      parentElement.removeEventListener('mousemove', handleMousemove);
+      hoverElement.removeEventListener('mouseenter', handleMouseEnter);
+      hoverElement.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [parentId, hoverElementId, hovered]);
+
   return (
     <div
       id="underlying"
-      className="pointer-events-none absolute left-0 top-0 h-[1000px] w-[500px] bg-text-primary"
+      className={twMerge('pointer-events-none hidden', className)}
     >
-      <div
-        className="text-black"
-      >
-        {children}
-      </div>
+      {children}
     </div>
   );
 }

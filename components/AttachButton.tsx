@@ -45,7 +45,7 @@ function AttachButton({
   return (
     <div
       id={`attach-outer-${title}`}
-      className={twMerge('p-8', className)}
+      className={twMerge('p-4', className)}
       onClick={onClick}
       role="button"
       tabIndex={0}

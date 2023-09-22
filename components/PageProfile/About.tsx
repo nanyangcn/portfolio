@@ -1,48 +1,129 @@
-import React from 'react';
-
-import useProfileScroll from 'hooks/useProfileScroll';
-import { sectionIdList } from 'components/SideBarProfile';
+import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-function About() {
-  const { sectionsPercentage } = useProfileScroll(sectionIdList, 'profile-content');
+import { profileContent } from 'data/profile';
+import throttle from 'libs/throttle';
+import MotionWhenInteraction from 'components/MotionWhenInteraction';
 
-  const list = [1, 2, 3, 4, 5];
-  let styleList = new Array(list.length).fill({}) as React.CSSProperties[];
-  if ('about' in sectionsPercentage) {
-    const aboutPercentage = sectionsPercentage.about as number;
-
-    const scrollContent = document.getElementById('profile-content');
-    const halfWidth = (scrollContent?.getBoundingClientRect().width ?? 0) / 2;
-    styleList = styleList.map((item, index) => {
-      const maxPercentage = 0.8 - ((0.8 - 0.2) / 4) * index;
-      const translateRatio = (aboutPercentage - index / list.length) / maxPercentage - 1;
-      const opacityRatio = (aboutPercentage - index / list.length) / maxPercentage;
-      const limitedTranslateRatio = translateRatio > 0 ? 0 : translateRatio;
-      return ({
-        ...item,
-        opacity: opacityRatio,
-        transform: `translateX(${halfWidth * (index % 2 === 0 ? 1 : -1) * limitedTranslateRatio}px)`,
-      });
-    });
-  }
-
+function Item({
+  item, isEven, isXxlScreen, profileContentWidth,
+}
+: {
+  item: typeof profileContent.services[0],
+  isEven: boolean,
+  isXxlScreen: boolean,
+  profileContentWidth: number,
+}) {
   return (
-    <div className="relative flex h-fit snap-center flex-col py-8" id="about">
-      <h2 className="text-3xl">My Timeline</h2>
-      <div className="absolute inset-y-10 left-1/2 w-1 rounded-full bg-text-primary" />
-      {list.map((item, index) => (
-        <div
-          style={styleList[index]}
-          key={item}
+    <MotionWhenInteraction
+      startStyle={{ transform: 'scaleX(0)', opacity: '0' }}
+      endStyle={{ transform: 'scaleX(1)', opacity: '1' }}
+      className={twMerge(
+        'transition delay-200 duration-700',
+        isXxlScreen ? `${isEven ? 'origin-right' : 'origin-left'}` : 'origin-left',
+      )}
+    >
+      <div
+        key={item.title}
+        className="relative flex items-center rounded-full
+        border-4 border-text-primary bg-border-primary p-4"
+      >
+        <item.icon id={`timeline-icon-${item.title}`} size={40} />
+        <p
+          id={`timeline-date-${item.title}`}
           className={twMerge(
-            'h-[200px] w-1/2 flex justify-center items-center transition-all',
-            index % 2 === 0 ? '' : 'self-end',
+            'absolute whitespace-nowrap transition',
+            isXxlScreen ? `block ${isEven ? 'left-24' : 'right-24'}` : 'hidden',
           )}
         >
-          {item}
+          {item.date}
+        </p>
+        <div
+          id={`timeline-text-box-${item.title}`}
+          style={{ width: isXxlScreen ? `${profileContentWidth / 3}px` : `${profileContentWidth * (2 / 3)}px` }}
+          className={twMerge(
+            `absolute flex -top-2 flex-col gap-y-2
+            rounded-lg border-2 border-text-secondary p-4 transition`,
+            isXxlScreen ? `${isEven ? 'right-24' : 'left-24'}` : 'left-24',
+          )}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col">
+              <h3 className="text-lg font-bold capitalize">{item.title}</h3>
+              <p className="font-semibold">{item.location}</p>
+            </div>
+            <p
+              className={twMerge(
+                'whitespace-nowrap',
+                isXxlScreen ? 'hidden' : 'block',
+              )}
+            >
+              {item.date}
+            </p>
+          </div>
+          <p className="">{item.description}</p>
         </div>
-      ))}
+      </div>
+    </MotionWhenInteraction>
+  );
+}
+
+function About() {
+  const [isXxlScreen, setIsXxlScreen] = useState(false);
+  const [profileContentWidth, setProfileContentWidth] = useState<number>(300);
+
+  useEffect(() => {
+    const profileContentElement = document.getElementById('profile-content');
+    if (!profileContentElement) return () => { };
+
+    const setTextBoxStyle = () => {
+      const xxlScreenWidth = 1536;
+      setIsXxlScreen(window.innerWidth >= xxlScreenWidth);
+      setProfileContentWidth(profileContentElement.offsetWidth);
+    };
+    setTextBoxStyle();
+
+    const handleResize = throttle(setTextBoxStyle, 200);
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <div className="flex h-fit snap-center flex-col items-center gap-y-10 pb-56 pt-8" id="about">
+      <h2 className="text-3xl">My Timeline</h2>
+      <div
+        className={twMerge(
+          'relative flex w-full flex-col gap-y-40',
+          isXxlScreen ? 'items-center' : 'items-start',
+        )}
+      >
+        <MotionWhenInteraction
+          startStyle={{ transform: 'scaleY(0)', opacity: '0' }}
+          endStyle={{ transform: 'scaleY(1)', opacity: '1' }}
+          className={twMerge(
+            'absolute inset-y-0 w-1 rounded-full bg-text-secondary',
+            isXxlScreen ? 'left-[calc(50%-2px)]' : 'left-[38px]',
+            'origin-top transition delay-1000 duration-1000',
+          )}
+          debug
+        />
+        {profileContent.services.map((item, index) => {
+          const isEven = index % 2 === 0;
+          return (
+            <Item
+              key={item.title}
+              item={item}
+              isEven={isEven}
+              isXxlScreen={isXxlScreen}
+              profileContentWidth={profileContentWidth}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
