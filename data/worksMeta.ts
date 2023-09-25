@@ -55,7 +55,7 @@ const portfolio: WorkMeta = {
       image: '/avatar.jpeg',
     },
     {
-      title: 'Effortless Search',
+      title: 'Keywords Search',
       description: ' Easily find code sections with keywords.',
       image: '/avatar.jpeg',
     },
