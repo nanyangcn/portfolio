@@ -34,19 +34,27 @@ function Underlying({
     };
 
     const handleMousemove = throttle(setPosition, 100);
-    const handleMouseEnter = () => {
+    const handleMouseEnter = (event: MouseEvent) => {
       setHovered(true);
+      setPosition(event);
     };
     const handleMouseLeave = () => {
       setHovered(false);
     };
 
+    const handleMouseLeaveParent = () => {
+      underlyingElement.removeAttribute('style');
+      underlyingElement.classList.add('hidden');
+    };
+
     parentElement.addEventListener('mousemove', handleMousemove);
+    parentElement.addEventListener('mouseleave', handleMouseLeaveParent);
     hoverElement.addEventListener('mouseenter', handleMouseEnter);
     hoverElement.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       parentElement.removeEventListener('mousemove', handleMousemove);
+      parentElement.removeEventListener('mouseleave', handleMouseLeaveParent);
       hoverElement.removeEventListener('mouseenter', handleMouseEnter);
       hoverElement.removeEventListener('mouseleave', handleMouseLeave);
     };

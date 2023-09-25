@@ -75,6 +75,7 @@ function ActivityBar() {
             <ButtonHoverTitle
               className="peer-hover:visible peer-hover:opacity-100"
               title={item.title}
+              position="right"
             />
           </button>
         );

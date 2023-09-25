@@ -87,13 +87,13 @@ const spotifyClone: WorkMeta = {
   ],
   features: [
     {
-      title: 'Interactive Player',
-      description: 'Control playback progress and adjust volume easily.',
+      title: 'Authentication',
+      description: 'Log in with Google or email.',
       image: '/avatar.jpeg',
     },
     {
-      title: 'Authentication',
-      description: 'Log in with Google or email.',
+      title: 'Interactive Player',
+      description: 'Control playback progress and adjust volume easily.',
       image: '/avatar.jpeg',
     },
     {

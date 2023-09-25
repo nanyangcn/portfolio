@@ -28,7 +28,7 @@ function Content({ isUnderlying }: { isUnderlying: boolean }) {
 function Home() {
   return (
     <div
-      className="relative flex min-h-[calc(100vh-294px)] snap-center flex-col"
+      className="relative min-h-[1000px] snap-center"
       id="home"
     >
       <div

@@ -1,5 +1,7 @@
+import useProfileScroll from 'hooks/useProfileScroll';
 import { useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { sectionIdList } from './SideBarProfile';
 
 interface AnimatedTypingProps {
   textList: string[];
@@ -21,11 +23,19 @@ function AnimatedTyping({
 }: AnimatedTypingProps) {
   const [textState, setTextState] = useState('');
   const textIndex = useRef(0);
+  const { activeSectionIndex } = useProfileScroll(sectionIdList, 'profile-content');
 
   useEffect(() => {
     let typingIndex = 0;
     let stop = false;
     let deleteAllFlag = false;
+
+    if (activeSectionIndex !== 0) {
+      stop = true;
+      setTextState('');
+      textIndex.current = 0;
+      typingIndex = 0;
+    }
 
     const delay = (ms: number) => new Promise((resolve) => { setTimeout(resolve, ms); });
     const addCharToTextState = () => new Promise<void>((resolve) => {
@@ -117,7 +127,7 @@ function AnimatedTyping({
       stop = true;
       setTextState('');
     };
-  }, [triggerIndex, typingSpeed, deletingSpeed, showTimeList, textList]);
+  }, [triggerIndex, typingSpeed, deletingSpeed, showTimeList, textList, activeSectionIndex]);
 
   return (
     <div

@@ -17,7 +17,7 @@ function HomeIcon({ id, className }: HomeIconProps) {
     && sectionsPercentage.home < 2) {
     const aboutPercentage = sectionsPercentage.home;
     style = {
-      transform: `rotate(${aboutPercentage * 180}deg)`,
+      transform: `rotate(${aboutPercentage * 360}deg)`,
       ...style,
     };
   }
