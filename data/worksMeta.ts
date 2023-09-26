@@ -33,7 +33,7 @@ const portfolio: WorkMeta = {
     },
     {
       title: 'Demo',
-      url: 'https://nanyangcn.github.io/portfolio/',
+      url: 'https://portfolio-nanyangcn.vercel.app',
       icon: VscLinkExternal,
     },
   ],

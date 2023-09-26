@@ -1,11 +1,12 @@
 import AnimatedTyping from 'components/AnimatedTyping';
 import { profileContent } from 'data/profile';
+import { useEffect } from 'react';
 import HomeIcon from './HomeIcon';
 import Underlying from './Underlying';
 
 function Content({ isUnderlying }: { isUnderlying: boolean }) {
   return (
-    <div className="my-20 flex flex-col gap-y-20 2xl:mx-[20%]">
+    <div className="my-20 flex flex-col 2xl:mx-[20%]">
       <div className="h-[84px]">
         <AnimatedTyping
           classNameList={['text-4xl', 'text-4xl', 'text-4xl']}
@@ -26,9 +27,26 @@ function Content({ isUnderlying }: { isUnderlying: boolean }) {
 }
 
 function Home() {
+  useEffect(() => {
+    const hoverZoneElement = document.getElementById('hover-zone');
+    const homeElement = document.getElementById('home');
+    if (!hoverZoneElement || !homeElement) return () => { };
+
+    const handleResize = () => {
+      homeElement.style.minHeight = `${hoverZoneElement.offsetHeight}px`;
+    };
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div
-      className="relative min-h-[1000px] snap-center"
+      className="relative min-h-[1368px] select-none snap-center"
       id="home"
     >
       <div

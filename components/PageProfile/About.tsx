@@ -97,7 +97,7 @@ function About() {
       <h2 className="text-3xl">My Timeline</h2>
       <div
         className={twMerge(
-          'relative flex w-full flex-col gap-y-40',
+          'relative flex w-full flex-col gap-y-48',
           isXxlScreen ? 'items-center' : 'items-start',
         )}
       >

@@ -1,7 +1,5 @@
-import { TbWindmillFilled } from 'react-icons/tb';
-import { sectionIdList } from 'components/SideBarProfile';
-import useProfileScroll from 'hooks/useProfileScroll';
 import { twMerge } from 'tailwind-merge';
+import Cube3D from 'components/Cube3D';
 
 interface HomeIconProps {
   id?: string;
@@ -9,22 +7,9 @@ interface HomeIconProps {
 }
 
 function HomeIcon({ id, className }: HomeIconProps) {
-  const { sectionsPercentage } = useProfileScroll(sectionIdList, 'profile-content');
-
-  let style: React.CSSProperties = {};
-  if ('home' in sectionsPercentage
-    && typeof sectionsPercentage.home === 'number'
-    && sectionsPercentage.home < 2) {
-    const aboutPercentage = sectionsPercentage.home;
-    style = {
-      transform: `rotate(${aboutPercentage * 360}deg)`,
-      ...style,
-    };
-  }
-
   return (
     <div id={id} className={twMerge('flex justify-center', className)}>
-      <TbWindmillFilled size={200} style={style} className="transition-all" />
+      <Cube3D />
     </div>
   );
 }

@@ -50,6 +50,14 @@ module.exports = {
             animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
           },
         },
+        'spin-3d': {
+          '0%': { transform: 'rotateX(-0.1turn) rotateY(0turn)' },
+          '100%': { transform: 'rotateX(-0.1turn) rotateY(1turn)' },
+        },
+        'unspin-3d': {
+          '0%': { transform: 'rotateY(0turn)' },
+          '100%': { transform: 'rotateY(-1turn)' },
+        },
       },
       animation: {
         'type-in': 'type-in var(--type-duration) var(--type-in-delay)'

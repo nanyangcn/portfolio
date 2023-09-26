@@ -25,7 +25,7 @@ function Underlying({
       const relativeX = event.clientX - underlyingElement.getBoundingClientRect().left;
       const relativeY = event.clientY - underlyingElement.getBoundingClientRect().top;
       underlyingElement.style.transition = 'clip-path 0.3s';
-      underlyingElement.classList.remove('hidden');
+      underlyingElement.classList.remove('invisible');
       if (hovered) {
         underlyingElement.style.clipPath = `circle(200px at ${relativeX}px ${relativeY}px)`;
       } else {
@@ -33,37 +33,43 @@ function Underlying({
       }
     };
 
-    const handleMousemove = throttle(setPosition, 100);
-    const handleMouseEnter = (event: MouseEvent) => {
+    const handleMousemoveOnParent = throttle(setPosition, 100);
+    const handleMouseEnterHoverZone = (event: MouseEvent) => {
       setHovered(true);
       setPosition(event);
     };
-    const handleMouseLeave = () => {
+    const handleMouseMoveOnHoverZone = () => {
+      setHovered(true);
+    };
+
+    const handleMouseLeaveHoverZone = () => {
       setHovered(false);
     };
 
     const handleMouseLeaveParent = () => {
       underlyingElement.removeAttribute('style');
-      underlyingElement.classList.add('hidden');
+      underlyingElement.classList.add('invisible');
     };
 
-    parentElement.addEventListener('mousemove', handleMousemove);
+    parentElement.addEventListener('mousemove', handleMousemoveOnParent);
     parentElement.addEventListener('mouseleave', handleMouseLeaveParent);
-    hoverElement.addEventListener('mouseenter', handleMouseEnter);
-    hoverElement.addEventListener('mouseleave', handleMouseLeave);
+    hoverElement.addEventListener('mouseenter', handleMouseEnterHoverZone);
+    hoverElement.addEventListener('mousemove', handleMouseMoveOnHoverZone);
+    hoverElement.addEventListener('mouseleave', handleMouseLeaveHoverZone);
 
     return () => {
-      parentElement.removeEventListener('mousemove', handleMousemove);
+      parentElement.removeEventListener('mousemove', handleMousemoveOnParent);
       parentElement.removeEventListener('mouseleave', handleMouseLeaveParent);
-      hoverElement.removeEventListener('mouseenter', handleMouseEnter);
-      hoverElement.removeEventListener('mouseleave', handleMouseLeave);
+      hoverElement.removeEventListener('mouseenter', handleMouseEnterHoverZone);
+      hoverElement.removeEventListener('mousemove', handleMouseMoveOnHoverZone);
+      hoverElement.removeEventListener('mouseleave', handleMouseLeaveHoverZone);
     };
   }, [parentId, hoverElementId, hovered]);
 
   return (
     <div
       id="underlying"
-      className={twMerge('pointer-events-none hidden', className)}
+      className={twMerge('pointer-events-none invisible', className)}
     >
       {children}
     </div>
