@@ -40,7 +40,7 @@ function PageWork({ tab }: PageWorkProps) {
         </button>
       </Header>
       <div className="mx-20 flex min-h-0 grow gap-x-6 text-text-primary">
-        <MainContent>
+        <MainContent page="work">
           <PageWorkContent workMeta={workMeta} />
         </MainContent>
         <SubColumn workMeta={workMeta} />

@@ -24,7 +24,7 @@ function PageProfile({ className }: PageProfileProps) {
     >
       <Header meta={profileMeta} />
       <div className="relative mx-20 flex min-h-0 grow gap-x-6 text-text-primary">
-        <MainContent>
+        <MainContent page="profile">
           <Home />
           <About />
           <Services />

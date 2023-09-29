@@ -6,7 +6,11 @@ import { sectionIdList } from 'components/SideBarProfile';
 import AttachButton from 'components/AttachButton';
 import { twMerge } from 'tailwind-merge';
 
-function ScrollButton() {
+interface ScrollButtonProps {
+  page: 'profile' | 'work';
+}
+
+function ScrollButton({ page }: ScrollButtonProps) {
   const [isShowScrollToTop, setIsShowScrollToTop] = useState(false);
   const { activeSectionIndex, sectionsPercentage } = useProfileScroll(sectionIdList, 'profile-content');
 
@@ -32,6 +36,10 @@ function ScrollButton() {
       transform: `rotate(${aboutPercentage * 180}deg)`,
       ...style,
     };
+  }
+
+  if (page === 'work') {
+    return null;
   }
 
   return (

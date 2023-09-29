@@ -89,27 +89,32 @@ const spotifyClone: WorkMeta = {
     {
       title: 'Authentication',
       description: 'Log in with Google or email.',
-      image: '/avatar.jpeg',
+      image: '/spotify-clone/login.mp4',
     },
     {
       title: 'Interactive Player',
       description: 'Control playback progress and adjust volume easily.',
-      image: '/avatar.jpeg',
+      image: '/spotify-clone/player.mp4',
     },
     {
       title: 'Subscription Management',
       description: 'Handle music memberships effortlessly',
-      image: '/avatar.jpeg',
+      image: '/spotify-clone/subscribe.mp4',
     },
     {
-      title: 'Library and Liked List',
-      description: 'Build own library and liked list.',
-      image: '/avatar.jpeg',
+      title: 'Liked List',
+      description: 'Build own liked list.',
+      image: '/spotify-clone/liked.mp4',
+    },
+    {
+      title: 'Music Library',
+      description: 'Upload to contribute to the music library.',
+      image: '/spotify-clone/upload.mp4',
     },
     {
       title: 'Find Your Beat',
       description: 'Search easily any music.',
-      image: '/avatar.jpeg',
+      image: '/spotify-clone/search.mp4',
     },
   ],
 };

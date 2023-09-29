@@ -1,5 +1,5 @@
 import { WorkMeta } from 'data/worksMeta';
-import Image from 'next/image';
+import Video from './Video';
 
 interface PageWorkContentProps {
   workMeta: WorkMeta;
@@ -22,15 +22,7 @@ function PageWorkContent({ workMeta }: PageWorkContentProps) {
             {feature.description}
           </div>
           {feature.image && feature.title && (
-            <div className="w-full py-4">
-              <Image
-                src={feature.image}
-                alt={feature.title}
-                sizes="100%"
-                width={512}
-                height={512}
-              />
-            </div>
+            <Video src={feature.image} />
           )}
         </div>
       ))}
