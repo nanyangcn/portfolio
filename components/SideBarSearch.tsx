@@ -1,20 +1,61 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { VscClearAll, VscCollapseAll, VscRefresh } from 'react-icons/vsc';
 
 import useSearchStore from 'hooks/useSearchStore';
+import useSearchRateLimitStore from 'hooks/useSearchRateLimitStore';
+import getRateLimit from 'actions/getRateLimit';
+import { dataToLocaleTimeString } from 'libs/utils';
 
+import { twMerge } from 'tailwind-merge';
 import SideBarSearchResults from './SideBarSearchResults';
 
 function SideBarSearch() {
   const { keywordState, setKeywordState } = useSearchStore();
+  const {
+    remainingState, setRemainingState,
+    resetState, setResetState,
+  } = useSearchRateLimitStore();
   const [inputValue, setInputValue] = useState(keywordState);
   const [queryIter, setQueryIter] = useState(0);
   const [isFoldAll, setIsFoldAll] = useState(false);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const setSearchRateLimit = useCallback(async () => {
+    const { resources } = await getRateLimit();
+      type ResourcesWithCodeSearch = typeof resources & {
+        code_search: {
+          remaining: number;
+          reset: number;
+        };
+      };
+      const resourcesWithCodeSearch = resources as ResourcesWithCodeSearch;
+      const codeSearch = resourcesWithCodeSearch.code_search;
+      setRemainingState(codeSearch.remaining);
+      setResetState(dataToLocaleTimeString(codeSearch.reset));
+  }, [setRemainingState, setResetState]);
+
+  useEffect(() => {
+    setSearchRateLimit().catch(() => { });
+
+    const interval = setInterval(() => {
+      setSearchRateLimit().catch(() => { });
+    }, 1000 * 60);
+
+    if (remainingState === 0) {
+      setTimeout(() => {
+        setSearchRateLimit().catch(() => { });
+      }, 1000 * 60);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [setSearchRateLimit, remainingState]);
+
+  const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== 'Enter') return;
     const inputElement = event.target as HTMLInputElement;
     setKeywordState(inputElement.value);
+    await setSearchRateLimit();
   };
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +100,17 @@ function SideBarSearch() {
           </button>
         </div>
       </div>
+      <div
+        className={twMerge(
+          'flex justify-between gap-x-4 border-y-2 border-border-primary px-8 py-2',
+          remainingState === null ? 'invisible' : 'visible',
+        )}
+      >
+        <p className={remainingState && remainingState < 3 ? 'text-red-500' : ''}>
+          {`Remain: ${remainingState}`}
+        </p>
+        <p>{`Reset: ${resetState}`}</p>
+      </div>
       <div className="flex flex-col gap-y-2 px-4 py-2">
         <input
           id="keyword"
@@ -72,6 +124,7 @@ function SideBarSearch() {
           value={inputValue}
           onKeyDown={handleKeyDown}
           onChange={handleOnChange}
+          disabled={remainingState === 0}
         />
       </div>
       {keywordState

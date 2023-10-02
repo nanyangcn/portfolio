@@ -7,6 +7,8 @@ import getRepoTree from 'services/repoTree';
 import { twMerge } from 'tailwind-merge';
 
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
+import getRateLimit from 'actions/getRateLimit';
+import { dataToLocaleTimeString } from 'libs/utils';
 import SideBarExplorerTreeNode from './SideBarExplorerTreeNode';
 
 interface SideBarExplorerTreeProps {
@@ -43,7 +45,20 @@ function SideBarExplorerTree({
 
   if (depth === 0) {
     if (isLoading) { return <Loading className="items-start p-4" />; }
-    if (!data) return <Error className="items-start p-4" message="No Data" />;
+    if (!data) {
+      getRateLimit().then(({ rate }) => {
+        if (rate.remaining === 0) {
+          return (
+            <Error
+              className="items-start p-4"
+              message={`Rate Limit: Please try after ${dataToLocaleTimeString(rate.reset)}`}
+            />
+          );
+        }
+        return <Error className="items-start p-4" message="No Data" />;
+      }).catch(() => { });
+      return <Error className="items-start p-4" message="No Data" />;
+    }
   }
 
   if (!isLoading && !data?.tree) return null;

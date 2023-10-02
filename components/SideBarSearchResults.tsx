@@ -7,6 +7,8 @@ import useSearchStore from 'hooks/useSearchStore';
 import getSearchCode from 'services/searchCode';
 import Loading from 'app/loading';
 import ErrorComp from 'app/error';
+import useSearchRateLimitStore from 'hooks/useSearchRateLimitStore';
+
 import SideBarSearchResultsItem from './SideBarSearchResultsItem';
 
 interface SideBarSearchResultsProps {
@@ -16,6 +18,7 @@ interface SideBarSearchResultsProps {
 
 function SideBarSearchResults({ queryIter, isFoldAll }: SideBarSearchResultsProps) {
   const { ownerState, repoState } = useCurrentRepoStore();
+  const { remainingState, resetState } = useSearchRateLimitStore();
   const { keywordState } = useSearchStore();
   const repo = `${ownerState}/${repoState}`;
   const { isLoading, data } = useQuery({
@@ -24,11 +27,16 @@ function SideBarSearchResults({ queryIter, isFoldAll }: SideBarSearchResultsProp
   });
 
   if (isLoading) return <Loading />;
-  if (!data) return <ErrorComp message="No data response on search" />;
+  if (!data) {
+    if (remainingState === 0) {
+      return <ErrorComp message={`Rate Limit: Please try after ${resetState}`} />;
+    }
+    return <ErrorComp message="No data" />;
+  }
 
   if (data.total_count === 0) {
     return (
-      <div>No Result Found.</div>
+      <div className="flex items-center justify-center py-4 text-2xl">No Result Found.</div>
     );
   }
 

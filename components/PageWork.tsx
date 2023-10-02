@@ -24,8 +24,8 @@ function PageWork({ tab }: PageWorkProps) {
     setActivityBarState('explorer');
     if (ownerState === workMeta.subtitle && repoState === workMeta.title) return;
     clearTextTabs();
-    setOwnerState(workMeta.subtitle);
-    setRepoState(workMeta.title);
+    setOwnerState(workMeta.subtitle.toLowerCase());
+    setRepoState(workMeta.title.toLowerCase());
   };
 
   return (

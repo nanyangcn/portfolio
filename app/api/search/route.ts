@@ -2,28 +2,28 @@ import { Octokit } from '@octokit/core';
 import { Endpoints } from '@octokit/types';
 import { NextRequest, NextResponse } from 'next/server';
 
+import worksMeta from 'data/worksMeta';
+
 const octokit = new Octokit({
   auth: process.env.GITHUB_API_TOKEN ?? '',
 });
 
 export type SearchCodeResults = Endpoints['GET /search/code']['response']['data'];
 
-const repoList = [
-  'nanyangcn/portfolio',
-  'nanyangcn/spotify-clone',
-];
+const repoList = worksMeta.map((workMeta) => `${workMeta.subtitle}/${workMeta.title.toLowerCase()}`);
 
 const GET = async (req: NextRequest) => {
   const { searchParams } = req.nextUrl;
   const keyword = searchParams.get('keyword');
   if (!keyword || keyword === '') {
-    return NextResponse.json('No Keyword', { status: 404 });
+    return NextResponse.json('Illegal Keyword', { status: 404 });
   }
   const repo = searchParams.get('repo');
-  const repoParam = (repo && repoList.includes(repo))
-    ? `repo:${repo}`
-    : `${repoList.map((repoItem) => `repo:${repoItem}`).join(' OR ')}`;
-  const q = `"${keyword}" in:file ${repoParam}`;
+  if (!repo || !repoList.includes(repo)) {
+    return NextResponse.json('Illegal Repo Name', { status: 404 });
+  }
+
+  const q = `"${keyword}" in:file repo:${repo}`;
   try {
     const { data } = await octokit.request(
       'GET /search/code',
