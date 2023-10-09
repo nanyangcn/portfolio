@@ -2,13 +2,22 @@ import { useState } from 'react';
 import { VscCollapseAll, VscRefresh } from 'react-icons/vsc';
 
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
+import useRateLimit from 'hooks/useRateLimit';
 
 import SideBarExplorerTree from './SideBarExplorerTree';
+import RateLimitNotification from './RateLimitNotification';
 
 function SideBarExplorer() {
   const [queryIter, setQueryIter] = useState(0);
-  const { repoState } = useCurrentRepoStore();
   const [idFoldAll, setIdFoldAll] = useState(false);
+  const { repoState } = useCurrentRepoStore();
+  const { rateLimitState, updateRateLimit } = useRateLimit();
+
+  const handleRefresh = async () => {
+    setQueryIter((prev) => (prev + 1) % 32768);
+    await updateRateLimit();
+    await updateRateLimit();
+  };
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -22,7 +31,7 @@ function SideBarExplorer() {
             type="button"
             title="Refresh"
             className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
-            onClick={() => setQueryIter((prev) => (prev + 1) % 32768)}
+            onClick={handleRefresh}
           >
             <VscRefresh size={20} />
           </button>
@@ -36,12 +45,15 @@ function SideBarExplorer() {
           </button>
         </div>
       </div>
+      <RateLimitNotification rateLimitState={rateLimitState} rateType="rate" />
       <div className="scroll group grow overflow-y-auto pr-8">
         <SideBarExplorerTree
           sha="main"
           queryIter={queryIter}
           idFoldAll={idFoldAll}
           setIsFoldAll={setIdFoldAll}
+          rateLimitState={rateLimitState}
+          updateRateLimit={updateRateLimit}
         />
       </div>
     </div>

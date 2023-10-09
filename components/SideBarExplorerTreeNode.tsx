@@ -18,6 +18,7 @@ interface SideBarExplorerTreeProps {
   isLoading: boolean
   isFold: boolean
   setIsFold: (isFold: boolean) => void
+  updateRateLimit: () => Promise<void>
 }
 
 function SideBarExplorerTreeNode({
@@ -30,10 +31,13 @@ function SideBarExplorerTreeNode({
   isLoading,
   isFold,
   setIsFold,
+  updateRateLimit,
 }: SideBarExplorerTreeProps) {
   const { pushTab } = useTabStore();
-  const handleOnClick = () => {
+
+  const handleOnClick = async () => {
     if (isLoading) return null;
+    await updateRateLimit();
     if (type === 'tree') {
       return setIsFold(!isFold);
     }

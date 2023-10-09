@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import worksMeta from 'data/worksMeta';
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_API_TOKEN ?? '',
+  auth: process.env.GITHUB_API_TOKEN_SEARCH ?? '',
 });
 
 export type SearchCodeResults = Endpoints['GET /search/code']['response']['data'];

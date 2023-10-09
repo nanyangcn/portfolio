@@ -1,32 +1,8 @@
-'use client';
+import getRateLimit from 'actions/getRateLimit';
+import { dateToLocaleTimeString } from 'libs/utils';
 
-import { useEffect, useState } from 'react';
-import getRateLimit, { RateLimit } from 'actions/getRateLimit';
-import { dataToLocaleTimeString } from 'libs/utils';
-
-type Rate = Pick<RateLimit['rate'], 'remaining' | 'reset'>;
-
-function StatusBar() {
-  const [rate, setRate] = useState<Rate>({
-    remaining: 0,
-    reset: 0,
-  });
-
-  useEffect(() => {
-    const getAndSetRate = async () => {
-      const { rate: rateData } = await getRateLimit();
-      setRate(rateData);
-    };
-
-    getAndSetRate().catch(() => { });
-    const interval = setInterval(async () => {
-      await getAndSetRate();
-    }, 1000 * 10);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+async function StatusBar() {
+  const rateLimit = await getRateLimit();
 
   return (
     <div
@@ -35,9 +11,9 @@ function StatusBar() {
     >
       <div className="inline-flex items-center px-4">
         <p className="pr-2">Rate Limit:</p>
-        <p className="pr-6 font-semibold">{rate.remaining}</p>
+        <p className="pr-6 font-semibold">{rateLimit.rate.remaining}</p>
         <p className="pr-2">Reset At:</p>
-        <p className="font-semibold">{dataToLocaleTimeString(rate.reset)}</p>
+        <p className="font-semibold">{dateToLocaleTimeString(rateLimit.rate.reset)}</p>
       </div>
     </div>
   );

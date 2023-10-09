@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Tab } from 'hooks/useTabStore';
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
+import useRateLimit from 'hooks/useRateLimit';
 
 import getRepoBlob from 'services/repoBlob';
 import ErrorComp from 'app/error';
@@ -20,6 +21,8 @@ function PageText({ tab }: PageProps) {
   const { sha } = tab.meta;
 
   const { ownerState, repoState } = useCurrentRepoStore();
+  const { rateLimitState } = useRateLimit();
+
   const { isLoading, data } = useQuery({
     queryKey: ['repository-blob', ownerState, repoState, sha],
     queryFn: () => getRepoBlob(ownerState, repoState, sha),
@@ -27,7 +30,12 @@ function PageText({ tab }: PageProps) {
   });
 
   if (isLoading) return <Loading />;
-  if (!data) return <ErrorComp message="No Data" />;
+  if (!data) {
+    if (rateLimitState.rate.remaining === 0) {
+      return <ErrorComp message={`Rate Limit: Please try after ${rateLimitState.rate.reset}`} />;
+    }
+    return <ErrorComp message="No Data" />;
+  }
 
   return (
     <div className="flex h-full w-full flex-col">

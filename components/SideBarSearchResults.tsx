@@ -7,7 +7,7 @@ import useSearchStore from 'hooks/useSearchStore';
 import getSearchCode from 'services/searchCode';
 import Loading from 'app/loading';
 import ErrorComp from 'app/error';
-import useSearchRateLimitStore from 'hooks/useSearchRateLimitStore';
+import useRateLimit from 'hooks/useRateLimit';
 
 import SideBarSearchResultsItem from './SideBarSearchResultsItem';
 
@@ -18,8 +18,9 @@ interface SideBarSearchResultsProps {
 
 function SideBarSearchResults({ queryIter, isFoldAll }: SideBarSearchResultsProps) {
   const { ownerState, repoState } = useCurrentRepoStore();
-  const { remainingState, resetState } = useSearchRateLimitStore();
+  const { rateLimitState } = useRateLimit();
   const { keywordState } = useSearchStore();
+
   const repo = `${ownerState}/${repoState}`;
   const { isLoading, data } = useQuery({
     queryKey: ['search-code', keywordState, repo, queryIter],
@@ -28,8 +29,8 @@ function SideBarSearchResults({ queryIter, isFoldAll }: SideBarSearchResultsProp
 
   if (isLoading) return <Loading />;
   if (!data) {
-    if (remainingState === 0) {
-      return <ErrorComp message={`Rate Limit: Please try after ${resetState}`} />;
+    if (rateLimitState.codeSearch.remaining === 0 && rateLimitState.codeSearch.reset !== null) {
+      return <ErrorComp message={`Rate Limit: Please try after ${rateLimitState.codeSearch.reset}`} />;
     }
     return <ErrorComp message="No data" />;
   }
