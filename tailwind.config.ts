@@ -60,10 +60,10 @@ module.exports = {
         },
       },
       animation: {
-        'type-in': 'type-in var(--type-duration) var(--type-in-delay)'
-            + 'steps(var(--type-steps), jump-none) forwards infinite',
-        'type-out': 'type-out var(--type-duration) var(--type-out-delay)'
-            + 'steps(var(--type-steps), jump-none) backwards infinite',
+        'type-in': 'type-in var(--type-in-duration) var(--type-in-delay)'
+            + 'steps(var(--type-steps), jump-none) forwards',
+        'type-out': 'type-out var(--type-out-duration) var(--type-out-delay)'
+            + 'steps(var(--type-steps), jump-none) backwards',
         'cursor-pulse': 'cursor-pulse 1s linear infinite',
       },
     },

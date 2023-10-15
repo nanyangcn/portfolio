@@ -31,7 +31,6 @@ function AnimatedTyping({
     const addCharToTextState = () => new Promise<void>((resolve) => {
       setTextState((prev) => {
         const newTextState = `${prev}${textList[textIndex.current]![typingIndex]!}`;
-        typingIndex += 1;
         resolve();
         return newTextState;
       });
@@ -44,6 +43,7 @@ function AnimatedTyping({
         return;
       }
       await addCharToTextState();
+      typingIndex += 1;
       await delay(typingSpeed);
       await typing();
     };
@@ -54,7 +54,6 @@ function AnimatedTyping({
         if (newTextState.length === prev.length) {
           deleteAllFlag = false;
         }
-        typingIndex -= 1;
         resolve();
         return newTextState;
       });
@@ -67,6 +66,7 @@ function AnimatedTyping({
         return;
       }
       await removeCharFromStringTail();
+      typingIndex -= 1;
       await delay(deletingSpeed);
       await deleting();
     };
