@@ -9,7 +9,7 @@ import RateLimitNotification from './RateLimitNotification';
 
 function SideBarSearch() {
   const { keywordState, setKeywordState } = useSearchStore();
-  const { rateLimitState, updateRateLimitState } = useRateLimitStore();
+  const { rateLimitState } = useRateLimitStore();
   const [inputValue, setInputValue] = useState(keywordState);
   const [queryIter, setQueryIter] = useState(0);
   const [isFoldAll, setIsFoldAll] = useState(false);
