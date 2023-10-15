@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { create } from 'zustand';
 
 import getRateLimit from 'actions/getRateLimit';
 
@@ -12,8 +12,13 @@ export interface RateLimitState {
   codeSearch: Rate
 }
 
-const useRateLimit = () => {
-  const [rateLimitState, setRateLimitState] = useState<RateLimitState>({
+interface RateLimitStore {
+  rateLimitState: RateLimitState;
+  updateRateLimitState: () => Promise<void>;
+}
+
+const useRateLimitStore = create<RateLimitStore>((set) => ({
+  rateLimitState: {
     rate: {
       remaining: undefined,
       reset: undefined,
@@ -22,22 +27,15 @@ const useRateLimit = () => {
       remaining: undefined,
       reset: undefined,
     },
-  });
-  console.log('rateLimitState:', rateLimitState);
-
-  const updateRateLimit = async () => {
+  },
+  updateRateLimitState: async () => {
     try {
       const rateLimit = await getRateLimit();
-      setRateLimitState(rateLimit);
+      set({ rateLimitState: rateLimit });
     } catch (err) {
       throw new Error((err as Error).message);
     }
-  };
+  },
+}));
 
-  return {
-    rateLimitState,
-    updateRateLimit,
-  };
-};
-
-export default useRateLimit;
+export default useRateLimitStore;

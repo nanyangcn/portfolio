@@ -18,7 +18,6 @@ interface SideBarExplorerTreeProps {
   isLoading: boolean
   isFold: boolean
   setIsFold: (isFold: boolean) => void
-  updateRateLimit: () => Promise<void>
 }
 
 function SideBarExplorerTreeNode({
@@ -31,20 +30,16 @@ function SideBarExplorerTreeNode({
   isLoading,
   isFold,
   setIsFold,
-  updateRateLimit,
 }: SideBarExplorerTreeProps) {
   const { pushTab } = useTabStore();
 
   const handleOnClick = async () => {
-    if (isLoading) return null;
-    await updateRateLimit();
     if (type === 'tree') {
-      return setIsFold(!isFold);
+      setIsFold(!isFold);
     }
     if (type === 'blob') {
       const completePath = `${directory}/${path}`;
-
-      return pushTab({
+      pushTab({
         title: path,
         icon: <FileIcon path={path} size={20} />,
         meta: {
@@ -54,7 +49,6 @@ function SideBarExplorerTreeNode({
         },
       });
     }
-    return null;
   };
 
   const borderClassName = () => {
@@ -65,7 +59,7 @@ function SideBarExplorerTreeNode({
   const iconSize = 18;
 
   let FoldIcon = <VscChevronDown size={iconSize} className="shrink-0" />;
-  if (isLoading) {
+  if (!isFold && isLoading) {
     FoldIcon = <VscLoading size={iconSize} className="shrink-0 animate-spin" />;
   } else if (isFold) {
     FoldIcon = <VscChevronRight size={iconSize} className="shrink-0" />;

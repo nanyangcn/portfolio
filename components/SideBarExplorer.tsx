@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { VscCollapseAll, VscRefresh } from 'react-icons/vsc';
 
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
-import useRateLimit from 'hooks/useRateLimit';
 
 import SideBarExplorerTree from './SideBarExplorerTree';
 import RateLimitNotification from './RateLimitNotification';
@@ -11,12 +10,9 @@ function SideBarExplorer() {
   const [queryIter, setQueryIter] = useState(0);
   const [idFoldAll, setIdFoldAll] = useState(false);
   const { repoState } = useCurrentRepoStore();
-  const { rateLimitState, updateRateLimit } = useRateLimit();
 
   const handleRefresh = async () => {
     setQueryIter((prev) => (prev + 1) % 32768);
-    await updateRateLimit();
-    await updateRateLimit();
   };
 
   return (
@@ -45,15 +41,13 @@ function SideBarExplorer() {
           </button>
         </div>
       </div>
-      <RateLimitNotification rateLimitState={rateLimitState} rateType="rate" />
+      <RateLimitNotification rateType="rate" />
       <div className="scroll group grow overflow-y-auto pr-8">
         <SideBarExplorerTree
           sha="main"
           queryIter={queryIter}
           idFoldAll={idFoldAll}
           setIsFoldAll={setIdFoldAll}
-          rateLimitState={rateLimitState}
-          updateRateLimit={updateRateLimit}
         />
       </div>
     </div>

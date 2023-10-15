@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { Tab } from 'hooks/useTabStore';
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
-import useRateLimit from 'hooks/useRateLimit';
+import useRateLimitStore from 'hooks/useRateLimitStore';
 
 import getRepoBlob from 'services/repoBlob';
 import ErrorComp from 'app/error';
@@ -21,11 +21,15 @@ function PageText({ tab }: PageProps) {
   const { sha } = tab.meta;
 
   const { ownerState, repoState } = useCurrentRepoStore();
-  const { rateLimitState } = useRateLimit();
+  const { rateLimitState, updateRateLimitState } = useRateLimitStore();
 
   const { isLoading, data } = useQuery({
     queryKey: ['repository-blob', ownerState, repoState, sha],
-    queryFn: () => getRepoBlob(ownerState, repoState, sha),
+    queryFn: async () => {
+      const RepoBlobRes = await getRepoBlob(ownerState, repoState, sha);
+      await updateRateLimitState();
+      return RepoBlobRes;
+    },
     keepPreviousData: true,
   });
 

@@ -7,7 +7,7 @@ import getRepoTree from 'services/repoTree';
 import { twMerge } from 'tailwind-merge';
 
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
-import useRateLimit, { RateLimitState } from 'hooks/useRateLimit';
+import useRateLimitStore from 'hooks/useRateLimitStore';
 import SideBarExplorerTreeNode from './SideBarExplorerTreeNode';
 
 interface SideBarExplorerTreeProps {
@@ -15,8 +15,6 @@ interface SideBarExplorerTreeProps {
   queryIter: number
   idFoldAll: boolean
   setIsFoldAll: (isFoldAll: boolean) => void
-  rateLimitState: RateLimitState,
-  updateRateLimit: () => Promise<void>
   path?: string
   directory?: string
   depth?: number
@@ -27,8 +25,6 @@ function SideBarExplorerTree({
   queryIter,
   idFoldAll,
   setIsFoldAll,
-  rateLimitState,
-  updateRateLimit,
   path = '',
   directory = '',
   depth = 0,
@@ -36,6 +32,7 @@ function SideBarExplorerTree({
 }: SideBarExplorerTreeProps) {
   const { ownerState, repoState } = useCurrentRepoStore();
   const [isFold, setIsFold] = useState(depth !== 0);
+  const { rateLimitState, updateRateLimitState } = useRateLimitStore();
 
   useEffect(() => {
     if (idFoldAll && depth !== 0) setIsFold(idFoldAll);
@@ -43,8 +40,12 @@ function SideBarExplorerTree({
 
   const { isLoading, data } = useQuery({
     queryKey: ['repository-tree', ownerState, repoState, sha, queryIter],
-    queryFn: () => getRepoTree(ownerState, repoState, sha),
-    enabled: !parentIsFold,
+    queryFn: async () => {
+      const repoTree = await getRepoTree(ownerState, repoState, sha);
+      await updateRateLimitState();
+      return repoTree;
+    },
+    enabled: !isFold,
   });
 
   if (depth === 0) {
@@ -85,7 +86,6 @@ function SideBarExplorerTree({
           setIsFold={setIsFold}
           isFold={isFold}
           isLoading={isLoading}
-          updateRateLimit={updateRateLimit}
         />
 
       )}
@@ -104,7 +104,6 @@ function SideBarExplorerTree({
               setIsFold={setIsFold}
               isFold={isFold}
               isLoading={isLoading}
-              updateRateLimit={updateRateLimit}
             />
           );
         }
@@ -114,8 +113,6 @@ function SideBarExplorerTree({
             sha={item.sha}
             idFoldAll={idFoldAll}
             setIsFoldAll={setIsFoldAll}
-            rateLimitState={rateLimitState}
-            updateRateLimit={updateRateLimit}
             queryIter={queryIter}
             path={item.path}
             directory={`${directory}/${item.path}`}

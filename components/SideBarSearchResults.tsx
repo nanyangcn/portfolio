@@ -7,7 +7,7 @@ import useSearchStore from 'hooks/useSearchStore';
 import getSearchCode from 'services/searchCode';
 import Loading from 'app/loading';
 import ErrorComp from 'app/error';
-import useRateLimit from 'hooks/useRateLimit';
+import useRateLimitStore from 'hooks/useRateLimitStore';
 
 import SideBarSearchResultsItem from './SideBarSearchResultsItem';
 
@@ -18,13 +18,17 @@ interface SideBarSearchResultsProps {
 
 function SideBarSearchResults({ queryIter, isFoldAll }: SideBarSearchResultsProps) {
   const { ownerState, repoState } = useCurrentRepoStore();
-  const { rateLimitState } = useRateLimit();
+  const { rateLimitState, updateRateLimitState } = useRateLimitStore();
   const { keywordState } = useSearchStore();
 
   const repo = `${ownerState}/${repoState}`;
   const { isLoading, data } = useQuery({
     queryKey: ['search-code', keywordState, repo, queryIter],
-    queryFn: () => getSearchCode(keywordState, repo),
+    queryFn: async () => {
+      const searchResults = await getSearchCode(keywordState, repo);
+      await updateRateLimitState();
+      return searchResults;
+    },
   });
 
   if (isLoading) return <Loading />;

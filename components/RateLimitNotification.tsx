@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import { RateLimitState } from 'hooks/useRateLimit';
+import useRateLimitStore from 'hooks/useRateLimitStore';
 import { convertSecondsToHHMMSS } from 'libs/utils';
 
 interface RateLimitNotificationProps {
-  rateLimitState: RateLimitState;
   rateType: 'rate' | 'codeSearch';
 }
 
-function RateLimitNotification({ rateLimitState, rateType }: RateLimitNotificationProps) {
+function RateLimitNotification({ rateType }: RateLimitNotificationProps) {
+  const { rateLimitState, updateRateLimitState } = useRateLimitStore();
   const { reset, remaining } = rateLimitState[rateType];
   const [countdown, setCountdown] = useState(0);
 
@@ -17,13 +17,24 @@ function RateLimitNotification({ rateLimitState, rateType }: RateLimitNotificati
     if (reset === undefined) return () => { };
     setCountdown(reset);
     const interval = setInterval(() => {
-      setCountdown((prev) => (prev === 0 ? 0 : prev - 1));
+      setCountdown((prev) => {
+        if (prev === 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
+
+    const timeout = setTimeout(() => {
+      updateRateLimitState().catch(() => { });
+    }, reset * 1000);
 
     return () => {
       clearInterval(interval);
+      clearTimeout(timeout);
     };
-  }, [reset]);
+  }, [reset, rateLimitState, updateRateLimitState]);
 
   if (remaining === undefined) return null;
 

@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { VscClearAll, VscCollapseAll, VscRefresh } from 'react-icons/vsc';
 
 import useSearchStore from 'hooks/useSearchStore';
-import useRateLimit from 'hooks/useRateLimit';
+import useRateLimitStore from 'hooks/useRateLimitStore';
 
 import SideBarSearchResults from './SideBarSearchResults';
 import RateLimitNotification from './RateLimitNotification';
 
 function SideBarSearch() {
   const { keywordState, setKeywordState } = useSearchStore();
-  const { rateLimitState, updateRateLimit } = useRateLimit();
+  const { rateLimitState, updateRateLimitState } = useRateLimitStore();
   const [inputValue, setInputValue] = useState(keywordState);
   const [queryIter, setQueryIter] = useState(0);
   const [isFoldAll, setIsFoldAll] = useState(false);
@@ -18,7 +18,6 @@ function SideBarSearch() {
     if (event.key !== 'Enter') return;
     const inputElement = event.target as HTMLInputElement;
     setKeywordState(inputElement.value);
-    await updateRateLimit();
   };
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +29,6 @@ function SideBarSearch() {
 
   const handleRefresh = async () => {
     setQueryIter((prev) => (prev + 1) % 32768);
-    await updateRateLimit();
   };
 
   const handleClearAll = () => {
@@ -68,7 +66,7 @@ function SideBarSearch() {
           </button>
         </div>
       </div>
-      <RateLimitNotification rateLimitState={rateLimitState} rateType="codeSearch" />
+      <RateLimitNotification rateType="codeSearch" />
       <div className="flex flex-col gap-y-2 px-4 py-2">
         <input
           id="keyword"
@@ -86,7 +84,12 @@ function SideBarSearch() {
         />
       </div>
       {keywordState
-        ? <SideBarSearchResults queryIter={queryIter} isFoldAll={isFoldAll} />
+        ? (
+          <SideBarSearchResults
+            queryIter={queryIter}
+            isFoldAll={isFoldAll}
+          />
+        )
         : null}
     </div>
   );

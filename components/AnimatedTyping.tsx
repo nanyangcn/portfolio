@@ -43,8 +43,8 @@ function AnimatedTyping({
         return;
       }
       await addCharToTextState();
-      typingIndex += 1;
       await delay(typingSpeed);
+      typingIndex += 1;
       await typing();
     };
 
@@ -66,8 +66,8 @@ function AnimatedTyping({
         return;
       }
       await removeCharFromStringTail();
-      typingIndex -= 1;
       await delay(deletingSpeed);
+      typingIndex -= 1;
       await deleting();
     };
 
@@ -111,7 +111,9 @@ function AnimatedTyping({
       await typingAndDeletingLoop();
     };
 
-    typingAndDeletingLoop().catch(() => { });
+    setTimeout(() => {
+      typingAndDeletingLoop().catch(() => { });
+    }, 100);
 
     return () => {
       stop = true;
