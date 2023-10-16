@@ -22,7 +22,7 @@ export interface WorkMeta {
 const portfolio: WorkMeta = {
   title: 'Portfolio',
   subtitle: 'nanyangcn',
-  description: 'This is a portfolio web app which can also check the code from Github.',
+  description: 'This is a portfolio web app which can also check and search the code.',
   icon: '/avatar.jpeg',
   tags: ['NextJS', 'Tailwindcss', 'Typescript', 'React'],
   links: [
@@ -41,28 +41,28 @@ const portfolio: WorkMeta = {
     {
       title: 'Personal Introduction',
       description: 'Explore a comprehensive presentation of developer\'s information.',
-      image: '/avatar.jpeg',
+      image: '/portfolio/profile.mp4',
     },
     {
       title: "Developer's Projects",
       description: 'Discover a variety of web projects accompanied by detailed insights.',
-      image: '/avatar.jpeg',
+      image: '/portfolio/work.mp4',
     },
     {
       title: 'Code Review',
       description: `Experience code examination featuring syntax highlights,
       tabs, and organized folders, just like in a code editor.`,
-      image: '/avatar.jpeg',
+      image: '/portfolio/code.mp4',
     },
     {
       title: 'Keywords Search',
       description: ' Easily find code sections with keywords.',
-      image: '/avatar.jpeg',
+      image: '/portfolio/search.mp4',
     },
     {
       title: 'VSCode-Inspired Interface',
       description: 'Visual Studio Code inspired interface, with a resizable and hideable sidebar.',
-      image: '/avatar.jpeg',
+      image: '/portfolio/ui.mp4',
     },
   ],
 };
