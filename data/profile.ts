@@ -47,7 +47,7 @@ export const profileMeta: Meta = {
     },
     {
       title: 'Personal Website',
-      url: 'https://nanyangcn.com',
+      url: 'https://portfolio-nanyangcn.vercel.app',
       icon: VscAccount,
     },
   ],
