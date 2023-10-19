@@ -86,7 +86,7 @@ export const profileContent = {
         `Freelance full-stack developer proficient in React, Next.js, TypeScript,
         TailwindCSS, Node.js, and MongoDB. I'm eager to explore full-time roles.`,
       icon: FaReact,
-      date: '2022 - present',
+      date: '2023 - present',
     },
     {
       title: 'Autonomous Systems',
@@ -94,7 +94,7 @@ export const profileContent = {
       description:
         'Master student focus on coursework and projects refer to full-stack development, and machine learning.',
       icon: LuGraduationCap,
-      date: '2019 - 2022',
+      date: '2020 - 2023',
     },
     {
       title: 'Computational Fluid Dynamic',
@@ -103,7 +103,7 @@ export const profileContent = {
         `Doctoral candidate in computational fluid dynamics.
         Focus on writing code for numerical simulation in fluid dynamics.`,
       icon: CgWorkAlt,
-      date: '2015 - 2019',
+      date: '2016 - 2020',
     },
   ],
   work: '',
