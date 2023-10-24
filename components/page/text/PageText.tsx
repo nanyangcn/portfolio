@@ -9,8 +9,8 @@ import useRateLimitStore from 'hooks/useRateLimitStore';
 import getRepoBlob from 'services/repoBlob';
 import ErrorComp from 'app/error';
 import Loading from 'app/loading';
-import CodeChecker from './CodeChecker';
-import PathBar from './PathBar';
+import CodeChecker from '../../CodeChecker';
+import PathBar from '../../PathBar';
 
 interface PageProps {
   tab: Tab

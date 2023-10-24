@@ -1,5 +1,5 @@
 import { WorkMeta } from 'data/worksMeta';
-import Video from './Video';
+import Video from '../../Video';
 
 interface PageWorkContentProps {
   workMeta: WorkMeta;

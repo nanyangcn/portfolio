@@ -5,10 +5,10 @@ import { twMerge } from 'tailwind-merge';
 
 import useActivityBarStore from 'hooks/useActivityBarStore';
 
-import SideBarProfile from './SideBarProfile';
-import SideBarWorks from './SideBarWorks';
-import SideBarSearch from './SideBarSearch';
-import SideBarExplorer from './SideBarExplorer';
+import SideBarProfile from './profile/SideBarProfile';
+import SideBarWorks from './work/SideBarWorks';
+import SideBarSearch from './search/SideBarSearch';
+import SideBarExplorer from './explorer/SideBarExplorer';
 
 function SideBar() {
   const { activityBarState, isActivityBarOpen } = useActivityBarStore();

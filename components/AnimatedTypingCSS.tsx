@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import useProfileScroll from 'hooks/useProfileScroll';
-import { sectionIdList } from './SideBarProfile';
+import { sectionIdList } from './sidebar/profile/SideBarProfile';
 
 interface AnimatedTypingProps {
   textList: string[];

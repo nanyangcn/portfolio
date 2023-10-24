@@ -1,6 +1,7 @@
 import AnimatedTyping from 'components/AnimatedTyping';
 import { profileContent } from 'data/profile';
 import { useEffect } from 'react';
+
 import HomeIcon from './HomeIcon';
 import Underlying from './Underlying';
 

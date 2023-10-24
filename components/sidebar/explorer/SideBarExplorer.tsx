@@ -4,7 +4,7 @@ import { VscCollapseAll, VscRefresh } from 'react-icons/vsc';
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
 
 import SideBarExplorerTree from './SideBarExplorerTree';
-import RateLimitNotification from './RateLimitNotification';
+import RateLimitNotification from '../../RateLimitNotification';
 
 function SideBarExplorer() {
   const [queryIter, setQueryIter] = useState(0);

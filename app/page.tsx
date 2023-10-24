@@ -4,9 +4,9 @@ import { useMemo } from 'react';
 
 import useTabStore from 'hooks/useTabStore';
 
-import PageProfile from 'components/PageProfile/PageProfile';
-import PageText from 'components/PageText';
-import PageWork from 'components/PageWork';
+import PageProfile from 'components/page/profile/PageProfile';
+import PageText from 'components/page/text/PageText';
+import PageWork from 'components/page/work/PageWork';
 
 function Home() {
   const { tabs } = useTabStore();

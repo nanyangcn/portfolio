@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 import TabsBar from 'components/TabsBar';
 // import StatusBar from 'components/StatusBar';
 import ActivityBar from 'components/ActivityBar';
-import SideBar from 'components/SideBar';
+import SideBar from 'components/sidebar/SideBar';
 
 import QueryProvider from 'providers/QueryProvider';
 

@@ -5,7 +5,7 @@ import useSearchStore from 'hooks/useSearchStore';
 import useRateLimitStore from 'hooks/useRateLimitStore';
 
 import SideBarSearchResults from './SideBarSearchResults';
-import RateLimitNotification from './RateLimitNotification';
+import RateLimitNotification from '../../RateLimitNotification';
 
 function SideBarSearch() {
   const { keywordState, setKeywordState } = useSearchStore();

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { VscArrowCircleUp, VscGear } from 'react-icons/vsc';
 
 import useProfileScroll from 'hooks/useProfileScroll';
-import { sectionIdList } from 'components/SideBarProfile';
+import { sectionIdList } from 'components/sidebar/profile/SideBarProfile';
 import AttachButton from 'components/AttachButton';
 import { twMerge } from 'tailwind-merge';
 

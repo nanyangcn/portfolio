@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaRegHandPointLeft } from 'react-icons/fa';
 
 import useProfileScroll from 'hooks/useProfileScroll';
-import { sectionIdList } from 'components/SideBarProfile';
+import { sectionIdList } from 'components/sidebar/profile/SideBarProfile';
 import useActivityBarStore from 'hooks/useActivityBarStore';
 import { VscExtensions } from 'react-icons/vsc';
 

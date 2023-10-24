@@ -6,7 +6,7 @@ import { FcFolder, FcOpenedFolder } from 'react-icons/fc';
 
 import useTabStore from 'hooks/useTabStore';
 
-import FileIcon from './FileIcon';
+import FileIcon from '../../FileIcon';
 
 interface SideBarExplorerTreeProps {
   sha: string

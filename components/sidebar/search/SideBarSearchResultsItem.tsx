@@ -4,7 +4,7 @@ import useTabStore from 'hooks/useTabStore';
 
 import { SearchCodeResults } from 'app/api/search/route';
 import { VscChevronDown, VscChevronRight } from 'react-icons/vsc';
-import FileIcon from './FileIcon';
+import FileIcon from '../../FileIcon';
 
 interface SideBarSearchResultsItemProps {
   item: SearchCodeResults['items'][0];

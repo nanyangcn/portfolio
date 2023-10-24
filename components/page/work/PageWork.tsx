@@ -2,10 +2,10 @@ import useActivityBarStore from 'hooks/useActivityBarStore';
 import useTabStore, { Tab } from 'hooks/useTabStore';
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
 
+import Header from 'components/page/profile/Header';
+import MainContent from 'components/page/profile/MainContent';
+import SubColumn from 'components/page/profile/SubColumn';
 import PageWorkContent from './PageWorkContent';
-import Header from './PageProfile/Header';
-import MainContent from './PageProfile/MainContent';
-import SubColumn from './PageProfile/SubColumn';
 
 interface PageWorkProps {
   tab: Tab
