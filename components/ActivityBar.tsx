@@ -1,51 +1,65 @@
 'use client';
 
+import { useCallback, useMemo } from 'react';
 import {
   VscFiles, VscSearch, VscExtensions, VscAccount,
 } from 'react-icons/vsc';
 import { twMerge } from 'tailwind-merge';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import useActivityBarStore from 'hooks/useActivityBarStore';
-
-import { useMemo } from 'react';
+import useActivityBarStore, { Activity } from 'hooks/useActivityBarStore';
 
 import ButtonHoverTitle from './ButtonHoverTitle';
 
 function ActivityBar() {
-  const {
-    activityBarState, setActivityBarState, isActivityBarOpen, setIsActivityBarOpen,
-  } = useActivityBarStore();
+  // const {
+  //   activityBarState, setActivityBarState, isActivityBarOpen, setIsActivityBarOpen,
+  // } = useActivityBarStore();
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const activityBarState = searchParams.get('activity');
+
+  const setState = useCallback((stateName: Activity) => {
+    const setActivityBarState = () => {
+      const params = new URLSearchParams(searchParams);
+      params.set('activity', stateName);
+      router.push(`?${params.toString()}`);
+    };
+
+    const setIsActivityBarOpen = () => {
+      const isActivityBarOpen = searchParams.get('isActivityBarOpen') === 'true';
+      const params = new URLSearchParams(searchParams);
+      params.set('isActivityBarOpen', String(!isActivityBarOpen));
+      router.push(`?${params.toString()}`);
+    };
+    return (activityBarState === stateName
+      ? setIsActivityBarOpen()
+      : setActivityBarState());
+  }, [searchParams, activityBarState, router]);
 
   const activityList = useMemo(() => [
     {
       title: 'Profile',
       icon: VscAccount,
-      onClick: () => (activityBarState === 'profile'
-        ? setIsActivityBarOpen(!isActivityBarOpen)
-        : setActivityBarState('profile')),
+      onClick: () => setState('profile'),
     },
     {
       title: 'Works',
       icon: VscExtensions,
-      onClick: () => (activityBarState === 'works'
-        ? setIsActivityBarOpen(!isActivityBarOpen)
-        : setActivityBarState('works')),
+      onClick: () => setState('works'),
     },
     {
       title: 'Explorer',
       icon: VscFiles,
-      onClick: () => (activityBarState === 'explorer'
-        ? setIsActivityBarOpen(!isActivityBarOpen)
-        : setActivityBarState('explorer')),
+      onClick: () => setState('explorer'),
     },
     {
       title: 'Search',
       icon: VscSearch,
-      onClick: () => (activityBarState === 'search'
-        ? setIsActivityBarOpen(!isActivityBarOpen)
-        : setActivityBarState('search')),
+      onClick: () => setState('search'),
     },
-  ], [activityBarState, setActivityBarState, isActivityBarOpen, setIsActivityBarOpen]);
+  ], [setState]);
 
   return (
     <div

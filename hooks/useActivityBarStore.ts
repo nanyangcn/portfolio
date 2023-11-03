@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 
+export type Activity = 'profile' | 'works' | 'explorer' | 'search';
 interface ActivityBarStore {
-  activityBarState: 'profile' | 'works' | 'explorer' | 'search';
-  setActivityBarState: (state: 'profile' | 'works' | 'explorer' | 'search') => void;
+  activityBarState: Activity;
+  setActivityBarState: (state: Activity) => void;
   isActivityBarOpen: boolean;
   setIsActivityBarOpen: (state: boolean) => void;
 }
