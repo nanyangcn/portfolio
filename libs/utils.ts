@@ -21,8 +21,21 @@ const calcTimeDiffFromNowInSec = (date: number) => {
   return diff;
 };
 
+const pushStateToUrl = <T extends string>({ key, value }: { key: string, value: T }) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.set(key, value);
+  window.history.pushState({}, '', `?${searchParams.toString()}`);
+};
+
+const getStateFromUrl = <T extends string>({ key }: { key: string }) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  return searchParams.get(key) as T;
+};
+
 export {
   dateToLocaleTimeString,
   convertSecondsToHHMMSS,
   calcTimeDiffFromNowInSec,
+  pushStateToUrl,
+  getStateFromUrl,
 };
