@@ -16,7 +16,7 @@ const useActivityBarStore = create<ActivityBarStore>((set) => ({
     set({ activityBarState: state });
     pushStateToUrl({ key: 'activityBarState', value: state });
   },
-  isActivityBarOpen: getStateFromUrl({ key: 'isActivityBarOpen' }) === 'true' ?? true,
+  isActivityBarOpen: Boolean(getStateFromUrl({ key: 'isActivityBarOpen' }) ?? true),
   setIsActivityBarOpen: (state) => {
     set({ isActivityBarOpen: state });
     pushStateToUrl({ key: 'isActivityBarOpen', value: String(state) });
