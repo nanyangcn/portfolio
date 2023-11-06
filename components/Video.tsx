@@ -28,6 +28,7 @@ function Video({ src }: VideoProps) {
           isPlaying ? 'bg-transparent' : 'bg-secondary/90',
         )}
         onClick={handlePlay}
+        aria-label="Play"
       >
         <div
           className={twMerge(

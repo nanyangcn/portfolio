@@ -58,7 +58,7 @@ function SideBarExplorerTree({
     }
   }
 
-  if (!isLoading && !data?.tree) return null;
+  if (!isLoading && !data?.tree && !sha) return null;
 
   const sortedTreeByPathAndType = data?.tree.sort(
     (a, b) => {
@@ -87,7 +87,6 @@ function SideBarExplorerTree({
           isFold={isFold}
           isLoading={isLoading}
         />
-
       )}
       {sortedTreeByPathAndType?.map((item) => {
         if (!item.sha || !item.path) return null;

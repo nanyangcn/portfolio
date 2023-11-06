@@ -1,7 +1,5 @@
 import { create } from 'zustand';
 
-import { getStateFromUrl, pushStateToUrl } from 'libs/utils';
-
 export type Activity = 'profile' | 'works' | 'explorer' | 'search';
 interface ActivityBarStore {
   activityBarState: Activity;
@@ -11,15 +9,13 @@ interface ActivityBarStore {
 }
 
 const useActivityBarStore = create<ActivityBarStore>((set) => ({
-  activityBarState: getStateFromUrl({ key: 'activityBarState' }) ?? 'profile',
+  activityBarState: 'profile',
   setActivityBarState: (state) => {
     set({ activityBarState: state });
-    pushStateToUrl({ key: 'activityBarState', value: state });
   },
-  isActivityBarOpen: Boolean(getStateFromUrl({ key: 'isActivityBarOpen' }) ?? true),
+  isActivityBarOpen: true,
   setIsActivityBarOpen: (state) => {
     set({ isActivityBarOpen: state });
-    pushStateToUrl({ key: 'isActivityBarOpen', value: String(state) });
   },
 }));
 

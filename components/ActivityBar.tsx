@@ -68,6 +68,7 @@ function ActivityBar() {
             data-title={item.title}
             key={item.title}
             onClick={item.onClick}
+            aria-label={item.title}
           >
             <div className="peer p-4">
               <item.icon size={32} />

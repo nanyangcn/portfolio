@@ -122,7 +122,7 @@ function Contact() {
   const handleSubmit = async (values: Email) => {
     setSuccessStatus(0);
     const response = await sendEmail(values);
-    if (response.id) {
+    if (response.data?.id) {
       setSuccessStatus(1);
     } else {
       setSuccessStatus(-1);

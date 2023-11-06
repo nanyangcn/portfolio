@@ -90,6 +90,7 @@ function TabsBar() {
                     tab.isActive && 'visible text-text-primary',
                   )}
                   onClick={(e) => handleCloseTab(index, e)}
+                  aria-label="Close Tab"
                 >
                   <VscClose size={20} />
                 </button>

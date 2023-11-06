@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
 import { Tab } from 'hooks/useTabStore';
 import useCurrentRepoStore from 'hooks/useCurrentRepoStore';
@@ -30,7 +30,7 @@ function PageText({ tab }: PageProps) {
       await updateRateLimitState();
       return RepoBlobRes;
     },
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   });
 
   if (isLoading) return <Loading />;

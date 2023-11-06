@@ -47,6 +47,7 @@ function SideBarSearch() {
             type="button"
             className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
             onClick={handleRefresh}
+            aria-label="Refresh"
           >
             <VscRefresh size={20} />
           </button>
@@ -54,6 +55,7 @@ function SideBarSearch() {
             type="button"
             className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
             onClick={handleClearAll}
+            aria-label="Clear All"
           >
             <VscClearAll size={20} />
           </button>
@@ -61,6 +63,7 @@ function SideBarSearch() {
             type="button"
             className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
             onClick={() => setIsFoldAll((prev) => !prev)}
+            aria-label="Collapse All"
           >
             <VscCollapseAll size={20} />
           </button>

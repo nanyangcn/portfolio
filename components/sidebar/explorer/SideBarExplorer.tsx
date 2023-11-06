@@ -28,6 +28,7 @@ function SideBarExplorer() {
             title="Refresh"
             className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
             onClick={handleRefresh}
+            aria-label="Refresh"
           >
             <VscRefresh size={20} />
           </button>
@@ -36,6 +37,7 @@ function SideBarExplorer() {
             title="Collapse All"
             className="rounded-lg p-1 hover:cursor-pointer hover:bg-border-primary"
             onClick={() => setIdFoldAll((prev) => (prev === null ? true : !prev))}
+            aria-label="Collapse All"
           >
             <VscCollapseAll size={20} />
           </button>

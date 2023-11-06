@@ -24,10 +24,11 @@ const calcTimeDiffFromNowInSec = (date: number) => {
 const pushStateToUrl = <T extends string>({ key, value }: { key: string, value: T }) => {
   const searchParams = new URLSearchParams(window.location.search);
   searchParams.set(key, value);
-  window.history.pushState({}, '', `?${searchParams.toString()}`);
+  window.history.pushState({ key: value }, '', `?${searchParams.toString()}`);
 };
 
 const getStateFromUrl = <T extends string>({ key }: { key: string }) => {
+  if (typeof window === 'undefined') return null;
   const searchParams = new URLSearchParams(window.location.search);
   return searchParams.get(key) as T;
 };
