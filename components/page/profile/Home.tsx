@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import HomeIcon from './HomeIcon';
 import Underlying from './Underlying';
 
-function Content({ isUnderlying }: { isUnderlying: boolean }) {
+function Content({ isUnderlying = false }: { isUnderlying?: boolean }) {
   return (
     <div className="my-20 flex flex-col 2xl:mx-[20%]">
       <div className="h-[84px]">
@@ -54,7 +54,7 @@ function Home() {
         id="hover-zone"
         className="absolute"
       >
-        <Content isUnderlying={false} />
+        <Content />
       </div>
       <Underlying
         parentId="home"

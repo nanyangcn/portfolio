@@ -38,6 +38,7 @@ function Underlying({
       setHovered(true);
       setPosition(event);
     };
+
     const handleMouseMoveOnHoverZone = () => {
       setHovered(true);
     };
